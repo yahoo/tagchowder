@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.github.lafa.tagchowder</groupId>
+		<artifactId>tagchowder</artifactId>
+		<version>2.0.1</version>
+	</parent>
+	<artifactId>tagchowder.core</artifactId>
+	<name>${project.artifactId}</name>
+	<url>https://github.com/lafaspot/tagchowder</url>
+	<description>tagchowder component ${project.name}</description>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<main.basedir>${project.parent.basedir}</main.basedir>
+		<testTimeLimitInSeconds>5</testTimeLimitInSeconds>
+		<checkstyle.maxAllowedViolations>0</checkstyle.maxAllowedViolations>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+		</dependency>
+            <dependency>
+                <groupId>com.github.lafa.logfast</groupId>
+                <artifactId>logfast.core</artifactId>
+            </dependency>
+	</dependencies>
+</project>
