@@ -1,8 +1,6 @@
 # TagChowder
 Parsing and extracting information from (possibly malformed) HTML/XML documents
 
-This project forked from TagSoup library by John Cowan (org.ccil.cowan.tagsoup.tagsoup.1.2.1, http://vrici.lojban.org/~cowan/XML/tagsoup/).
-
                         TagChowder - Just Keep On Truckin'
 
 ### Introduction
@@ -213,3 +211,6 @@ There is a tagsoup-friends mailing list hosted at Google Groups. You can join vi
 
 Online TagSoup processing for publicly accessible HTML documents is now available courtesy of Leigh Dodds.
 
+### Attribution
+
+This project forked from TagSoup library by John Cowan (org.ccil.cowan.tagsoup.tagsoup.1.2.1, http://vrici.lojban.org/~cowan/XML/tagsoup/).
