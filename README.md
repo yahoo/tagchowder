@@ -27,10 +27,6 @@ By intention, TagChowder is small and fast. It does not depend on the existence 
 
 You can replace the low-level HTML scanner with one based on Sean McGrath's PYX format (very close to James Clark's ESIS format). You can also supply an AutoDetector that peeks at the incoming byte stream and guesses a character encoding for it. Otherwise, the platform default is used. If you need an autodetector of character sets, consider trying to adapt the Mozilla one; if you succeed, let me know.
 
-### The TSaxon XSLT-for-HTML processor
-
-I am also distributing TSaxon, a repackaging of version 6.5.5 of Michael Kay's Saxon XSLT version 1.0 implementation that includes TagSoup. TSaxon is a drop-in replacement for Saxon, and can be used to process either HTML or XML documents with XSLT stylesheets.
-
 ### TagChowder 2.0.0 released
 
 TagChowder 2.0.0 is a modernization release, it includes all features available on tagsoup 1.2.1. The goal of this project is to keep updating the code with small fixes and features. This project requires unit tests and code coverage by default, and uses github and a automated pipe-line to publish new versions in a automated fashion for every commit that is merged, without humans need for each release.
@@ -344,6 +340,10 @@ http://www.ccil.org/~cowan/tagsoup/properties/schema
 Specifies the Schema object this parser uses.
 http://www.ccil.org/~cowan/tagsoup/properties/auto-detector
 Specifies the AutoDetector (for encoding detection) this parser uses.
+
+### The TSaxon XSLT-for-HTML processor
+
+I am also distributing TSaxon, a repackaging of version 6.5.5 of Michael Kay's Saxon XSLT version 1.0 implementation that includes TagSoup. TSaxon is a drop-in replacement for Saxon, and can be used to process either HTML or XML documents with XSLT stylesheets.
 
 ### Other TagSoups and related things
 
