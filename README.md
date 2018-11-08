@@ -345,9 +345,9 @@ Specifies the AutoDetector (for encoding detection) this parser uses.
 
 I am also distributing TSaxon, a repackaging of version 6.5.5 of Michael Kay's Saxon XSLT version 1.0 implementation that includes TagSoup. TSaxon is a drop-in replacement for Saxon, and can be used to process either HTML or XML documents with XSLT stylesheets.
 
-### Other TagSoups and related things
+### Other TagChowder and related things
 
-TagSoup is written in the world's finest imperative programming language, as opposed to my TagSoup, which is written in perhaps the world's most widely used imperative programming language. As far as I can make out, TagSoup only lexes its input, and does not attempt to balance tags in the style of my TagSoup.
+TagChoder is a fork from Tagsoup 1.2.1 java implementattion. TagChowder not only lexes its input it also attempts to balance tags in the style of TagSoup 1.2.1.
 
 BeautifulSoup is closer to my TagSoup, but is written in Python and returns a parse tree. I believe its heuristics are hard-coded for HTML. There is a port to Ruby called RubyfulSoup.
 
