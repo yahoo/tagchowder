@@ -357,14 +357,6 @@ Finally, there is a full port of my TagSoup to C++, but unfortunately it is curr
 
 ### More information
 
-I gave a presentation (a nocturne, so it's not on the schedule) at Extreme Markup Languages 2004 about TagSoup, updated from the one presented in 2002 at the New York City XML SIG and at XML 2002. This is the main high-level documentation about how TagSoup works. Formats: OpenDocument Powerpoint PDF.
-
-I also had people add "evil" HTML to a large poster so that I could clean it up; View Source is probably more useful than ordinary browsing. The original instructions were:
-
-SOUPE DE BALISES (BE EVIL)!
-Ecritez une balise ouvrante (sans attributs)
-ou fermante HTML ici, s.v.p.
-
 There is a tagsoup-friends mailing list hosted at Google Groups. You can join via the Web, or by sending a blank email to tagsoup-friends-subscribe@googlegroups.com. The archives are open to all. https://groups.google.com/forum/#!forum/tagsoup-friends
 
 ### Attribution
