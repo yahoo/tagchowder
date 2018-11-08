@@ -11,6 +11,8 @@ This is also the README file packaged with TagChowder.
 
 TagChowder is free and Open Source software licensed under the Apache License, Version 2.0, see LICENSE files for more details.
 
+TagChowder is a fork from TagSoup library by John Cowan version 1.2.1.
+
 ### What TagSoup does
 
 TagChowder is designed as a parser, not a whole application; it isn't intended to permanently clean up bad HTML, as HTML Tidy does, only to parse it on the fly. Therefore, it does not convert presentation HTML to CSS or anything similar. It does guarantee well-structured results: tags will wind up properly nested, default attributes will appear appropriately, and so on.
