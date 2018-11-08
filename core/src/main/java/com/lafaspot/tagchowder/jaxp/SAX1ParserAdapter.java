@@ -1,5 +1,4 @@
 /*
- * Copyright [2018] [lafa]
  *
  * ====================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,36 +39,29 @@ import org.xml.sax.XMLReader;
  * @deprecated
  */
 @Deprecated
-public class SAX1ParserAdapter
-    implements org.xml.sax.Parser
-{
+public class SAX1ParserAdapter implements org.xml.sax.Parser {
     final XMLReader xmlReader;
 
-    public SAX1ParserAdapter(XMLReader xr)
-    {
+    public SAX1ParserAdapter(XMLReader xr) {
         xmlReader = xr;
     }
 
     // Sax1 API impl
 
     @Override
-    public void parse(InputSource source)
-        throws SAXException
-    {
+    public void parse(final InputSource source) throws SAXException {
         try {
             xmlReader.parse(source);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             throw new SAXException(ioe);
         }
     }
 
     @Override
-    public void parse(String systemId)
-        throws SAXException
-    {
+    public void parse(final String systemId) throws SAXException {
         try {
             xmlReader.parse(systemId);
-        } catch (IOException ioe) {
+        } catch (final IOException ioe) {
             throw new SAXException(ioe);
         }
     }
@@ -79,35 +71,29 @@ public class SAX1ParserAdapter
      */
     @Deprecated
     @Override
-    public void setDocumentHandler(DocumentHandler h)
-    {
+    public void setDocumentHandler(final DocumentHandler h) {
         xmlReader.setContentHandler(new DocHandlerWrapper(h));
     }
 
     @Override
-    public void setDTDHandler(DTDHandler h)
-    {
+    public void setDTDHandler(final DTDHandler h) {
         xmlReader.setDTDHandler(h);
     }
 
     @Override
-    public void setEntityResolver(EntityResolver r)
-    {
+    public void setEntityResolver(final EntityResolver r) {
         xmlReader.setEntityResolver(r);
     }
 
     @Override
-    public void setErrorHandler(ErrorHandler h)
-    {
+    public void setErrorHandler(final ErrorHandler h) {
         xmlReader.setErrorHandler(h);
     }
 
     @Override
-    public void setLocale(java.util.Locale locale)
-        throws SAXException
-    {
-        /* I have no idea what this is supposed to do... so let's
-         * throw an exception
+    public void setLocale(final java.util.Locale locale) throws SAXException {
+        /*
+         * I have no idea what this is supposed to do... so let's throw an exception
          */
         throw new SAXNotSupportedException("TagChowder does not implement setLocale() method");
     }
@@ -115,14 +101,12 @@ public class SAX1ParserAdapter
     // Helper classes:
 
     /**
-     * We need another helper class to deal with differences between
-     * Sax2 handler (content handler), and Sax1 handler (document handler)
+     * We need another helper class to deal with differences between Sax2 handler (content handler), and Sax1 handler (document handler)
+     *
      * @deprecated
      */
     @Deprecated
-    final static class DocHandlerWrapper
-        implements ContentHandler
-    {
+    static final class DocHandlerWrapper implements ContentHandler {
         final DocumentHandler docHandler;
 
         final AttributesWrapper mAttrWrapper = new AttributesWrapper();
@@ -131,144 +115,120 @@ public class SAX1ParserAdapter
          * @deprecated
          */
         @Deprecated
-        DocHandlerWrapper(DocumentHandler h)
-        {
+        DocHandlerWrapper(final DocumentHandler h) {
             docHandler = h;
         }
 
         @Override
-        public void characters(char[] ch, int start, int length)
-            throws SAXException
-        {
+        public void characters(final char[] ch, final int start, final int length) throws SAXException {
             docHandler.characters(ch, start, length);
         }
 
         @Override
-        public void endDocument()
-            throws SAXException
-        {
+        public void endDocument() throws SAXException {
             docHandler.endDocument();
         }
 
         @Override
-        public void endElement(String uri, String localName, String qName)
-            throws SAXException
-        {
-            if (qName == null) {
-                qName = localName;
+        public void endElement(final String uri, final String localName, final String qName) throws SAXException {
+            String qn = qName;
+            if (qn == null) {
+                qn = localName;
             }
-            docHandler.endElement(qName);
+            docHandler.endElement(qn);
         }
 
         @Override
-        public void endPrefixMapping(String prefix)
-        {
+        public void endPrefixMapping(final String prefix) {
             // no equivalent in SAX1, ignore
         }
 
         @Override
-        public void ignorableWhitespace(char[] ch, int start, int length)
-            throws SAXException
-        {
+        public void ignorableWhitespace(final char[] ch, final int start, final int length) throws SAXException {
             docHandler.ignorableWhitespace(ch, start, length);
         }
 
         @Override
-        public void processingInstruction(String target, String data)
-            throws SAXException
-        {
+        public void processingInstruction(final String target, final String data) throws SAXException {
             docHandler.processingInstruction(target, data);
         }
 
         @Override
-        public void setDocumentLocator(Locator locator)
-        {
+        public void setDocumentLocator(final Locator locator) {
             docHandler.setDocumentLocator(locator);
         }
 
         @Override
-        public void skippedEntity(String name)
-        {
+        public void skippedEntity(final String name) {
             // no equivalent in SAX1, ignore
         }
 
         @Override
-        public void startDocument()
-            throws SAXException
-        {
+        public void startDocument() throws SAXException {
             docHandler.startDocument();
         }
 
         @Override
-        public void startElement(String uri, String localName, String qName,
-                                 Attributes attrs)
-            throws SAXException
-        {
-            if (qName == null) {
-                qName = localName;
+        public void startElement(final String uri, final String localName, final String qName, final Attributes attrs) throws SAXException {
+            String qn = qName;
+            if (qn == null) {
+                qn = localName;
             }
             // Also, need to wrap Attributes to look like AttributeLost
             mAttrWrapper.setAttributes(attrs);
-            docHandler.startElement(qName, mAttrWrapper);
+            docHandler.startElement(qn, mAttrWrapper);
         }
 
         @Override
-        public void startPrefixMapping(String prefix, String uri)
-        {
+        public void startPrefixMapping(final String prefix, final String uri) {
             // no equivalent in SAX1, ignore
         }
     }
 
     /**
      * And one more helper to deal with attribute access differences
+     *
      * @deprecated
      */
     @Deprecated
-    final static class AttributesWrapper
-        implements AttributeList
-    {
+    final static class AttributesWrapper implements AttributeList {
         Attributes attrs;
 
-        public AttributesWrapper() { }
+        public AttributesWrapper() {
+        }
 
         public void setAttributes(Attributes a) {
             attrs = a;
         }
 
         @Override
-        public int getLength()
-        {
+        public int getLength() {
             return attrs.getLength();
         }
 
         @Override
-        public String getName(int i)
-        {
+        public String getName(final int i) {
             String n = attrs.getQName(i);
             return (n == null) ? attrs.getLocalName(i) : n;
         }
 
         @Override
-        public String getType(int i)
-        {
+        public String getType(final int i) {
             return attrs.getType(i);
         }
 
         @Override
-        public String getType(String name)
-        {
+        public String getType(final String name) {
             return attrs.getType(name);
         }
 
         @Override
-        public String getValue(int i)
-        {
+        public String getValue(final int i) {
             return attrs.getValue(i);
         }
 
         @Override
-        public String getValue(String name)
-        {
+        public String getValue(final String name) {
             return attrs.getValue(name);
         }
     }

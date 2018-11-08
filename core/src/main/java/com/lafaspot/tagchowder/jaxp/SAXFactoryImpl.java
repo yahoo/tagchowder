@@ -1,5 +1,4 @@
 /*
- * Copyright [2018] [lafa]
  *
  * ====================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,9 +34,7 @@ import org.xml.sax.SAXNotSupportedException;
  *
  * @author Tatu Saloranta (cowtowncoder@yahoo.com)
  */
-public class SAXFactoryImpl
-    extends SAXParserFactory
-{
+public class SAXFactoryImpl extends SAXParserFactory {
     /**
      * The easiest way to test validity of features to set is to use a prototype object. Currently this is actually not a real prototype, in the sense
      * that the configuration is actually passed separately (as opposed to instantiating new readers from this prototype), but this could be changed
@@ -46,31 +43,24 @@ public class SAXFactoryImpl
     private SAXParserImpl prototypeParser = null;
 
     /**
-     * This Map contains explicitly set features that can be succesfully
-     * set for XMLReader instances. Temporary storage is needed due to
-     * JAXP design: multiple readers can be instantiated from a single
-     * factory, and settings can be changed between instantiations.
-     *<p>
-     * Note that we wouldn't need this map if we could create instances
-     * directly using the prototype instance.
+     * This Map contains explicitly set features that can be succesfully set for XMLReader instances. Temporary storage is needed due to JAXP design:
+     * multiple readers can be instantiated from a single factory, and settings can be changed between instantiations.
+     * <p>
+     * Note that we wouldn't need this map if we could create instances directly using the prototype instance.
      */
     private HashMap features = null;
 
-    public SAXFactoryImpl()
-    {
+    public SAXFactoryImpl() {
         super();
     }
 
     // // // JAXP API implementation:
 
     /**
-     * Creates a new instance of <code>SAXParser</code> using the currently
-     * configured factory parameters.
+     * Creates a new instance of <code>SAXParser</code> using the currently configured factory parameters.
      */
     @Override
-    public SAXParser newSAXParser()
-        throws ParserConfigurationException
-    {
+    public SAXParser newSAXParser() throws ParserConfigurationException {
         try {
             return SAXParserImpl.newInstance(features);
         } catch (SAXException se) {
@@ -80,15 +70,11 @@ public class SAXFactoryImpl
     }
 
     /**
-     * Defines that the specified feature is to enabled/disabled (as
-     * per second argument) on reader instances created by this
-     * factory.
+     * Defines that the specified feature is to enabled/disabled (as per second argument) on reader instances created by this factory.
      */
     @Override
-    public void setFeature(String name, boolean value)
-        throws ParserConfigurationException, SAXNotRecognizedException,
-		SAXNotSupportedException
-    {
+    public void setFeature(final String name, final boolean value)
+            throws ParserConfigurationException, SAXNotRecognizedException, SAXNotSupportedException {
         // First, let's see if it's a valid call
         getPrototype().setFeature(name, value);
 
@@ -101,21 +87,16 @@ public class SAXFactoryImpl
     }
 
     /**
-     * Returns whether the specified property will be enabled or disabled
-     * on reader instances constructed by this factory.
+     * Returns whether the specified property will be enabled or disabled on reader instances constructed by this factory.
      */
     @Override
-    public boolean getFeature(String name)
-        throws ParserConfigurationException, SAXNotRecognizedException,
-		SAXNotSupportedException
-    {
+    public boolean getFeature(final String name) throws ParserConfigurationException, SAXNotRecognizedException, SAXNotSupportedException {
         return getPrototype().getFeature(name);
     }
 
     // // // Internal methods
 
-    private SAXParserImpl getPrototype()
-    {
+    private SAXParserImpl getPrototype() {
         if (prototypeParser == null) {
             prototypeParser = new SAXParserImpl();
         }

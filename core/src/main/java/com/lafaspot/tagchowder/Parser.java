@@ -1,5 +1,4 @@
 /*
- * Copyright [2018] [lafa]
  *
  * ====================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,150 +88,150 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     /**
      * A value of "true" indicates namespace URIs and unprefixed local names for element and attribute names will be available.
      **/
-    public final static String namespacesFeature = "http://xml.org/sax/features/namespaces";
+    public static final String namespacesFeature = "http://xml.org/sax/features/namespaces";
 
     /**
      * A value of "true" indicates that XML qualified names (with prefixes) and attributes (including xmlns* attributes) will be available. We don't
      * support this value.
      **/
-    public final static String namespacePrefixesFeature = "http://xml.org/sax/features/namespace-prefixes";
+    public static final String namespacePrefixesFeature = "http://xml.org/sax/features/namespace-prefixes";
 
     /**
      * Reports whether this parser processes external general entities (it doesn't).
      **/
-    public final static String externalGeneralEntitiesFeature = "http://xml.org/sax/features/external-general-entities";
+    public static final String externalGeneralEntitiesFeature = "http://xml.org/sax/features/external-general-entities";
 
     /**
      * Reports whether this parser processes external parameter entities (it doesn't).
      **/
-    public final static String externalParameterEntitiesFeature = "http://xml.org/sax/features/external-parameter-entities";
+    public static final String externalParameterEntitiesFeature = "http://xml.org/sax/features/external-parameter-entities";
 
     /**
      * May be examined only during a parse, after the startDocument() callback has been completed; read-only. The value is true if the document
      * specified standalone="yes" in its XML declaration, and otherwise is false. (It's always false.)
      **/
-    public final static String isStandaloneFeature = "http://xml.org/sax/features/is-standalone";
+    public static final String isStandaloneFeature = "http://xml.org/sax/features/is-standalone";
 
     /**
      * A value of "true" indicates that the LexicalHandler will report the beginning and end of parameter entities (it won't).
      **/
-    public final static String lexicalHandlerParameterEntitiesFeature = "http://xml.org/sax/features/lexical-handler/parameter-entities";
+    public static final String lexicalHandlerParameterEntitiesFeature = "http://xml.org/sax/features/lexical-handler/parameter-entities";
 
     /**
      * A value of "true" indicates that system IDs in declarations will be absolutized (relative to their base URIs) before reporting. (This returns
      * true but doesn't actually do anything.)
      **/
-    public final static String resolveDTDURIsFeature = "http://xml.org/sax/features/resolve-dtd-uris";
+    public static final String resolveDTDURIsFeature = "http://xml.org/sax/features/resolve-dtd-uris";
 
     /**
      * Has a value of "true" if all XML names (for elements, prefixes, attributes, entities, notations, and local names), as well as Namespace URIs,
      * will have been interned using java.lang.String.intern. This supports fast testing of equality/inequality against string constants, rather than
      * forcing slower calls to String.equals(). (We always intern.)
      **/
-    public final static String stringInterningFeature = "http://xml.org/sax/features/string-interning";
+    public static final String stringInterningFeature = "http://xml.org/sax/features/string-interning";
 
     /**
      * Returns "true" if the Attributes objects passed by this parser in ContentHandler.startElement() implement the org.xml.sax.ext.Attributes2
      * interface. (They don't.)
      **/
 
-    public final static String useAttributes2Feature = "http://xml.org/sax/features/use-attributes2";
+    public static final String useAttributes2Feature = "http://xml.org/sax/features/use-attributes2";
 
     /**
      * Returns "true" if the Locator objects passed by this parser in ContentHandler.setDocumentLocator() implement the org.xml.sax.ext.Locator2
      * interface. (They don't.)
      **/
-    public final static String useLocator2Feature = "http://xml.org/sax/features/use-locator2";
+    public static final String useLocator2Feature = "http://xml.org/sax/features/use-locator2";
 
     /**
      * Returns "true" if, when setEntityResolver is given an object implementing the org.xml.sax.ext.EntityResolver2 interface, those new methods will
      * be used. (They won't be.)
      **/
-    public final static String useEntityResolver2Feature = "http://xml.org/sax/features/use-entity-resolver2";
+    public static final String useEntityResolver2Feature = "http://xml.org/sax/features/use-entity-resolver2";
 
     /**
-     * Controls whether the parser is reporting all validity errors (We don't report any validity errors.)
+     * Controls whether the parser is reporting all validity errors (We don't report any validity errors).
      **/
-    public final static String validationFeature = "http://xml.org/sax/features/validation";
+    public static final String validationFeature = "http://xml.org/sax/features/validation";
 
     /**
      * Controls whether the parser reports Unicode normalization errors as described in section 2.13 and Appendix B of the XML 1.1 Recommendation. (We
      * don't normalize.)
      **/
-    public final static String unicodeNormalizationCheckingFeature = "http://xml.org/sax/features/unicode-normalization-checking";
+    public static final String unicodeNormalizationCheckingFeature = "http://xml.org/sax/features/unicode-normalization-checking";
 
     /**
      * Controls whether, when the namespace-prefixes feature is set, the parser treats namespace declaration attributes as being in the
      * http://www.w3.org/2000/xmlns/ namespace. (It doesn't.)
      **/
-    public final static String xmlnsURIsFeature = "http://xml.org/sax/features/xmlns-uris";
+    public static final String xmlnsURIsFeature = "http://xml.org/sax/features/xmlns-uris";
 
     /**
      * Returns "true" if the parser supports both XML 1.1 and XML 1.0. (Always false.)
      **/
-    public final static String XML11Feature = "http://xml.org/sax/features/xml-1.1";
+    public static final String XML11Feature = "http://xml.org/sax/features/xml-1.1";
 
     /**
      * A value of "true" indicates that the parser will ignore unknown elements.
      **/
-    public final static String ignoreBogonsFeature = "";
+    public static final String ignoreBogonsFeature = "";
 
     /**
      * A value of "true" indicates that the parser will give unknown elements a content model of EMPTY; a value of "false", a content model of ANY.
      **/
-    public final static String bogonsEmptyFeature = "";
+    public static final String bogonsEmptyFeature = "";
 
     /**
      * A value of "true" indicates that the parser will allow unknown elements to be the root element.
      **/
-    public final static String rootBogonsFeature = "";
+    public static final String rootBogonsFeature = "";
 
     /**
      * A value of "true" indicates that the parser will return default attribute values for missing attributes that have default values.
      **/
-    public final static String defaultAttributesFeature = "";
+    public static final String defaultAttributesFeature = "";
 
     /**
      * A value of "true" indicates that the parser will translate colons into underscores in names.
      **/
-    public final static String translateColonsFeature = "";
+    public static final String translateColonsFeature = "";
 
     /**
      * A value of "true" indicates that the parser will attempt to restart the restartable elements.
      **/
-    public final static String restartElementsFeature = "";
+    public static final String restartElementsFeature = "";
 
     /**
      * A value of "true" indicates that the parser will transmit whitespace in element-only content via the SAX ignorableWhitespace callback. Normally
      * this is not done, because HTML is an SGML application and SGML suppresses such whitespace.
      **/
-    public final static String ignorableWhitespaceFeature = "";
+    public static final String ignorableWhitespaceFeature = "";
 
     /**
      * A value of "true" indicates that the parser will treat CDATA elements specially. Normally true, since the input is by default HTML.
      **/
-    public final static String CDATAElementsFeature = "";
+    public static final String CDATAElementsFeature = "";
 
     /**
      * Used to see some syntax events that are essential in some applications: comments, CDATA delimiters, selected general entity inclusions, and the
      * start and end of the DTD (and declaration of document element name). The Object must implement org.xml.sax.ext.LexicalHandler.
      **/
-    public final static String lexicalHandlerProperty = "http://xml.org/sax/properties/lexical-handler";
+    public static final String lexicalHandlerProperty = "http://xml.org/sax/properties/lexical-handler";
 
     /**
      * Specifies the Scanner object this Parser uses.
      **/
-    public final static String scannerProperty = "";
+    public static final String scannerProperty = "";
 
     /**
      * Specifies the Schema object this Parser uses.
      **/
-    public final static String schemaProperty = "";
+    public static final String schemaProperty = "";
 
     /**
      * Specifies the AutoDetector (for encoding detection) this Parser uses.
      **/
-    public final static String autoDetectorProperty = "";
+    public static final String autoDetectorProperty = "";
 
     // Due to sucky Java order of initialization issues, these
     // entries are maintained separately from the initial values of
@@ -268,12 +267,12 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Private clone of Boolean.valueOf that is guaranteed to return
     // Boolean.TRUE or Boolean.FALSE
-    private static Boolean truthValue(boolean b) {
+    private static Boolean truthValue(final boolean b) {
         return b ? Boolean.TRUE : Boolean.FALSE;
     }
 
     @Override
-    public boolean getFeature(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public boolean getFeature(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
         Boolean b = (Boolean) theFeatures.get(name);
         if (b == null) {
             throw new SAXNotRecognizedException("Unknown feature " + name);
@@ -282,38 +281,40 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void setFeature(String name, boolean value) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public void setFeature(final String name, final boolean value) throws SAXNotRecognizedException, SAXNotSupportedException {
         Boolean b = (Boolean) theFeatures.get(name);
         if (b == null) {
             throw new SAXNotRecognizedException("Unknown feature " + name);
         }
-        if (value)
+        if (value) {
             theFeatures.put(name, Boolean.TRUE);
-        else
+        } else {
             theFeatures.put(name, Boolean.FALSE);
+        }
 
-        if (name.equals(namespacesFeature))
+        if (name.equals(namespacesFeature)) {
             namespaces = value;
-        else if (name.equals(ignoreBogonsFeature))
+        } else if (name.equals(ignoreBogonsFeature)) {
             ignoreBogons = value;
-        else if (name.equals(bogonsEmptyFeature))
+        } else if (name.equals(bogonsEmptyFeature)) {
             bogonsEmpty = value;
-        else if (name.equals(rootBogonsFeature))
+        } else if (name.equals(rootBogonsFeature)) {
             rootBogons = value;
-        else if (name.equals(defaultAttributesFeature))
+        } else if (name.equals(defaultAttributesFeature)) {
             defaultAttributes = value;
-        else if (name.equals(translateColonsFeature))
+        } else if (name.equals(translateColonsFeature)) {
             translateColons = value;
-        else if (name.equals(restartElementsFeature))
+        } else if (name.equals(restartElementsFeature)) {
             restartElements = value;
-        else if (name.equals(ignorableWhitespaceFeature))
+        } else if (name.equals(ignorableWhitespaceFeature)) {
             ignorableWhitespace = value;
-        else if (name.equals(CDATAElementsFeature))
+        } else if (name.equals(CDATAElementsFeature)) {
             CDATAElements = value;
+        }
     }
 
     @Override
-    public Object getProperty(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public Object getProperty(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
         if (name.equals(lexicalHandlerProperty)) {
             return theLexicalHandler == this ? null : theLexicalHandler;
         } else if (name.equals(scannerProperty)) {
@@ -328,7 +329,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void setProperty(String name, Object value) throws SAXNotRecognizedException, SAXNotSupportedException {
+    public void setProperty(final String name, final Object value) throws SAXNotRecognizedException, SAXNotSupportedException {
         if (name.equals(lexicalHandlerProperty)) {
             if (value == null) {
                 theLexicalHandler = this;
@@ -361,7 +362,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void setEntityResolver(EntityResolver resolver) {
+    public void setEntityResolver(final EntityResolver resolver) {
         theEntityResolver = (resolver == null) ? this : resolver;
     }
 
@@ -371,7 +372,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void setDTDHandler(DTDHandler handler) {
+    public void setDTDHandler(final DTDHandler handler) {
         theDTDHandler = (handler == null) ? this : handler;
     }
 
@@ -381,7 +382,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void setContentHandler(ContentHandler handler) {
+    public void setContentHandler(final ContentHandler handler) {
         theContentHandler = (handler == null) ? this : handler;
     }
 
@@ -391,7 +392,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void setErrorHandler(ErrorHandler handler) {
+    public void setErrorHandler(final ErrorHandler handler) {
         theErrorHandler = (handler == null) ? this : handler;
     }
 
@@ -401,7 +402,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void parse(InputSource input) throws IOException, SAXException {
+    public void parse(final InputSource input) throws IOException, SAXException {
         setup();
         Reader r = getReader(input);
         theContentHandler.startDocument();
@@ -409,22 +410,25 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (theScanner instanceof Locator) {
             theContentHandler.setDocumentLocator((Locator) theScanner);
         }
-        if (!(theSchema.getURI().equals("")))
+        if (!(theSchema.getURI().equals(""))) {
             theContentHandler.startPrefixMapping(theSchema.getPrefix(), theSchema.getURI());
+        }
         theScanner.scan(r, this);
     }
 
     @Override
-    public void parse(String systemid) throws IOException, SAXException {
+    public void parse(final String systemid) throws IOException, SAXException {
         parse(new InputSource(systemid));
     }
 
     // Sets up instance variables that haven't been set by setFeature
     private void setup() {
-        if (theSchema == null)
+        if (theSchema == null) {
             theSchema = new HTMLSchema();
-        if (theScanner == null)
+        }
+        if (theScanner == null) {
             theScanner = new HTMLScanner();
+        }
         if (theAutoDetector == null) {
             theAutoDetector = new AutoDetector() {
                 @Override
@@ -446,16 +450,17 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Return a Reader based on the contents of an InputSource
     // Buffer both the InputStream and the Reader
-    private Reader getReader(InputSource s) throws SAXException, IOException {
+    private Reader getReader(final InputSource s) throws SAXException, IOException {
         Reader r = s.getCharacterStream();
         InputStream i = s.getByteStream();
         String encoding = s.getEncoding();
         String publicid = s.getPublicId();
         String systemid = s.getSystemId();
         if (r == null) {
-            if (i == null)
+            if (i == null) {
                 i = getInputStream(publicid, systemid);
             // i = new BufferedInputStream(i);
+            }
             if (encoding == null) {
                 r = theAutoDetector.autoDetectingReader(i);
             } else {
@@ -471,7 +476,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     // Get an InputStream based on a publicid and a systemid
-    private InputStream getInputStream(String publicid, String systemid) throws IOException, SAXException {
+    private InputStream getInputStream(final String publicid, final String systemid) throws IOException, SAXException {
         URL basis = new URL("file", "", System.getProperty("user.dir") + "/.");
         URL url = new URL(basis, systemid);
         URLConnection c = url.openConnection();
@@ -494,17 +499,19 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private int theEntity = 0; // needs to support chars past U+FFFF
 
     @Override
-    public void adup(char[] buff, int offset, int length) throws SAXException {
-        if (theNewElement == null || theAttributeName == null)
+    public void adup(final char[] buff, final int offset, final int length) throws SAXException {
+        if (theNewElement == null || theAttributeName == null) {
             return;
+        }
         theNewElement.setAttribute(theAttributeName, null, theAttributeName);
         theAttributeName = null;
     }
 
     @Override
-    public void aname(char[] buff, int offset, int length) throws SAXException {
-        if (theNewElement == null)
+    public void aname(final char[] buff, final int offset, final int length) throws SAXException {
+        if (theNewElement == null) {
             return;
+        }
         // Currently we don't rely on Schema to canonicalize
         // attribute names.
         theAttributeName = makeName(buff, offset, length).toLowerCase();
@@ -512,9 +519,10 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void aval(char[] buff, int offset, int length) throws SAXException {
-        if (theNewElement == null || theAttributeName == null)
+    public void aval(final char[] buff, final int offset, final int length) throws SAXException {
+        if (theNewElement == null || theAttributeName == null) {
             return;
+        }
         String value = new String(buff, offset, length);
         // System.err.println("%% Attribute value [" + value + "]");
         value = expandEntities(value);
@@ -526,7 +534,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Expand entity references in attribute values selectively.
     // Currently we expand a reference iff it is properly terminated
     // with a semicolon.
-    private String expandEntities(String src) {
+    private String expandEntities(final String src) {
         int refStart = -1;
         int len = src.length();
         char[] dst = new char[len];
@@ -570,16 +578,17 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void entity(char[] buff, int offset, int length) throws SAXException {
+    public void entity(final char[] buff, final int offset, final int length) throws SAXException {
         theEntity = lookupEntity(buff, offset, length);
     }
 
     // Process numeric character references,
     // deferring to the schema for named ones.
-    private int lookupEntity(char[] buff, int offset, int length) {
+    private int lookupEntity(final char[] buff, final int offset, final int length) {
         int result = 0;
-        if (length < 1)
+        if (length < 1) {
             return result;
+        }
         // System.err.println("%% Entity at " + offset + " " + length);
         // System.err.println("%% Got entity [" + new String(buff, offset, length) + "]");
         if (buff[offset] == '#') {
@@ -600,27 +609,30 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void eof(char[] buff, int offset, int length) throws SAXException {
-        if (virginStack)
+    public void eof(final char[] buff, final int offset, final int length) throws SAXException {
+        if (virginStack) {
             rectify(thePCDATA);
+        }
         while (theStack.next() != null) {
             pop();
         }
-        if (!(theSchema.getURI().equals("")))
+        if (!(theSchema.getURI().equals(""))) {
             theContentHandler.endPrefixMapping(theSchema.getPrefix());
+        }
         theContentHandler.endDocument();
     }
 
     @Override
-    public void etag(char[] buff, int offset, int length) throws SAXException {
-        if (etag_cdata(buff, offset, length))
+    public void etag(final char[] buff, final int offset, final int length) throws SAXException {
+        if (etag_cdata(buff, offset, length)) {
             return;
+        }
         etag_basic(buff, offset, length);
     }
 
     private static char[] etagchars = { '<', '/', '>' };
 
-    public boolean etag_cdata(char[] buff, int offset, int length) throws SAXException {
+    public boolean etag_cdata(final char[] buff, final int offset, final int length) throws SAXException {
         String currentName = theStack.name();
         // If this is a CDATA element and the tag doesn't match,
         // or isn't properly formed (junk after the name),
@@ -646,7 +658,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         return false;
     }
 
-    public void etag_basic(char[] buff, int offset, int length) throws SAXException {
+    public void etag_basic(final char[] buff, final int offset, final int length) throws SAXException {
         theNewElement = null;
         String name;
         if (length != 0) {
@@ -654,8 +666,9 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             name = makeName(buff, offset, length);
             // System.err.println("got etag [" + name + "]");
             ElementType type = theSchema.getElementType(name);
-            if (type == null)
+            if (type == null) {
                 return; // mysterious end-tag
+            }
             name = type.name();
         } else {
             name = theStack.name();
@@ -665,16 +678,20 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         Element sp;
         boolean inNoforce = false;
         for (sp = theStack; sp != null; sp = sp.next()) {
-            if (sp.name().equals(name))
+            if (sp.name().equals(name)) {
                 break;
-            if ((sp.flags() & Schema.F_NOFORCE) != 0)
+            }
+            if ((sp.flags() & Schema.F_NOFORCE) != 0) {
                 inNoforce = true;
+            }
         }
 
-        if (sp == null)
+        if (sp == null) {
             return; // Ignore unknown etags
-        if (sp.next() == null || sp.next().next() == null)
+        }
+        if (sp.next() == null || sp.next().next() == null) {
             return;
+        }
         if (inNoforce) { // inside an F_NOFORCE element?
             sp.preclose(); // preclose the matching element
         } else { // restartably pop everything above us
@@ -692,7 +709,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Push restartables on the stack if possible
     // e is the next element to be started, if we know what it is
-    private void restart(Element e) throws SAXException {
+    private void restart(final Element e) throws SAXException {
         while (theSaved != null && theStack.canContain(theSaved) && (e == null || theSaved.canContain(e))) {
             Element next = theSaved.next();
             push(theSaved);
@@ -702,16 +719,18 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Pop the stack irrevocably
     private void pop() throws SAXException {
-        if (theStack == null)
+        if (theStack == null) {
             return; // empty stack
+        }
         String name = theStack.name();
         String localName = theStack.localName();
         String namespace = theStack.namespace();
         String prefix = prefixOf(name);
 
         // System.err.println("%% Popping " + name);
-        if (!namespaces)
+        if (!namespaces) {
             namespace = localName = "";
+        }
         theContentHandler.endElement(namespace, localName, name);
         if (foreign(prefix, namespace)) {
             theContentHandler.endPrefixMapping(prefix);
@@ -743,7 +762,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Push element onto stack
     private boolean virginStack = true;
 
-    private void push(Element e) throws SAXException {
+    private void push(final Element e) throws SAXException {
         String name = e.name();
         String localName = e.localName();
         String namespace = e.namespace();
@@ -751,8 +770,9 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
         // System.err.println("%% Pushing " + name);
         e.clean();
-        if (!namespaces)
+        if (!namespaces) {
             namespace = localName = "";
+        }
         if (virginStack && localName.equalsIgnoreCase(theDoctypeName)) {
             try {
                 theEntityResolver.resolveEntity(theDoctypePublicId, theDoctypeSystemId);
@@ -786,14 +806,15 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private String prefixOf(String name) {
         int i = name.indexOf(':');
         String prefix = "";
-        if (i != -1)
+        if (i != -1) {
             prefix = name.substring(0, i);
+        }
         // System.err.println("%% " + prefix + " is prefix of " + name);
         return prefix;
     }
 
     // Return true if we have a foreign name
-    private boolean foreign(String prefix, String namespace) {
+    private boolean foreign(final String prefix, final String namespace) {
         // System.err.print("%% Testing " + prefix + " and " + namespace + " for foreignness -- ");
         boolean foreign = !(prefix.equals("") || namespace.equals("") || namespace.equals(theSchema.getURI()));
         // System.err.println(foreign);
@@ -808,15 +829,16 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
      * 'PUBLIC' S PubidLiteral S SystemLiteral
      */
     @Override
-    public void decl(char[] buff, int offset, int length) throws SAXException {
+    public void decl(final char[] buff, final int offset, final int length) throws SAXException {
         String s = new String(buff, offset, length);
         String name = null;
         String systemid = null;
         String publicid = null;
         String[] v = split(s);
         if (v.length > 0 && "DOCTYPE".equalsIgnoreCase(v[0])) {
-            if (theDoctypeIsPresent)
+            if (theDoctypeIsPresent) {
                 return; // one doctype only!
+            }
             theDoctypeIsPresent = true;
             if (v.length > 1) {
                 name = v[1];
@@ -851,25 +873,28 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     // If the String is quoted, trim the quotes.
-    private static String trimquotes(String in) {
-        if (in == null)
-            return in;
-        int length = in.length();
-        if (length == 0)
-            return in;
-        char s = in.charAt(0);
-        char e = in.charAt(length - 1);
-        if (s == e && (s == '\'' || s == '"')) {
-            in = in.substring(1, in.length() - 1);
+    private static String trimquotes(final String in) {
+        String str = in;
+        if (str == null) {
+            return str;
         }
-        return in;
+        int length = str.length();
+        if (length == 0) {
+            return str;
+        }
+        char s = str.charAt(0);
+        char e = str.charAt(length - 1);
+        if (s == e && (s == '\'' || s == '"')) {
+            str = str.substring(1, str.length() - 1);
+        }
+        return str;
     }
 
     // Split the supplied String into words or phrases seperated by spaces.
     // Recognises quotes around a phrase and doesn't split it.
-    private static String[] split(String val) throws IllegalArgumentException {
-        val = val.trim();
-        if (val.length() == 0) {
+    private static String[] split(final String val) throws IllegalArgumentException {
+        String value = val.trim();
+        if (value.length() == 0) {
             return new String[0];
         } else {
             ArrayList l = new ArrayList();
@@ -878,9 +903,9 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             boolean sq = false; // single quote
             boolean dq = false; // double quote
             char lastc = 0;
-            int len = val.length();
+            int len = value.length();
             for (e = 0; e < len; e++) {
-                char c = val.charAt(e);
+                char c = value.charAt(e);
                 if (!dq && c == '\'' && lastc != '\\') {
                     sq = !sq;
                     if (s < 0)
@@ -892,7 +917,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 } else if (!sq && !dq) {
                     if (Character.isWhitespace(c)) {
                         if (s >= 0)
-                            l.add(val.substring(s, e));
+                            l.add(value.substring(s, e));
                         s = -1;
                     } else if (s < 0 && c != ' ') {
                         s = e;
@@ -900,7 +925,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 }
                 lastc = c;
             }
-            l.add(val.substring(s, e));
+            l.add(value.substring(s, e));
             return (String[]) l.toArray(new String[0]);
         }
     }
@@ -908,9 +933,10 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Replace junk in publicids with spaces
     private static String legal = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-'()+,./:=?;!*#@$_%";
 
-    private String cleanPublicid(String src) {
-        if (src == null)
+    private String cleanPublicid(final String src) {
+        if (src == null) {
             return null;
+        }
         int len = src.length();
         StringBuffer dst = new StringBuffer(len);
         boolean suppressSpace = true;
@@ -931,22 +957,26 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void gi(char[] buff, int offset, int length) throws SAXException {
-        if (theNewElement != null)
+    public void gi(final char[] buff, final int offset, final int length) throws SAXException {
+        if (theNewElement != null) {
             return;
+        }
         String name = makeName(buff, offset, length);
-        if (name == null)
+        if (name == null) {
             return;
+        }
         ElementType type = theSchema.getElementType(name);
         if (type == null) {
             // Suppress unknown elements if ignore-bogons is on
-            if (ignoreBogons)
+            if (ignoreBogons) {
                 return;
+            }
             int bogonModel = bogonsEmpty ? Schema.M_EMPTY : Schema.M_ANY;
             int bogonMemberOf = rootBogons ? Schema.M_ANY : (Schema.M_ANY & ~Schema.M_ROOT);
             theSchema.elementType(name, bogonModel, bogonMemberOf, 0);
-            if (!rootBogons)
+            if (!rootBogons) {
                 theSchema.parent(name, theSchema.rootElementType().name());
+            }
             type = theSchema.getElementType(name);
         }
 
@@ -955,16 +985,17 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void cdsect(char[] buff, int offset, int length) throws SAXException {
+    public void cdsect(final char[] buff, final int offset, final int length) throws SAXException {
         theLexicalHandler.startCDATA();
         pcdata(buff, offset, length);
         theLexicalHandler.endCDATA();
     }
 
     @Override
-    public void pcdata(char[] buff, int offset, int length) throws SAXException {
-        if (length == 0)
+    public void pcdata(final char[] buff, final int offset, final int length) throws SAXException {
+        if (length == 0) {
             return;
+        }
         boolean allWhite = true;
         for (int i = 0; i < length; i++) {
             if (!Character.isWhitespace(buff[offset + i])) {
@@ -982,30 +1013,36 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void pitarget(char[] buff, int offset, int length) throws SAXException {
-        if (theNewElement != null)
+    public void pitarget(final char[] buff, final int offset, final int length) throws SAXException {
+        if (theNewElement != null) {
             return;
+        }
         thePITarget = makeName(buff, offset, length).replace(':', '_');
     }
 
     @Override
-    public void pi(char[] buff, int offset, int length) throws SAXException {
-        if (theNewElement != null || thePITarget == null)
+    public void pi(final char[] buff, final int offset, final int length) throws SAXException {
+        int l = length;
+        if (theNewElement != null || thePITarget == null) {
             return;
-        if ("xml".equalsIgnoreCase(thePITarget))
+        }
+        if ("xml".equalsIgnoreCase(thePITarget)) {
             return;
+        }
         // if (length > 0 && buff[length - 1] == '?') System.err.println("%% Removing ? from PI");
-        if (length > 0 && buff[length - 1] == '?')
-            length--; // remove trailing ?
+        if (l > 0 && buff[l - 1] == '?') {
+            l--; // remove trailing ?
+        }
         theContentHandler.processingInstruction(thePITarget, new String(buff, offset, length));
         thePITarget = null;
     }
 
     @Override
-    public void stagc(char[] buff, int offset, int length) throws SAXException {
+    public void stagc(final char[] buff, final int offset, final int length) throws SAXException {
         // System.err.println("%% Start-tag");
-        if (theNewElement == null)
+        if (theNewElement == null) {
             return;
+        }
         rectify(theNewElement);
         if (theStack.model() == Schema.M_EMPTY) {
             // Force an immediate end tag
@@ -1014,10 +1051,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void stage(char[] buff, int offset, int length) throws SAXException {
+    public void stage(final char[] buff, final int offset, final int length) throws SAXException {
         // System.err.println("%% Empty-tag");
-        if (theNewElement == null)
+        if (theNewElement == null) {
             return;
+        }
         rectify(theNewElement);
         // Force an immediate end tag
         etag_basic(buff, offset, length);
@@ -1027,7 +1065,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private char[] theCommentBuffer = new char[2000];
 
     @Override
-    public void cmnt(char[] buff, int offset, int length) throws SAXException {
+    public void cmnt(final char[] buff, final int offset, final int length) throws SAXException {
         theLexicalHandler.comment(buff, offset, length);
     }
 
@@ -1037,30 +1075,36 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         Element sp;
         while (true) {
             for (sp = theStack; sp != null; sp = sp.next()) {
-                if (sp.canContain(e))
+                if (sp.canContain(e)) {
                     break;
+                }
             }
-            if (sp != null)
+            if (sp != null) {
                 break;
+            }
             ElementType parentType = e.parent();
-            if (parentType == null)
+            if (parentType == null) {
                 break;
+            }
             Element parent = new Element(parentType, defaultAttributes);
             // System.err.println("%% Ascending from " + e.name() + " to " + parent.name());
             parent.setNext(e);
             e = parent;
         }
-        if (sp == null)
+        if (sp == null) {
             return; // don't know what to do
+        }
         while (theStack != sp) {
-            if (theStack == null || theStack.next() == null || theStack.next().next() == null)
+            if (theStack == null || theStack.next() == null || theStack.next().next() == null) {
                 break;
+            }
             restartablyPop();
         }
         while (e != null) {
             Element nexte = e.next();
-            if (!e.name().equals("<pcdata>"))
+            if (!e.name().equals("<pcdata>")) {
                 push(e);
+            }
             e = nexte;
             restart(e);
         }
@@ -1075,13 +1119,15 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Return the argument as a valid XML name
     // This no longer lowercases the result: we depend on Schema to
     // canonicalize case.
-    private String makeName(char[] buff, int offset, int length) {
-        StringBuffer dst = new StringBuffer(length + 2);
+    private String makeName(final char[] buff, final int offset, final int length) {
+        int off = offset;
+        int l = length;
+        final StringBuffer dst = new StringBuffer(l + 2);
         boolean seenColon = false;
         boolean start = true;
         // String src = new String(buff, offset, length); // DEBUG
-        for (; length-- > 0; offset++) {
-            char ch = buff[offset];
+        for (; l-- > 0; off++) {
+            char ch = buff[off];
             if (Character.isLetter(ch) || ch == '_') {
                 start = false;
                 dst.append(ch);
@@ -1099,8 +1145,9 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             }
         }
         int dstLength = dst.length();
-        if (dstLength == 0 || dst.charAt(dstLength - 1) == ':')
+        if (dstLength == 0 || dst.charAt(dstLength - 1) == ':') {
             dst.append('_');
+        }
         // System.err.println("Made name \"" + dst + "\" from \"" + src + "\"");
         return dst.toString().intern();
     }
@@ -1108,7 +1155,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Default LexicalHandler implementation
 
     @Override
-    public void comment(char[] ch, int start, int length) throws SAXException {
+    public void comment(final char[] ch, final int start, final int length) throws SAXException {
     }
 
     @Override
@@ -1120,7 +1167,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void endEntity(String name) throws SAXException {
+    public void endEntity(final String name) throws SAXException {
     }
 
     @Override
@@ -1128,11 +1175,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     }
 
     @Override
-    public void startDTD(String name, String publicid, String systemid) throws SAXException {
+    public void startDTD(final String name, final String publicid, final String systemid) throws SAXException {
     }
 
     @Override
-    public void startEntity(String name) throws SAXException {
+    public void startEntity(final String name) throws SAXException {
     }
 
 }

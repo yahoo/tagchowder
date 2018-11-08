@@ -1,5 +1,4 @@
 /*
- * Copyright [2018] [lafa]
  *
  * ====================================================================
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,9 +33,7 @@ import com.lafaspot.tagchowder.Parser;
  *
  * @author Tatu Saloranta (cowtowncoder@yahoo.com)
  */
-public class SAXParserImpl
-    extends SAXParser
-{
+public class SAXParserImpl extends SAXParser {
     final Parser parser;
 
     protected SAXParserImpl() // used by factory, for prototypes
@@ -45,9 +42,7 @@ public class SAXParserImpl
         parser = new Parser();
     }
 
-    public static SAXParserImpl newInstance(Map features)
-        throws SAXException
-    {
+    public static SAXParserImpl newInstance(final Map features) throws SAXException {
         SAXParserImpl parser = new SAXParserImpl();
         if (features != null) {
             Iterator it = features.entrySet().iterator();
@@ -63,22 +58,22 @@ public class SAXParserImpl
 
     /**
      * To support SAX1 interface, we'll need to use an adapter.
+     *
      * @deprecated
      */
     @Deprecated
     @Override
-    public org.xml.sax.Parser getParser()
-        throws SAXException
-    {
+    public org.xml.sax.Parser getParser() throws SAXException {
         return new SAX1ParserAdapter(parser);
     }
 
     @Override
-    public XMLReader getXMLReader() { return parser; }
+    public XMLReader getXMLReader() {
+        return parser;
+    }
 
     @Override
-    public boolean isNamespaceAware()
-    {
+    public boolean isNamespaceAware() {
         try {
             return parser.getFeature(Parser.namespacesFeature);
         } catch (SAXException sex) { // should never happen... so:
@@ -87,8 +82,7 @@ public class SAXParserImpl
     }
 
     @Override
-    public boolean isValidating()
-    {
+    public boolean isValidating() {
         try {
             return parser.getFeature(Parser.validationFeature);
         } catch (SAXException sex) { // should never happen... so:
@@ -97,30 +91,22 @@ public class SAXParserImpl
     }
 
     @Override
-    public void setProperty(String name, Object value)
-        throws SAXNotRecognizedException, SAXNotSupportedException
-    {
+    public void setProperty(final String name, final Object value) throws SAXNotRecognizedException, SAXNotSupportedException {
         parser.setProperty(name, value);
     }
 
     @Override
-    public Object getProperty(String name)
-        throws SAXNotRecognizedException, SAXNotSupportedException
-    {
+    public Object getProperty(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
         return parser.getProperty(name);
     }
 
     // // // Additional convenience methods
 
-    public void setFeature(String name, boolean value)
-        throws SAXNotRecognizedException, SAXNotSupportedException
-    {
+    public void setFeature(final String name, final boolean value) throws SAXNotRecognizedException, SAXNotSupportedException {
         parser.setFeature(name, value);
     }
 
-    public boolean getFeature(String name)
-        throws SAXNotRecognizedException, SAXNotSupportedException
-    {
+    public boolean getFeature(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
         return parser.getFeature(name);
     }
 }
