@@ -1,20 +1,17 @@
-# tagchowder
+# TagChowder
 Parsing and extracting information from (possibly malformed) HTML/XML documents
 
-This project forked from TagSoup library by John Cowan (org.ccil.cowan.tagsoup.tagsoup.1.2.1)
- to fix some bugs and maven compatible. http://vrici.lojban.org/~cowan/XML/tagsoup/
+This project forked from TagSoup library by John Cowan (org.ccil.cowan.tagsoup.tagsoup.1.2.1, http://vrici.lojban.org/~cowan/XML/tagsoup/).
 
-                        TagSoup - Just Keep On Truckin'
+                        TagChowder - Just Keep On Truckin'
 
 ### Introduction
 
-This is the home page of TagSoup, a SAX-compliant parser written in Java that, instead of parsing well-formed or valid XML, parses HTML as it is found in the wild: poor, nasty and brutish, though quite often far from short. TagSoup is designed for people who have to process this stuff using some semblance of a rational application design. By providing a SAX interface, it allows standard XML tools to be applied to even the worst HTML. TagSoup also includes a command-line processor that reads HTML files and can generate either clean HTML or well-formed XML that is a close approximation to XHTML.
+This is the home page of TagChowder, a SAX-compliant parser written in Java that, instead of parsing well-formed or valid XML, parses HTML as it is found in the wild: poor, nasty and brutish, though quite often far from short. TagChowder is designed for people who have to process this stuff using some semblance of a rational application design. By providing a SAX interface, it allows standard XML tools to be applied to even the worst HTML. TagSoup also includes a command-line processor that reads HTML files and can generate either clean HTML or well-formed XML that is a close approximation to XHTML.
 
 This is also the README file packaged with TagSoup.
 
-TagSoup is free and Open Source software licensed under the Apache License, Version 2.0.
-
-The TagSoup logo is courtesy Ian Leslie.
+TagChowder is free and Open Source software licensed under the Apache License, Version 2.0.
 
 ### TagSoup 1.2.1 released
 
