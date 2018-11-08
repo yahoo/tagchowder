@@ -1,17 +1,23 @@
+/*
+ * Copyright [2018] [lafa]
+ *
+ * ====================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *  ====================================================================
+ */
 // XMLWriter.java - serialize an XML document.
 // Written by David Megginson, david@megginson.com
 // and placed by him into the public domain.
-// Extensively modified by John Cowan for TagSoup.
-// TagSoup is licensed under the Apache License,
-// Version 2.0.  You may obtain a copy of this license at
-// http://www.apache.org/licenses/LICENSE-2.0 .  You may also have
-// additional legal rights not granted by this license.
-//
-// TagSoup is distributed in the hope that it will be useful, but
-// unless required by applicable law or agreed to in writing, TagSoup
-// is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-// OF ANY KIND, either express or implied; not even the implied warranty
-// of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 package com.lafaspot.tagchowder;
 import org.xml.sax.Attributes;

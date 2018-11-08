@@ -1,17 +1,22 @@
-// This file is part of TagSoup and is Copyright 2002-2008 by John Cowan.
-//
-// TagSoup is licensed under the Apache License,
-// Version 2.0.  You may obtain a copy of this license at
-// http://www.apache.org/licenses/LICENSE-2.0 .  You may also have
-// additional legal rights not granted by this license.
-//
-// TagSoup is distributed in the hope that it will be useful, but
-// unless required by applicable law or agreed to in writing, TagSoup
-// is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-// OF ANY KIND, either express or implied; not even the implied warranty
-// of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+/*
+ * Copyright [2018] [lafa]
+ *
+ * ====================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *  ====================================================================
+ */
 
-package com.lafaspot.tagchowder;
+package com.lafaspot.tagchowder.jaxp;
 
 import java.io.IOException;
 
@@ -29,8 +34,7 @@ import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
 /**
- * This is a simpler adapter class that allows using SAX1 interface on top
- * of basic SAX2 implementation, such as TagSoup.
+ * This is a simpler adapter class that allows using SAX1 interface on top of basic SAX2 implementation, such as TagChowder.
  *
  * @author Tatu Saloranta (cowtowncoder@yahoo.com)
  * @deprecated
@@ -105,7 +109,7 @@ public class SAX1ParserAdapter
         /* I have no idea what this is supposed to do... so let's
          * throw an exception
          */
-        throw new SAXNotSupportedException("TagSoup does not implement setLocale() method");
+        throw new SAXNotSupportedException("TagChowder does not implement setLocale() method");
     }
 
     // Helper classes:
