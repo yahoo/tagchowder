@@ -1,17 +1,22 @@
-// This file is part of TagSoup and is Copyright 2002-2008 by John Cowan.
-//
-// TagSoup is licensed under the Apache License,
-// Version 2.0.  You may obtain a copy of this license at
-// http://www.apache.org/licenses/LICENSE-2.0 .  You may also have
-// additional legal rights not granted by this license.
-//
-// TagSoup is distributed in the hope that it will be useful, but
-// unless required by applicable law or agreed to in writing, TagSoup
-// is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-// OF ANY KIND, either express or implied; not even the implied warranty
-// of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+/*
+ * Copyright [2018] [lafa]
+ *
+ * ====================================================================
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *  ====================================================================
+ */
 
-package com.lafaspot.tagchowder;
+package com.lafaspot.tagchowder.jaxp;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -25,9 +30,8 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 
 /**
- * This is a simple implementation of JAXP {@link SAXParserFactory},
- * to allow easier integration of TagSoup with the default JDK
- * xml processing stack.
+ * This is a simple implementation of JAXP {@link SAXParserFactory}, to allow easier integration of TagChowder with the default JDK xml processing
+ * stack.
  *
  * @author Tatu Saloranta (cowtowncoder@yahoo.com)
  */
@@ -35,12 +39,9 @@ public class SAXFactoryImpl
     extends SAXParserFactory
 {
     /**
-     * The easiest way to test validity of features to set is to use
-     * a prototype object. Currently this is actually not a real prototype,
-     * in the sense that the configuration is actually passed separately
-     * (as opposed to instantiating new readers from this prototype), but
-     * this could be changed in future, if TagSoup parser object allowed
-     * cloning.
+     * The easiest way to test validity of features to set is to use a prototype object. Currently this is actually not a real prototype, in the sense
+     * that the configuration is actually passed separately (as opposed to instantiating new readers from this prototype), but this could be changed
+     * in future, if TagChowder parser object allowed cloning.
      */
     private SAXParserImpl prototypeParser = null;
 
