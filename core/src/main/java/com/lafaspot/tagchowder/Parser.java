@@ -63,15 +63,15 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Default values for feature flags
 
-    private static boolean DEFAULT_NAMESPACES = true;
-    private static boolean DEFAULT_IGNORE_BOGONS = false;
-    private static boolean DEFAULT_BOGONS_EMPTY = false;
-    private static boolean DEFAULT_ROOT_BOGONS = true;
-    private static boolean DEFAULT_DEFAULT_ATTRIBUTES = true;
-    private static boolean DEFAULT_TRANSLATE_COLONS = false;
-    private static boolean DEFAULT_RESTART_ELEMENTS = true;
-    private static boolean DEFAULT_IGNORABLE_WHITESPACE = false;
-    private static boolean DEFAULT_CDATA_ELEMENTS = true;
+    private static final boolean DEFAULT_NAMESPACES = true;
+    private static final boolean DEFAULT_IGNORE_BOGONS = false;
+    private static final boolean DEFAULT_BOGONS_EMPTY = false;
+    private static final boolean DEFAULT_ROOT_BOGONS = true;
+    private static final boolean DEFAULT_DEFAULT_ATTRIBUTES = true;
+    private static final boolean DEFAULT_TRANSLATE_COLONS = false;
+    private static final boolean DEFAULT_RESTART_ELEMENTS = true;
+    private static final boolean DEFAULT_IGNORABLE_WHITESPACE = false;
+    private static final boolean DEFAULT_CDATA_ELEMENTS = true;
 
     // Feature flags.
 
@@ -83,155 +83,155 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private boolean translateColons = DEFAULT_TRANSLATE_COLONS;
     private boolean restartElements = DEFAULT_RESTART_ELEMENTS;
     private boolean ignorableWhitespace = DEFAULT_IGNORABLE_WHITESPACE;
-    private boolean CDATAElements = DEFAULT_CDATA_ELEMENTS;
+    private boolean cdataElements = DEFAULT_CDATA_ELEMENTS;
 
     /**
      * A value of "true" indicates namespace URIs and unprefixed local names for element and attribute names will be available.
      **/
-    public static final String namespacesFeature = "http://xml.org/sax/features/namespaces";
+    public static final String NAMESPACES_FEATURE = "http://xml.org/sax/features/namespaces";
 
     /**
      * A value of "true" indicates that XML qualified names (with prefixes) and attributes (including xmlns* attributes) will be available. We don't
      * support this value.
      **/
-    public static final String namespacePrefixesFeature = "http://xml.org/sax/features/namespace-prefixes";
+    public static final String NAMESPACE_PREFIXES_FEATURE = "http://xml.org/sax/features/namespace-prefixes";
 
     /**
      * Reports whether this parser processes external general entities (it doesn't).
      **/
-    public static final String externalGeneralEntitiesFeature = "http://xml.org/sax/features/external-general-entities";
+    public static final String EXTERNAL_GENERAL_ENTITIES_FEATURE = "http://xml.org/sax/features/external-general-entities";
 
     /**
      * Reports whether this parser processes external parameter entities (it doesn't).
      **/
-    public static final String externalParameterEntitiesFeature = "http://xml.org/sax/features/external-parameter-entities";
+    public static final String EXTERNAL_PARAMETER_ENTITIES_FEATURE = "http://xml.org/sax/features/external-parameter-entities";
 
     /**
      * May be examined only during a parse, after the startDocument() callback has been completed; read-only. The value is true if the document
      * specified standalone="yes" in its XML declaration, and otherwise is false. (It's always false.)
      **/
-    public static final String isStandaloneFeature = "http://xml.org/sax/features/is-standalone";
+    public static final String IS_STANDALONE_FEATURE = "http://xml.org/sax/features/is-standalone";
 
     /**
      * A value of "true" indicates that the LexicalHandler will report the beginning and end of parameter entities (it won't).
      **/
-    public static final String lexicalHandlerParameterEntitiesFeature = "http://xml.org/sax/features/lexical-handler/parameter-entities";
+    public static final String LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE = "http://xml.org/sax/features/lexical-handler/parameter-entities";
 
     /**
      * A value of "true" indicates that system IDs in declarations will be absolutized (relative to their base URIs) before reporting. (This returns
      * true but doesn't actually do anything.)
      **/
-    public static final String resolveDTDURIsFeature = "http://xml.org/sax/features/resolve-dtd-uris";
+    public static final String RESOLVE_DTDURIS_FEATURE = "http://xml.org/sax/features/resolve-dtd-uris";
 
     /**
      * Has a value of "true" if all XML names (for elements, prefixes, attributes, entities, notations, and local names), as well as Namespace URIs,
      * will have been interned using java.lang.String.intern. This supports fast testing of equality/inequality against string constants, rather than
      * forcing slower calls to String.equals(). (We always intern.)
      **/
-    public static final String stringInterningFeature = "http://xml.org/sax/features/string-interning";
+    public static final String STRING_INTERNING_FEATURE = "http://xml.org/sax/features/string-interning";
 
     /**
      * Returns "true" if the Attributes objects passed by this parser in ContentHandler.startElement() implement the org.xml.sax.ext.Attributes2
      * interface. (They don't.)
      **/
 
-    public static final String useAttributes2Feature = "http://xml.org/sax/features/use-attributes2";
+    public static final String USE_ATTRIBUTES2_FEATURE = "http://xml.org/sax/features/use-attributes2";
 
     /**
      * Returns "true" if the Locator objects passed by this parser in ContentHandler.setDocumentLocator() implement the org.xml.sax.ext.Locator2
      * interface. (They don't.)
      **/
-    public static final String useLocator2Feature = "http://xml.org/sax/features/use-locator2";
+    public static final String USE_LOCATOR2_FEATURE = "http://xml.org/sax/features/use-locator2";
 
     /**
      * Returns "true" if, when setEntityResolver is given an object implementing the org.xml.sax.ext.EntityResolver2 interface, those new methods will
      * be used. (They won't be.)
      **/
-    public static final String useEntityResolver2Feature = "http://xml.org/sax/features/use-entity-resolver2";
+    public static final String USE_ENTITYRESOLVER2_FEATURE = "http://xml.org/sax/features/use-entity-resolver2";
 
     /**
      * Controls whether the parser is reporting all validity errors (We don't report any validity errors).
      **/
-    public static final String validationFeature = "http://xml.org/sax/features/validation";
+    public static final String VALIDATION_FEATURE = "http://xml.org/sax/features/validation";
 
     /**
      * Controls whether the parser reports Unicode normalization errors as described in section 2.13 and Appendix B of the XML 1.1 Recommendation. (We
      * don't normalize.)
      **/
-    public static final String unicodeNormalizationCheckingFeature = "http://xml.org/sax/features/unicode-normalization-checking";
+    public static final String UNICODE_NORMALIZATION_CHECKING_FEATURE = "http://xml.org/sax/features/unicode-normalization-checking";
 
     /**
      * Controls whether, when the namespace-prefixes feature is set, the parser treats namespace declaration attributes as being in the
      * http://www.w3.org/2000/xmlns/ namespace. (It doesn't.)
      **/
-    public static final String xmlnsURIsFeature = "http://xml.org/sax/features/xmlns-uris";
+    public static final String XMLNS_URIS_FEATURE = "http://xml.org/sax/features/xmlns-uris";
 
     /**
      * Returns "true" if the parser supports both XML 1.1 and XML 1.0. (Always false.)
      **/
-    public static final String XML11Feature = "http://xml.org/sax/features/xml-1.1";
+    public static final String XML11_FEATURE = "http://xml.org/sax/features/xml-1.1";
 
     /**
      * A value of "true" indicates that the parser will ignore unknown elements.
      **/
-    public static final String ignoreBogonsFeature = "";
+    public static final String IGNORE_BOGONS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will give unknown elements a content model of EMPTY; a value of "false", a content model of ANY.
      **/
-    public static final String bogonsEmptyFeature = "";
+    public static final String BOGONS_EMPTY_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will allow unknown elements to be the root element.
      **/
-    public static final String rootBogonsFeature = "";
+    public static final String ROOT_BOGONS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will return default attribute values for missing attributes that have default values.
      **/
-    public static final String defaultAttributesFeature = "";
+    public static final String DEFAULT_ATTRIBUTES_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will translate colons into underscores in names.
      **/
-    public static final String translateColonsFeature = "";
+    public static final String TRANSLATE_COLONS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will attempt to restart the restartable elements.
      **/
-    public static final String restartElementsFeature = "";
+    public static final String RESTART_ELEMENTS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will transmit whitespace in element-only content via the SAX ignorableWhitespace callback. Normally
      * this is not done, because HTML is an SGML application and SGML suppresses such whitespace.
      **/
-    public static final String ignorableWhitespaceFeature = "";
+    public static final String IGNORABLE_WHITESPACE_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will treat CDATA elements specially. Normally true, since the input is by default HTML.
      **/
-    public static final String CDATAElementsFeature = "";
+    public static final String CDATA_ELEMENTS_FEATURE = "";
 
     /**
      * Used to see some syntax events that are essential in some applications: comments, CDATA delimiters, selected general entity inclusions, and the
      * start and end of the DTD (and declaration of document element name). The Object must implement org.xml.sax.ext.LexicalHandler.
      **/
-    public static final String lexicalHandlerProperty = "http://xml.org/sax/properties/lexical-handler";
+    public static final String LEXICAL_HANDLER_PROPERTY = "http://xml.org/sax/properties/lexical-handler";
 
     /**
      * Specifies the Scanner object this Parser uses.
      **/
-    public static final String scannerProperty = "";
+    public static final String SCANNER_PROPERTY = "";
 
     /**
      * Specifies the Schema object this Parser uses.
      **/
-    public static final String schemaProperty = "";
+    public static final String SCHEMA_PROPERTY = "";
 
     /**
      * Specifies the AutoDetector (for encoding detection) this Parser uses.
      **/
-    public static final String autoDetectorProperty = "";
+    public static final String AUTO_DETECTOR_PROPERTY = "";
 
     // Due to sucky Java order of initialization issues, these
     // entries are maintained separately from the initial values of
@@ -240,29 +240,29 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     private HashMap theFeatures = new HashMap();
     {
-        theFeatures.put(namespacesFeature, truthValue(DEFAULT_NAMESPACES));
-        theFeatures.put(namespacePrefixesFeature, Boolean.FALSE);
-        theFeatures.put(externalGeneralEntitiesFeature, Boolean.FALSE);
-        theFeatures.put(externalParameterEntitiesFeature, Boolean.FALSE);
-        theFeatures.put(isStandaloneFeature, Boolean.FALSE);
-        theFeatures.put(lexicalHandlerParameterEntitiesFeature, Boolean.FALSE);
-        theFeatures.put(resolveDTDURIsFeature, Boolean.TRUE);
-        theFeatures.put(stringInterningFeature, Boolean.TRUE);
-        theFeatures.put(useAttributes2Feature, Boolean.FALSE);
-        theFeatures.put(useLocator2Feature, Boolean.FALSE);
-        theFeatures.put(useEntityResolver2Feature, Boolean.FALSE);
-        theFeatures.put(validationFeature, Boolean.FALSE);
-        theFeatures.put(xmlnsURIsFeature, Boolean.FALSE);
-        theFeatures.put(xmlnsURIsFeature, Boolean.FALSE);
-        theFeatures.put(XML11Feature, Boolean.FALSE);
-        theFeatures.put(ignoreBogonsFeature, truthValue(DEFAULT_IGNORE_BOGONS));
-        theFeatures.put(bogonsEmptyFeature, truthValue(DEFAULT_BOGONS_EMPTY));
-        theFeatures.put(rootBogonsFeature, truthValue(DEFAULT_ROOT_BOGONS));
-        theFeatures.put(defaultAttributesFeature, truthValue(DEFAULT_DEFAULT_ATTRIBUTES));
-        theFeatures.put(translateColonsFeature, truthValue(DEFAULT_TRANSLATE_COLONS));
-        theFeatures.put(restartElementsFeature, truthValue(DEFAULT_RESTART_ELEMENTS));
-        theFeatures.put(ignorableWhitespaceFeature, truthValue(DEFAULT_IGNORABLE_WHITESPACE));
-        theFeatures.put(CDATAElementsFeature, truthValue(DEFAULT_CDATA_ELEMENTS));
+        theFeatures.put(NAMESPACES_FEATURE, truthValue(DEFAULT_NAMESPACES));
+        theFeatures.put(NAMESPACE_PREFIXES_FEATURE, Boolean.FALSE);
+        theFeatures.put(EXTERNAL_GENERAL_ENTITIES_FEATURE, Boolean.FALSE);
+        theFeatures.put(EXTERNAL_PARAMETER_ENTITIES_FEATURE, Boolean.FALSE);
+        theFeatures.put(IS_STANDALONE_FEATURE, Boolean.FALSE);
+        theFeatures.put(LEXICAL_HANDLER_PARAMETER_ENTITIES_FEATURE, Boolean.FALSE);
+        theFeatures.put(RESOLVE_DTDURIS_FEATURE, Boolean.TRUE);
+        theFeatures.put(STRING_INTERNING_FEATURE, Boolean.TRUE);
+        theFeatures.put(USE_ATTRIBUTES2_FEATURE, Boolean.FALSE);
+        theFeatures.put(USE_LOCATOR2_FEATURE, Boolean.FALSE);
+        theFeatures.put(USE_ENTITYRESOLVER2_FEATURE, Boolean.FALSE);
+        theFeatures.put(VALIDATION_FEATURE, Boolean.FALSE);
+        theFeatures.put(XMLNS_URIS_FEATURE, Boolean.FALSE);
+        theFeatures.put(XMLNS_URIS_FEATURE, Boolean.FALSE);
+        theFeatures.put(XML11_FEATURE, Boolean.FALSE);
+        theFeatures.put(IGNORE_BOGONS_FEATURE, truthValue(DEFAULT_IGNORE_BOGONS));
+        theFeatures.put(BOGONS_EMPTY_FEATURE, truthValue(DEFAULT_BOGONS_EMPTY));
+        theFeatures.put(ROOT_BOGONS_FEATURE, truthValue(DEFAULT_ROOT_BOGONS));
+        theFeatures.put(DEFAULT_ATTRIBUTES_FEATURE, truthValue(DEFAULT_DEFAULT_ATTRIBUTES));
+        theFeatures.put(TRANSLATE_COLONS_FEATURE, truthValue(DEFAULT_TRANSLATE_COLONS));
+        theFeatures.put(RESTART_ELEMENTS_FEATURE, truthValue(DEFAULT_RESTART_ELEMENTS));
+        theFeatures.put(IGNORABLE_WHITESPACE_FEATURE, truthValue(DEFAULT_IGNORABLE_WHITESPACE));
+        theFeatures.put(CDATA_ELEMENTS_FEATURE, truthValue(DEFAULT_CDATA_ELEMENTS));
     }
 
     // Private clone of Boolean.valueOf that is guaranteed to return
@@ -292,36 +292,36 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             theFeatures.put(name, Boolean.FALSE);
         }
 
-        if (name.equals(namespacesFeature)) {
+        if (name.equals(NAMESPACES_FEATURE)) {
             namespaces = value;
-        } else if (name.equals(ignoreBogonsFeature)) {
+        } else if (name.equals(IGNORE_BOGONS_FEATURE)) {
             ignoreBogons = value;
-        } else if (name.equals(bogonsEmptyFeature)) {
+        } else if (name.equals(BOGONS_EMPTY_FEATURE)) {
             bogonsEmpty = value;
-        } else if (name.equals(rootBogonsFeature)) {
+        } else if (name.equals(ROOT_BOGONS_FEATURE)) {
             rootBogons = value;
-        } else if (name.equals(defaultAttributesFeature)) {
+        } else if (name.equals(DEFAULT_ATTRIBUTES_FEATURE)) {
             defaultAttributes = value;
-        } else if (name.equals(translateColonsFeature)) {
+        } else if (name.equals(TRANSLATE_COLONS_FEATURE)) {
             translateColons = value;
-        } else if (name.equals(restartElementsFeature)) {
+        } else if (name.equals(RESTART_ELEMENTS_FEATURE)) {
             restartElements = value;
-        } else if (name.equals(ignorableWhitespaceFeature)) {
+        } else if (name.equals(IGNORABLE_WHITESPACE_FEATURE)) {
             ignorableWhitespace = value;
-        } else if (name.equals(CDATAElementsFeature)) {
-            CDATAElements = value;
+        } else if (name.equals(CDATA_ELEMENTS_FEATURE)) {
+            cdataElements = value;
         }
     }
 
     @Override
     public Object getProperty(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
-        if (name.equals(lexicalHandlerProperty)) {
+        if (name.equals(LEXICAL_HANDLER_PROPERTY)) {
             return theLexicalHandler == this ? null : theLexicalHandler;
-        } else if (name.equals(scannerProperty)) {
+        } else if (name.equals(SCANNER_PROPERTY)) {
             return theScanner;
-        } else if (name.equals(schemaProperty)) {
+        } else if (name.equals(SCHEMA_PROPERTY)) {
             return theSchema;
-        } else if (name.equals(autoDetectorProperty)) {
+        } else if (name.equals(AUTO_DETECTOR_PROPERTY)) {
             return theAutoDetector;
         } else {
             throw new SAXNotRecognizedException("Unknown property " + name);
@@ -330,7 +330,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     @Override
     public void setProperty(final String name, final Object value) throws SAXNotRecognizedException, SAXNotSupportedException {
-        if (name.equals(lexicalHandlerProperty)) {
+        if (name.equals(LEXICAL_HANDLER_PROPERTY)) {
             if (value == null) {
                 theLexicalHandler = this;
             } else if (value instanceof LexicalHandler) {
@@ -338,19 +338,19 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             } else {
                 throw new SAXNotSupportedException("Your lexical handler is not a LexicalHandler");
             }
-        } else if (name.equals(scannerProperty)) {
+        } else if (name.equals(SCANNER_PROPERTY)) {
             if (value instanceof Scanner) {
                 theScanner = (Scanner) value;
             } else {
                 throw new SAXNotSupportedException("Your scanner is not a Scanner");
             }
-        } else if (name.equals(schemaProperty)) {
+        } else if (name.equals(SCHEMA_PROPERTY)) {
             if (value instanceof Schema) {
                 theSchema = (Schema) value;
             } else {
                 throw new SAXNotSupportedException("Your schema is not a Schema");
             }
-        } else if (name.equals(autoDetectorProperty)) {
+        } else if (name.equals(AUTO_DETECTOR_PROPERTY)) {
             if (value instanceof AutoDetector) {
                 theAutoDetector = (AutoDetector) value;
             } else {
@@ -432,7 +432,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (theAutoDetector == null) {
             theAutoDetector = new AutoDetector() {
                 @Override
-                public Reader autoDetectingReader(InputStream i) {
+                public Reader autoDetectingReader(final InputStream i) {
                     return new InputStreamReader(i);
                 }
             };
@@ -515,7 +515,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         // Currently we don't rely on Schema to canonicalize
         // attribute names.
         theAttributeName = makeName(buff, offset, length).toLowerCase();
-        // System.err.println("%% Attribute name " + theAttributeName);
     }
 
     @Override
@@ -524,11 +523,9 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             return;
         }
         String value = new String(buff, offset, length);
-        // System.err.println("%% Attribute value [" + value + "]");
         value = expandEntities(value);
         theNewElement.setAttribute(theAttributeName, null, value);
         theAttributeName = null;
-        // System.err.println("%% Aval done");
     }
 
     // Expand entity references in attribute values selectively.
@@ -542,20 +539,16 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         for (int i = 0; i < len; i++) {
             char ch = src.charAt(i);
             dst[dstlen++] = ch;
-            // System.err.print("i = " + i + ", d = " + dstlen + ", ch = [" + ch + "] ");
             if (ch == '&' && refStart == -1) {
                 // start of a ref excluding &
                 refStart = dstlen;
                 // System.err.println("start of ref");
             } else if (refStart == -1) {
                 // not in a ref
-                // System.err.println("not in ref");
             } else if (Character.isLetter(ch) || Character.isDigit(ch) || ch == '#') {
                 // valid entity char
-                // System.err.println("valid");
             } else if (ch == ';') {
                 // properly terminated ref
-                // System.err.print("got [" + new String(dst, refStart, dstlen-refStart-1) + "]");
                 int ent = lookupEntity(dst, refStart, dstlen - refStart - 1);
                 // System.err.println(" = " + ent);
                 if (ent > 0xFFFF) {
@@ -570,7 +563,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 refStart = -1;
             } else {
                 // improperly terminated ref
-                // System.err.println("end of ref");
                 refStart = -1;
             }
         }
@@ -589,8 +581,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (length < 1) {
             return result;
         }
-        // System.err.println("%% Entity at " + offset + " " + length);
-        // System.err.println("%% Got entity [" + new String(buff, offset, length) + "]");
         if (buff[offset] == '#') {
             if (length > 1 && (buff[offset + 1] == 'x' || buff[offset + 1] == 'X')) {
                 try {
@@ -624,20 +614,29 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     @Override
     public void etag(final char[] buff, final int offset, final int length) throws SAXException {
-        if (etag_cdata(buff, offset, length)) {
+        if (etagCdata(buff, offset, length)) {
             return;
         }
-        etag_basic(buff, offset, length);
+        etagBasic(buff, offset, length);
     }
 
     private static char[] etagchars = { '<', '/', '>' };
 
-    public boolean etag_cdata(final char[] buff, final int offset, final int length) throws SAXException {
+    /**
+     * ETAG CDATA.
+     *
+     * @param buff buffer
+     * @param offset offset
+     * @param length length
+     * @return whether CDATA is not real tag
+     * @throws SAXException SAXException
+     */
+    public boolean etagCdata(final char[] buff, final int offset, final int length) throws SAXException {
         String currentName = theStack.name();
         // If this is a CDATA element and the tag doesn't match,
         // or isn't properly formed (junk after the name),
         // restart CDATA mode and process the tag as characters.
-        if (CDATAElements && (theStack.flags() & Schema.F_CDATA) != 0) {
+        if (cdataElements && (theStack.flags() & Schema.F_CDATA) != 0) {
             boolean realTag = (length == currentName.length());
             if (realTag) {
                 for (int i = 0; i < length; i++) {
@@ -658,13 +657,20 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         return false;
     }
 
-    public void etag_basic(final char[] buff, final int offset, final int length) throws SAXException {
+    /**
+     * ETAG basic.
+     *
+     * @param buff buffer
+     * @param offset offset
+     * @param length length
+     * @throws SAXException SAXException
+     */
+    public void etagBasic(final char[] buff, final int offset, final int length) throws SAXException {
         theNewElement = null;
         String name;
         if (length != 0) {
             // Canonicalize case of name
             name = makeName(buff, offset, length);
-            // System.err.println("got etag [" + name + "]");
             ElementType type = theSchema.getElementType(name);
             if (type == null) {
                 return; // mysterious end-tag
@@ -673,7 +679,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         } else {
             name = theStack.name();
         }
-        // System.err.println("%% Got end of " + name);
 
         Element sp;
         boolean inNoforce = false;
@@ -727,14 +732,12 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         String namespace = theStack.namespace();
         String prefix = prefixOf(name);
 
-        // System.err.println("%% Popping " + name);
         if (!namespaces) {
             namespace = localName = "";
         }
         theContentHandler.endElement(namespace, localName, name);
         if (foreign(prefix, namespace)) {
             theContentHandler.endPrefixMapping(prefix);
-            // System.err.println("%% Unmapping [" + prefix + "] for elements to " + namespace);
         }
         Attributes atts = theStack.atts();
         for (int i = atts.getLength() - 1; i >= 0; i--) {
@@ -742,7 +745,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             String attPrefix = prefixOf(atts.getQName(i));
             if (foreign(attPrefix, attNamespace)) {
                 theContentHandler.endPrefixMapping(attPrefix);
-                // System.err.println("%% Unmapping [" + attPrefix + "] for attributes to " + attNamespace);
             }
         }
         theStack = theStack.next();
@@ -768,7 +770,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         String namespace = e.namespace();
         String prefix = prefixOf(name);
 
-        // System.err.println("%% Pushing " + name);
         e.clean();
         if (!namespaces) {
             namespace = localName = "";
@@ -781,7 +782,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         }
         if (foreign(prefix, namespace)) {
             theContentHandler.startPrefixMapping(prefix, namespace);
-            // System.err.println("%% Mapping [" + prefix + "] for elements to " + namespace);
         }
         Attributes atts = e.atts();
         int len = atts.getLength();
@@ -790,34 +790,35 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             String attPrefix = prefixOf(atts.getQName(i));
             if (foreign(attPrefix, attNamespace)) {
                 theContentHandler.startPrefixMapping(attPrefix, attNamespace);
-                // System.err.println("%% Mapping [" + attPrefix + "] for attributes to " + attNamespace);
             }
         }
         theContentHandler.startElement(namespace, localName, name, e.atts());
         e.setNext(theStack);
         theStack = e;
         virginStack = false;
-        if (CDATAElements && (theStack.flags() & Schema.F_CDATA) != 0) {
+        if (cdataElements && (theStack.flags() & Schema.F_CDATA) != 0) {
             theScanner.startCDATA();
         }
     }
 
-    // Get the prefix from a QName
-    private String prefixOf(String name) {
+    /**
+     * Get the prefix from a QName.
+     *
+     * @param name name
+     * @return prefix
+     */
+    private String prefixOf(final String name) {
         int i = name.indexOf(':');
         String prefix = "";
         if (i != -1) {
             prefix = name.substring(0, i);
         }
-        // System.err.println("%% " + prefix + " is prefix of " + name);
         return prefix;
     }
 
     // Return true if we have a foreign name
     private boolean foreign(final String prefix, final String namespace) {
-        // System.err.print("%% Testing " + prefix + " and " + namespace + " for foreignness -- ");
         boolean foreign = !(prefix.equals("") || namespace.equals("") || namespace.equals(theSchema.getURI()));
-        // System.err.println(foreign);
         return foreign;
     }
 
@@ -908,16 +909,19 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 char c = value.charAt(e);
                 if (!dq && c == '\'' && lastc != '\\') {
                     sq = !sq;
-                    if (s < 0)
+                    if (s < 0) {
                         s = e;
+                    }
                 } else if (!sq && c == '\"' && lastc != '\\') {
                     dq = !dq;
-                    if (s < 0)
+                    if (s < 0) {
                         s = e;
+                    }
                 } else if (!sq && !dq) {
                     if (Character.isWhitespace(c)) {
-                        if (s >= 0)
+                        if (s >= 0) {
                             l.add(value.substring(s, e));
+                        }
                         s = -1;
                     } else if (s < 0 && c != ' ') {
                         s = e;
@@ -952,7 +956,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 suppressSpace = true;
             }
         }
-        // System.err.println("%% Publicid [" + dst.toString().trim() + "]");
         return dst.toString().trim(); // trim any final junk whitespace
     }
 
@@ -981,7 +984,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         }
 
         theNewElement = new Element(type, defaultAttributes);
-        // System.err.println("%% Got GI " + theNewElement.name());
     }
 
     @Override
@@ -1039,14 +1041,13 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     @Override
     public void stagc(final char[] buff, final int offset, final int length) throws SAXException {
-        // System.err.println("%% Start-tag");
         if (theNewElement == null) {
             return;
         }
         rectify(theNewElement);
         if (theStack.model() == Schema.M_EMPTY) {
             // Force an immediate end tag
-            etag_basic(buff, offset, length);
+            etagBasic(buff, offset, length);
         }
     }
 
@@ -1058,11 +1059,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         }
         rectify(theNewElement);
         // Force an immediate end tag
-        etag_basic(buff, offset, length);
+        etagBasic(buff, offset, length);
     }
-
-    // Comment buffer is twice the size of the output buffer
-    private char[] theCommentBuffer = new char[2000];
 
     @Override
     public void cmnt(final char[] buff, final int offset, final int length) throws SAXException {
@@ -1071,7 +1069,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Rectify the stack, pushing and popping as needed
     // so that the argument can be safely pushed
-    private void rectify(Element e) throws SAXException {
+    private void rectify(final Element e) throws SAXException {
         Element sp;
         while (true) {
             for (sp = theStack; sp != null; sp = sp.next()) {
@@ -1087,7 +1085,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 break;
             }
             Element parent = new Element(parentType, defaultAttributes);
-            // System.err.println("%% Ascending from " + e.name() + " to " + parent.name());
             parent.setNext(e);
             e = parent;
         }
@@ -1132,14 +1129,16 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 start = false;
                 dst.append(ch);
             } else if (Character.isDigit(ch) || ch == '-' || ch == '.') {
-                if (start)
+                if (start) {
                     dst.append('_');
+                }
                 start = false;
                 dst.append(ch);
             } else if (ch == ':' && !seenColon) {
                 seenColon = true;
-                if (start)
+                if (start) {
                     dst.append('_');
+                }
                 start = true;
                 dst.append(translateColons ? '_' : ch);
             }
@@ -1148,7 +1147,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (dstLength == 0 || dst.charAt(dstLength - 1) == ':') {
             dst.append('_');
         }
-        // System.err.println("Made name \"" + dst + "\" from \"" + src + "\"");
         return dst.toString().intern();
     }
 

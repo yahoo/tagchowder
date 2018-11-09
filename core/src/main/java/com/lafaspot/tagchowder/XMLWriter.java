@@ -380,6 +380,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * </p>
      *
      * @see #reset
+     * @throws IOException IOException
      */
     public void flush() throws IOException {
         output.flush();
@@ -424,7 +425,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @return The preferred prefix, or "" for the default Namespace.
      * @see #setPrefix
      */
-    public String getPrefix(String uri) {
+    public String getPrefix(final String uri) {
         return (String) prefixTable.get(uri);
     }
 
@@ -714,7 +715,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @see #startElement(String, String, String, Attributes)
      */
     public void startElement(final String uri, final String localName) throws SAXException {
-        startElement(uri, localName, "", EMPTY_ATTS);
+        startElement(uri, localName, "", emptyAtts);
     }
 
     /**
@@ -731,7 +732,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @see #startElement(String, String, String, Attributes)
      */
     public void startElement(final String localName) throws SAXException {
-        startElement("", localName, "", EMPTY_ATTS);
+        startElement("", localName, "", emptyAtts);
     }
 
     /**
@@ -783,7 +784,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @see #emptyElement(String, String, String, Attributes)
      */
     public void emptyElement(final String uri, final String localName) throws SAXException {
-        emptyElement(uri, localName, "", EMPTY_ATTS);
+        emptyElement(uri, localName, "", emptyAtts);
     }
 
     /**
@@ -800,7 +801,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @see #emptyElement(String, String, String, Attributes)
      */
     public void emptyElement(final String localName) throws SAXException {
-        emptyElement("", localName, "", EMPTY_ATTS);
+        emptyElement("", localName, "", emptyAtts);
     }
 
     /**
@@ -856,7 +857,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @see #endElement(String, String, String)
      */
     public void dataElement(final String uri, final String localName, final String content) throws SAXException {
-        dataElement(uri, localName, "", EMPTY_ATTS, content);
+        dataElement(uri, localName, "", emptyAtts, content);
     }
 
     /**
@@ -881,7 +882,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @see #endElement(String, String, String)
      */
     public void dataElement(final String localName, final String content) throws SAXException {
-        dataElement("", localName, "", EMPTY_ATTS, content);
+        dataElement("", localName, "", emptyAtts, content);
     }
 
     /**
@@ -963,8 +964,9 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
                 prefix = qName.substring(0, i);
             }
         }
-        for (; prefix == null || nsSupport.getURI(prefix) != null; prefix = "__NS" + ++prefixCounter)
+        for (; prefix == null || nsSupport.getURI(prefix) != null; prefix = "__NS" + ++prefixCounter) {
             ;
+        }
         nsSupport.declarePrefix(prefix, uri);
         doneDeclTable.put(uri, prefix);
         return prefix;
@@ -991,7 +993,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      * @param s
      * @exception org.xml.sax.SAXException If there is an error writing the string, this method will throw an IOException wrapped in a SAXException
      */
-    private void write(String s) throws SAXException {
+    private void write(final String s) throws SAXException {
         try {
             output.write(s);
         } catch (IOException e) {
@@ -1039,8 +1041,9 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
             return false;
         }
         for (int j = 0; j < booleans.length; j++) {
-            if (name.equals(booleans[j]))
+            if (name.equals(booleans[j])) {
                 return true;
+            }
         }
         return false;
     }
@@ -1161,7 +1164,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
     }
 
     @Override
-    public void endEntity(String name) throws SAXException {
+    public void endEntity(final String name) throws SAXException {
     }
 
     @Override
@@ -1208,17 +1211,29 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
     }
 
     @Override
-    public void startEntity(String name) throws SAXException {
+    public void startEntity(final String name) throws SAXException {
     }
 
     ////////////////////////////////////////////////////////////////////
     // Output properties
     ////////////////////////////////////////////////////////////////////
 
+    /**
+     * Get output property.
+     *
+     * @param key key
+     * @return output property
+     */
     public String getOutputProperty(final String key) {
         return outputProperties.getProperty(key);
     }
 
+    /**
+     * Set output property.
+     *
+     * @param key key
+     * @param value value
+     */
     public void setOutputProperty(final String key, final String value) {
         outputProperties.setProperty(key, value);
         // System.out.println("%%%% key = [" + key + "] value = [" + value +"]");
@@ -1246,16 +1261,26 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
     // Constants.
     ////////////////////////////////////////////////////////////////////
 
-    private final Attributes EMPTY_ATTS = new AttributesImpl();
+    private final Attributes emptyAtts = new AttributesImpl();
+    /** CDATE section elements. */
     public static final String CDATA_SECTION_ELEMENTS = "cdata-section-elements";
+    /** DOCTYPE public. */
     public static final String DOCTYPE_PUBLIC = "doctype-public";
+    /** DOCTYPE system. */
     public static final String DOCTYPE_SYSTEM = "doctype-system";
+    /** Encoding. */
     public static final String ENCODING = "encoding";
+    /** Indent. */
     public static final String INDENT = "indent"; // currently ignored
+    /** Media type. */
     public static final String MEDIA_TYPE = "media-type"; // currently ignored
+    /** Method. */
     public static final String METHOD = "method"; // currently html or xml
+    /** Omit xml declaration. */
     public static final String OMIT_XML_DECLARATION = "omit-xml-declaration";
+    /** Standalone. */
     public static final String STANDALONE = "standalone"; // currently ignored
+    /** Version. */
     public static final String VERSION = "version";
 
     ////////////////////////////////////////////////////////////////////

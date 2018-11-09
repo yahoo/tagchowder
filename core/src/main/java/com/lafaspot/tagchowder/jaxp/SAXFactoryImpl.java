@@ -50,6 +50,9 @@ public class SAXFactoryImpl extends SAXParserFactory {
      */
     private HashMap features = null;
 
+    /**
+     * Constructor.
+     */
     public SAXFactoryImpl() {
         super();
     }
