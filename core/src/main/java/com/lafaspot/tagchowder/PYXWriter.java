@@ -217,21 +217,22 @@ public class PYXWriter implements ScanHandler, ContentHandler, LexicalHandler {
     }
 
     @Override
-    public void startElement(final String uri, final String localname, String qname, final Attributes atts) throws SAXException {
-        if (qname.length() == 0) {
-            qname = localname;
+    public void startElement(final String uri, final String localname, final String qname, final Attributes atts) throws SAXException {
+        String qn = qname;
+        if (qn.length() == 0) {
+            qn = localname;
         }
         theWriter.print('(');
-        theWriter.println(qname);
+        theWriter.println(qn);
         final int length = atts.getLength();
         for (int i = 0; i < length; i++) {
-            qname = atts.getQName(i);
-            if (qname.length() == 0) {
-                qname = atts.getLocalName(i);
+            qn = atts.getQName(i);
+            if (qn.length() == 0) {
+                qn = atts.getLocalName(i);
             }
             theWriter.print('A');
             // theWriter.print(atts.getType(i)); // DEBUG
-            theWriter.print(qname);
+            theWriter.print(qn);
             theWriter.print(' ');
             theWriter.println(atts.getValue(i));
         }
@@ -273,7 +274,7 @@ public class PYXWriter implements ScanHandler, ContentHandler, LexicalHandler {
     }
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param w writer
      */

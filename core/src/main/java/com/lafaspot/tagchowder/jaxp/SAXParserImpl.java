@@ -34,14 +34,20 @@ import com.lafaspot.tagchowder.Parser;
  * @author Tatu Saloranta (cowtowncoder@yahoo.com)
  */
 public class SAXParserImpl extends SAXParser {
-    final Parser parser;
+    private final Parser parser;
 
-    protected SAXParserImpl() // used by factory, for prototypes
-    {
+    protected SAXParserImpl() { // used by factory, for prototypes
         super();
         parser = new Parser();
     }
 
+    /**
+     * Initialize new instance.
+     *
+     * @param features features map
+     * @return new SAXParserImpl instance
+     * @throws SAXException SAXException
+     */
     public static SAXParserImpl newInstance(final Map features) throws SAXException {
         SAXParserImpl parser = new SAXParserImpl();
         if (features != null) {
@@ -75,7 +81,7 @@ public class SAXParserImpl extends SAXParser {
     @Override
     public boolean isNamespaceAware() {
         try {
-            return parser.getFeature(Parser.namespacesFeature);
+            return parser.getFeature(Parser.NAMESPACES_FEATURE);
         } catch (SAXException sex) { // should never happen... so:
             throw new RuntimeException(sex.getMessage());
         }
@@ -84,7 +90,7 @@ public class SAXParserImpl extends SAXParser {
     @Override
     public boolean isValidating() {
         try {
-            return parser.getFeature(Parser.validationFeature);
+            return parser.getFeature(Parser.VALIDATION_FEATURE);
         } catch (SAXException sex) { // should never happen... so:
             throw new RuntimeException(sex.getMessage());
         }
@@ -102,10 +108,26 @@ public class SAXParserImpl extends SAXParser {
 
     // // // Additional convenience methods
 
+    /**
+     * Set feature.
+     *
+     * @param name name of feature
+     * @param value value of feature
+     * @throws SAXNotRecognizedException SAXNotRecognizedException
+     * @throws SAXNotSupportedException SAXNotSupportedException
+     */
     public void setFeature(final String name, final boolean value) throws SAXNotRecognizedException, SAXNotSupportedException {
         parser.setFeature(name, value);
     }
 
+    /**
+     * Get feature.
+     *
+     * @param name name of feature
+     * @return value of feature
+     * @throws SAXNotRecognizedException SAXNotRecognizedExceptionn
+     * @throws SAXNotSupportedException SAXNotSupportedException
+     */
     public boolean getFeature(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
         return parser.getFeature(name);
     }

@@ -27,11 +27,23 @@ import org.w3c.dom.Document;
  * Trivial non-robust test class, to show that TagChowder can be accessed using JAXP interface.
  */
 public class JAXPTest {
-    public static void main(String[] args) throws Exception {
+    /**
+     * Main program.
+     *
+     * @param args arguments
+     * @throws Exception exception
+     */
+    public static void main(final String[] args) throws Exception {
         new JAXPTest().test(args);
     }
 
-    private void test(String[] args) throws Exception {
+    /**
+     * Test case.
+     *
+     * @param args arguments
+     * @throws Exception exception
+     */
+    private void test(final String[] args) throws Exception {
         if (args.length != 1) {
             System.err.println("Usage: java " + getClass() + " [input-file]");
             System.exit(1);

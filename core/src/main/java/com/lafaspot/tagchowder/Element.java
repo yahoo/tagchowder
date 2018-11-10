@@ -38,12 +38,13 @@ public class Element {
      * @param defaultAttributes True if default attributes are wanted
      */
 
-    public Element(ElementType type, boolean defaultAttributes) {
+    public Element(final ElementType type, final boolean defaultAttributes) {
         theType = type;
-        if (defaultAttributes)
+        if (defaultAttributes) {
             theAtts = new AttributesImpl(type.atts());
-        else
+        } else {
             theAtts = new AttributesImpl();
+        }
         theNext = null;
         preclosed = false;
     }
@@ -84,7 +85,7 @@ public class Element {
      * @param next The new next element
      */
 
-    public void setNext(Element next) {
+    public void setNext(final Element next) {
         theNext = next;
     }
 
@@ -162,9 +163,10 @@ public class Element {
      * Return true if the type of this element can contain the type of another element. Convenience method.
      *
      * @param other The other element
+     * @return boolean
      */
 
-    public boolean canContain(Element other) {
+    public boolean canContain(final Element other) {
         return theType.canContain(other.theType);
     }
 
@@ -176,7 +178,7 @@ public class Element {
      * @param value The attribute value
      */
 
-    public void setAttribute(String name, String type, String value) {
+    public void setAttribute(final String name, final String type, final String value) {
         theType.setAttribute(theAtts, name, type, value);
     }
 
@@ -217,6 +219,8 @@ public class Element {
 
     /**
      * Return true if this element has been preclosed.
+     *
+     * @return boolean
      */
 
     public boolean isPreclosed() {

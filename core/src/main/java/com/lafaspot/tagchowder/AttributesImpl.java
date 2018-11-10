@@ -303,8 +303,9 @@ public class AttributesImpl implements Attributes {
      */
     public void clear() {
         if (data != null) {
-            for (int i = 0; i < (length * 5); i++)
+            for (int i = 0; i < (length * 5); i++) {
                 data[i] = null;
+            }
         }
         length = 0;
     }
@@ -373,7 +374,7 @@ public class AttributesImpl implements Attributes {
      * @param value The attribute value.
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
-    public void setAttribute(int index, String uri, String localName, String qName, String type, String value) {
+    public void setAttribute(final int index, final String uri, final String localName, final String qName, final String type, final String value) {
         if (index >= 0 && index < length) {
             data[index * 5] = uri;
             data[index * 5 + 1] = localName;
@@ -509,7 +510,7 @@ public class AttributesImpl implements Attributes {
             max *= 2;
         }
 
-        String newData[] = new String[max];
+        String[] newData = new String[max];
         if (length > 0) {
             System.arraycopy(data, 0, newData, 0, length * 5);
         }
@@ -531,8 +532,8 @@ public class AttributesImpl implements Attributes {
     // Internal state.
     ////////////////////////////////////////////////////////////////////
 
-    int length;
-    String data[];
+    private int length;
+    private String[] data;
 
 }
 

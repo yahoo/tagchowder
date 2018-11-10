@@ -39,7 +39,7 @@ import com.lafaspot.tagchowder.templates.HTMLSchema;
  **/
 public class CommandLine {
 
-    static Hashtable options = new Hashtable();
+    private static Hashtable options = new Hashtable();
     static {
         options.put("--nocdata", Boolean.FALSE); // CDATA elements are normal
         options.put("--files", Boolean.FALSE); // process arguments as separate files
@@ -68,7 +68,11 @@ public class CommandLine {
     }
 
     /**
-     * Main method. Processes specified files or standard input.
+     * Main method. Processes specified files or standard input
+     *
+     * @param argv argument
+     * @throws IOException IOException
+     * @throws SAXException SAXException
      **/
 
     public static void main(final String[] argv) throws IOException, SAXException {
@@ -145,43 +149,43 @@ public class CommandLine {
             r = new Parser();
         }
         theSchema = new HTMLSchema();
-        r.setProperty(Parser.schemaProperty, theSchema);
+        r.setProperty(Parser.SCHEMA_PROPERTY, theSchema);
 
         if (hasOption(options, "--nocdata")) {
-            r.setFeature(Parser.CDATAElementsFeature, false);
+            r.setFeature(Parser.CDATA_ELEMENTS_FEATURE, false);
         }
 
         if (hasOption(options, "--nons") || hasOption(options, "--html")) {
-            r.setFeature(Parser.namespacesFeature, false);
+            r.setFeature(Parser.NAMESPACES_FEATURE, false);
         }
 
         if (hasOption(options, "--nobogons")) {
-            r.setFeature(Parser.ignoreBogonsFeature, true);
+            r.setFeature(Parser.IGNORE_BOGONS_FEATURE, true);
         }
 
         if (hasOption(options, "--any")) {
-            r.setFeature(Parser.bogonsEmptyFeature, false);
+            r.setFeature(Parser.BOGONS_EMPTY_FEATURE, false);
         } else if (hasOption(options, "--emptybogons")) {
-            r.setFeature(Parser.bogonsEmptyFeature, true);
+            r.setFeature(Parser.BOGONS_EMPTY_FEATURE, true);
         }
 
         if (hasOption(options, "--norootbogons")) {
-            r.setFeature(Parser.rootBogonsFeature, false);
+            r.setFeature(Parser.ROOT_BOGONS_FEATURE, false);
         }
 
         if (hasOption(options, "--nodefaults")) {
-            r.setFeature(Parser.defaultAttributesFeature, false);
+            r.setFeature(Parser.DEFAULT_ATTRIBUTES_FEATURE, false);
         }
         if (hasOption(options, "--nocolons")) {
-            r.setFeature(Parser.translateColonsFeature, true);
+            r.setFeature(Parser.TRANSLATE_COLONS_FEATURE, true);
         }
 
         if (hasOption(options, "--norestart")) {
-            r.setFeature(Parser.restartElementsFeature, false);
+            r.setFeature(Parser.RESTART_ELEMENTS_FEATURE, false);
         }
 
         if (hasOption(options, "--ignorable")) {
-            r.setFeature(Parser.ignorableWhitespaceFeature, true);
+            r.setFeature(Parser.IGNORABLE_WHITESPACE_FEATURE, true);
         }
 
         Writer w;
@@ -193,7 +197,7 @@ public class CommandLine {
         ContentHandler h = chooseContentHandler(w);
         r.setContentHandler(h);
         if (hasOption(options, "--lexical") && h instanceof LexicalHandler) {
-            r.setProperty(Parser.lexicalHandlerProperty, h);
+            r.setProperty(Parser.LEXICAL_HANDLER_PROPERTY, h);
         }
         InputSource s = new InputSource();
         if (src != "") {
@@ -204,8 +208,9 @@ public class CommandLine {
         if (hasOption(options, "--encoding=")) {
             // System.out.println("%% Found --encoding");
             String encoding = (String) options.get("--encoding=");
-            if (encoding != null)
+            if (encoding != null) {
                 s.setEncoding(encoding);
+            }
         }
         r.parse(s);
     }
@@ -230,15 +235,15 @@ public class CommandLine {
             }
         }
         if (hasOption(options, "--doctype-public=")) {
-            String doctype_public = (String) options.get("--doctype-public=");
-            if (doctype_public != null) {
-                x.setOutputProperty(XMLWriter.DOCTYPE_PUBLIC, doctype_public);
+            String doctypePublic = (String) options.get("--doctype-public=");
+            if (doctypePublic != null) {
+                x.setOutputProperty(XMLWriter.DOCTYPE_PUBLIC, doctypePublic);
             }
         }
         if (hasOption(options, "--doctype-system=")) {
-            String doctype_system = (String) options.get("--doctype-system=");
-            if (doctype_system != null) {
-                x.setOutputProperty(XMLWriter.DOCTYPE_SYSTEM, doctype_system);
+            String doctypeSystem = (String) options.get("--doctype-system=");
+            if (doctypeSystem != null) {
+                x.setOutputProperty(XMLWriter.DOCTYPE_SYSTEM, doctypeSystem);
             }
         }
         if (hasOption(options, "--output-encoding=")) {

@@ -85,7 +85,7 @@ public class ElementType {
      * @param name The Qname
      * @return The local name
      **/
-    public String localName(String name) {
+    public String localName(final String name) {
         int colon = name.indexOf(':');
         if (colon == -1) {
             return name;
@@ -158,6 +158,8 @@ public class ElementType {
      * Returns the default attributes associated with this element type. Attributes of type CDATA that don't have default values are typically not
      * included. Other attributes without default values have an internal value of <tt>null</tt>. The return value is an AttributesImpl to allow the
      * caller to mutate the attributes.
+     *
+     * @return attributes impl
      */
 
     public AttributesImpl atts() {
@@ -189,6 +191,7 @@ public class ElementType {
      * the models in the other element type's member-of vector.
      *
      * @param other The other element type
+     * @return boolean
      */
 
     public boolean canContain(final ElementType other) {

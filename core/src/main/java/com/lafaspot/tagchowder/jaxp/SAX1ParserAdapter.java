@@ -40,9 +40,14 @@ import org.xml.sax.XMLReader;
  */
 @Deprecated
 public class SAX1ParserAdapter implements org.xml.sax.Parser {
-    final XMLReader xmlReader;
+    private final XMLReader xmlReader;
 
-    public SAX1ParserAdapter(XMLReader xr) {
+    /**
+     * Constructor.
+     *
+     * @param xr xml reader
+     */
+    public SAX1ParserAdapter(final XMLReader xr) {
         xmlReader = xr;
     }
 
@@ -101,15 +106,15 @@ public class SAX1ParserAdapter implements org.xml.sax.Parser {
     // Helper classes:
 
     /**
-     * We need another helper class to deal with differences between Sax2 handler (content handler), and Sax1 handler (document handler)
+     * We need another helper class to deal with differences between Sax2 handler (content handler), and Sax1 handler (document handler).
      *
      * @deprecated
      */
     @Deprecated
     static final class DocHandlerWrapper implements ContentHandler {
-        final DocumentHandler docHandler;
+        private final DocumentHandler docHandler;
 
-        final AttributesWrapper mAttrWrapper = new AttributesWrapper();
+        private final AttributesWrapper mAttrWrapper = new AttributesWrapper();
 
         /**
          * @deprecated
@@ -186,18 +191,18 @@ public class SAX1ParserAdapter implements org.xml.sax.Parser {
     }
 
     /**
-     * And one more helper to deal with attribute access differences
+     * And one more helper to deal with attribute access differences.
      *
      * @deprecated
      */
     @Deprecated
-    final static class AttributesWrapper implements AttributeList {
-        Attributes attrs;
+    static final class AttributesWrapper implements AttributeList {
+        private Attributes attrs;
 
         public AttributesWrapper() {
         }
 
-        public void setAttributes(Attributes a) {
+        public void setAttributes(final Attributes a) {
             attrs = a;
         }
 

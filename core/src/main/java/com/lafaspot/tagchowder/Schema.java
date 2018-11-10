@@ -26,13 +26,19 @@ import java.util.HashMap;
 
 public abstract class Schema {
 
+    /** Any. */
     public static final int M_ANY = 0xFFFFFFFF;
+    /** Empty. */
     public static final int M_EMPTY = 0;
+    /** PCDATA. */
     public static final int M_PCDATA = 1 << 30;
+    /** Root. */
     public static final int M_ROOT = 1 << 31;
-
+    /** Restart. */
     public static final int F_RESTART = 1;
+    /** CDATA. */
     public static final int F_CDATA = 2;
+    /** noforce. */
     public static final int F_NOFORCE = 4;
 
     private HashMap theEntities = new HashMap(); // String -> Character
@@ -60,7 +66,9 @@ public abstract class Schema {
     }
 
     /**
-     * Get the root element of this schema
+     * Get the root element of this schema.
+     *
+     * @return element type
      **/
 
     public ElementType rootElementType() {

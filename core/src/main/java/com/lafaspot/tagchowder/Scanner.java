@@ -34,6 +34,8 @@ public interface Scanner {
      *
      * @param r A source of characters to scan
      * @param h A ScanHandler to report events to
+     * @throws IOException IOException
+     * @throws SAXException SAXException
      **/
 
     void scan(final Reader r, final ScanHandler h) throws IOException, SAXException;
