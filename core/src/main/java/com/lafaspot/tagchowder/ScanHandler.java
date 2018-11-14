@@ -67,7 +67,7 @@ public interface ScanHandler {
     void cdsect(char[] buff, int offset, int length) throws SAXException;
 
     /**
-     * Reports a <!....> declaration - typically a DOCTYPE.
+     * Reports a &lt;!....&gt; declaration - typically a DOCTYPE.
      *
      * @param buff buffer
      * @param offset offset

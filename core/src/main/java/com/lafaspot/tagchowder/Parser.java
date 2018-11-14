@@ -825,7 +825,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     /**
      * Parsing the complete XML Document Type Definition is way too complex, but for many simple cases we can extract something useful from it.
      *
-     * doctypedecl ::= '<!DOCTYPE' S Name (S ExternalID)? S? ('[' intSubset ']' S?)? '>' DeclSep ::= PEReference | S intSubset ::= (markupdecl |
+     * doctypedecl ::= '&lt;!DOCTYPE' S Name (S ExternalID)? S? ('[' intSubset ']' S?)? '&gt;' DeclSep ::= PEReference | S intSubset ::= (markupdecl |
      * DeclSep)* markupdecl ::= elementdecl | AttlistDecl | EntityDecl | NotationDecl | PI | Comment ExternalID ::= 'SYSTEM' S SystemLiteral |
      * 'PUBLIC' S PubidLiteral S SystemLiteral
      */

@@ -83,9 +83,9 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </p>
  *
  * <pre>
- * &lt;?xml version="1.0" standalone="yes"?>
+ * &lt;?xml version="1.0" standalone="yes"?&gt;
  *
- * &lt;greeting>Hello, world!&lt;/greeting>
+ * &lt;greeting&gt;&gt;Hello, world!&lt;/greeting&gt;
  * </pre>
  *
  * <p>
@@ -119,13 +119,13 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </p>
  *
  * <pre>
- * &lt;item>1&lt;/item>&lt;item>3&lt;/item>&lt;item>3&lt;/item>
+ * &lt;item&gt;1&lt;/item&gt;&lt;item&gt;3&lt;/item&gt;&lt;item&gt;3&lt;/item&gt;
  * </pre>
  *
  * <p>
- * You need to invoke one of the <var>characters</var> methods explicitly to add newlines or indentation. Alternatively, you can use
- * {@link com.megginson.sax.DataWriter DataWriter}, which is derived from this class -- it is optimized for writing purely data-oriented (or
- * field-oriented) XML, and does automatic linebreaks and indentation (but does not support mixed content properly).
+ * You need to invoke one of the <var>characters</var> methods explicitly to add newlines or indentation. Alternatively, you can use , which is
+ * derived from this class -- it is optimized for writing purely data-oriented (or field-oriented) XML, and does automatic linebreaks and indentation
+ * (but does not support mixed content properly).
  * </p>
  *
  *
@@ -148,9 +148,9 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </p>
  *
  * <pre>
- * &lt;?xml version="1.0" standalone="yes"?>
+ * &lt;?xml version="1.0" standalone="yes"?&gt;
  *
- * &lt;_NS1:foo xmlns:_NS1="http://www.foo.com/ns/"/>
+ * &lt;_NS1:foo xmlns:_NS1="http://www.foo.com/ns/"/&gt;
  * </pre>
  *
  * <p>
@@ -184,9 +184,9 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </p>
  *
  * <pre>
- * &lt;?xml version="1.0" standalone="yes"?>
+ * &lt;?xml version="1.0" standalone="yes"?&gt;
  *
- * &lt;foo:foo xmlns:foo="http://www.foo.com/ns/"/>
+ * &lt;foo:foo xmlns:foo="http://www.foo.com/ns/"/&gt;
  * </pre>
  *
  * <p>
@@ -205,9 +205,9 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </p>
  *
  * <pre>
- * &lt;?xml version="1.0" standalone="yes"?>
+ * &lt;?xml version="1.0" standalone="yes"?&gt;
  *
- * &lt;foo xmlns="http://www.foo.com/ns/"/>
+ * &lt;foo xmlns="http://www.foo.com/ns/"/&gt;
  * </pre>
  *
  * <p>
@@ -216,15 +216,15 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </p>
  *
  * <pre>
- * &lt;xml version="1.0" standalone="yes"?>
+ * &lt;xml version="1.0" standalone="yes"?&gt;
  *
- * &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
- *  &lt;rdf:Description about="http://www.foo.com/ids/books/12345">
- *   &lt;dc:title xmlns:dc="http://www.purl.org/dc/">A Dark Night&lt;/dc:title>
- *   &lt;dc:creator xmlns:dc="http://www.purl.org/dc/">Jane Smith&lt;/dc:title>
- *   &lt;dc:date xmlns:dc="http://www.purl.org/dc/">2000-09-09&lt;/dc:title>
- *  &lt;/rdf:Description>
- * &lt;/rdf:RDF>
+ * &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"&gt;
+ *  &lt;rdf:Description about="http://www.foo.com/ids/books/12345"&gt;
+ *   &lt;dc:title xmlns:dc="http://www.purl.org/dc/"&gt;A Dark Night&lt;/dc:title&gt;
+ *   &lt;dc:creator xmlns:dc="http://www.purl.org/dc/"&gt;Jane Smith&lt;/dc:title&gt;
+ *   &lt;dc:date xmlns:dc="http://www.purl.org/dc/"&gt;2000-09-09&lt;/dc:title&gt;
+ *  &lt;/rdf:Description&gt;
+ * &lt;/rdf:RDF&gt;
  * </pre>
  *
  * <p>
@@ -242,16 +242,16 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * </p>
  *
  * <pre>
- * &lt;xml version="1.0" standalone="yes"?>
+ * &lt;xml version="1.0" standalone="yes"?&gt;
  *
  * &lt;rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
- *             xmlns:dc="http://www.purl.org/dc/">
- *  &lt;rdf:Description about="http://www.foo.com/ids/books/12345">
- *   &lt;dc:title>A Dark Night&lt;/dc:title>
- *   &lt;dc:creator>Jane Smith&lt;/dc:title>
- *   &lt;dc:date>2000-09-09&lt;/dc:title>
- *  &lt;/rdf:Description>
- * &lt;/rdf:RDF>
+ *             xmlns:dc="http://www.purl.org/dc/"&gt;
+ *  &lt;rdf:Description about="http://www.foo.com/ids/books/12345"&gt;
+ *   &lt;dc:title&gt;A Dark Night&lt;/dc:title&gt;
+ *   &lt;dc:creator&gt;Jane Smith&lt;/dc:title&gt;
+ *   &lt;dc:date&gt;2000-09-09&lt;/dc:title&gt;
+ *  &lt;/rdf:Description&gt;
+ * &lt;/rdf:RDF&gt;
  * </pre>
  *
  * <p>
@@ -604,7 +604,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      *
      * @param ch The array of characters to write.
      * @param start The starting position in the array.
-     * @param length The number of characters to write.
+     * @param len The number of characters to write.
      * @exception org.xml.sax.SAXException If there is an error writing the characters, or if a handler further down the filter chain raises an
      *                exception.
      * @see org.xml.sax.ContentHandler#characters
