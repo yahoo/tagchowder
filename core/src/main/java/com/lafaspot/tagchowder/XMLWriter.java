@@ -492,7 +492,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
                 write(version);
                 write("\"");
             }
-            if (outputEncoding != null && outputEncoding != "") {
+            if (outputEncoding != null && !outputEncoding.equals("")) {
                 write(" encoding=\"");
                 write(outputEncoding);
                 write("\"");

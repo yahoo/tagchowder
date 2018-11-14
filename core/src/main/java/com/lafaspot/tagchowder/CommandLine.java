@@ -200,7 +200,7 @@ public class CommandLine {
             r.setProperty(Parser.LEXICAL_HANDLER_PROPERTY, h);
         }
         InputSource s = new InputSource();
-        if (src != "") {
+        if (!src.equals("")) {
             s.setSystemId(src);
         } else {
             s.setByteStream(System.in);

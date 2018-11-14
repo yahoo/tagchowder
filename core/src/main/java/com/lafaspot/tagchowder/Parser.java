@@ -965,9 +965,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             return;
         }
         String name = makeName(buff, offset, length);
-        if (name == null) {
-            return;
-        }
         ElementType type = theSchema.getElementType(name);
         if (type == null) {
             // Suppress unknown elements if ignore-bogons is on
