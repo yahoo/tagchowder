@@ -1069,7 +1069,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Rectify the stack, pushing and popping as needed
     // so that the argument can be safely pushed
-    private void rectify(final Element e) throws SAXException {
+    private void rectify(final Element element) throws SAXException {
+        Element e = element;
         Element sp;
         while (true) {
             for (sp = theStack; sp != null; sp = sp.next()) {
