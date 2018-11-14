@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.lafa.tagchowder</groupId>
@@ -12,7 +13,7 @@
     <prerequisites>
         <maven>3.0</maven>
     </prerequisites>
-    
+
     <scm>
         <developerConnection>scm:git:https://github.com/lafaspot/tagchowder.git</developerConnection>
         <connection>scm:git:https://github.com/lafaspot/tagchowder.git</connection>
@@ -55,7 +56,7 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-    
+
     <modules>
         <module>core</module>
     </modules>
@@ -512,7 +513,112 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>xslt-transform</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>${main.basedir}/core/definitions</dir>
+                            <includes>html-models.tssl</includes>
+                            <stylesheet>${main.basedir}/core/tssl/tssl-models.xslt</stylesheet>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>${main.basedir}/core/definitions</dir>
+                            <includes>html-schema.tssl</includes>
+                            <stylesheet>${main.basedir}/core/tssl/tssl-schemas.xslt</stylesheet>
+                        </transformationSet>
+                        <transformationSet>
+                            <dir>${main.basedir}/core/definitions</dir>
+                            <includes>html-scanner.stml</includes>
+                            <stylesheet>${main.basedir}/core/stml/stml-scanner.xslt</stylesheet>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.saxon</groupId>
+                        <artifactId>saxon</artifactId>
+                        <version>8.7</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <id>replace-models</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <file>${main.basedir}/core/templates/HTMLModels.java</file>
+                            <outputFile>${main.basedir}/target/generated-sources/HTMLModels.java</outputFile>
+                            <regex>false</regex>
+                            <token>@@MODEL_DEFINITIONS@@</token>
+                            <valueFile>${main.basedir}/target/generated-resources/xml/xslt/html-models.tssl</valueFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>replace-scanner</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <file>${main.basedir}/core/templates/HTMLScanner.java</file>
+                            <outputFile>${main.basedir}/target/generated-sources/HTMLScanner.java</outputFile>
+                            <regex>false</regex>
+                            <token>@@STATE_TABLE@@</token>
+                            <valueFile>${main.basedir}/target/generated-resources/xml/xslt/html-scanner.stml</valueFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>replace-schema</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <file>${main.basedir}/core/templates/HTMLSchema.java</file>
+                            <outputFile>${main.basedir}/target/generated-sources/HTMLSchema.java</outputFile>
+                            <regex>false</regex>
+                            <token>@@SCHEMA_CALLS@@</token>
+                            <valueFile>${main.basedir}/target/generated-resources/xml/xslt/html-schema.tssl</valueFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${main.basedir}/target/generated-sources/</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
