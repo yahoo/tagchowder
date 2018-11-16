@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.lafa.tagchowder</groupId>
@@ -12,7 +13,7 @@
     <prerequisites>
         <maven>3.0</maven>
     </prerequisites>
-    
+
     <scm>
         <developerConnection>scm:git:https://github.com/lafaspot/tagchowder.git</developerConnection>
         <connection>scm:git:https://github.com/lafaspot/tagchowder.git</connection>
@@ -55,7 +56,7 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
-    
+
     <modules>
         <module>core</module>
     </modules>
@@ -70,12 +71,11 @@
         <maven-findbugs-plugin.version>3.0.1</maven-findbugs-plugin.version>
         <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
         <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
-        <maven-checkstyle-plugin.version>2.16</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <jersey.version>2.18</jersey.version>
         <jackson.version>2.5.3</jackson.version>
         <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
         <testTimeLimitInSeconds>0</testTimeLimitInSeconds>
-        <main.basedir>${project.basedir}</main.basedir>
     </properties>
 
     <dependencies>
@@ -266,7 +266,7 @@
                                             maven-checkstyle-plugin
                                         </artifactId>
                                         <versionRange>
-                                            [2.16,)
+                                            [3.0,)
                                         </versionRange>
                                         <goals>
                                             <goal>check</goal>
@@ -282,238 +282,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <meminitial>128m</meminitial>
-                    <maxmem>512m</maxmem>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                    <optimize>true</optimize>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforce</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireJavaVersion>
-                                    <version>${jdk.version}</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-scm-plugin</artifactId>
-                <inherited>false</inherited>
-                <configuration>
-                    <connectionType>connection</connectionType>
-                    <includes>*.state,*.yidf</includes>
-                    <workingDirectory>${main.basedir}/ci/buildtime</workingDirectory>
-                    <message>Auto-update-build</message>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>pre-site</phase>
-                        <goals>
-                            <goal>checkin</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <!-- http://gleclaire.github.io/findbugs-maven-plugin/faq.html 
-                    When running findbugs on a project, the default heap size might not be enough 
-                    to complete the build. For now there is no way to fork findbugs and run with 
-                    its own memory requirements, but the following system variable will allow 
-                    you to do so for Maven: export MAVEN_OPTS=-Xmx1024M -->
-                <configuration>
-                    <fork>true</fork>
-                    <maxHeap>2048</maxHeap>
-                    <!-- Fail build in case of Findbugs errors during build. -->
-                    <failOnError>true</failOnError>
-                    <!-- Level of analysis effort. -->
-                    <effort>low</effort>
-                    <!-- Check test sources for bugs. -->
-                    <includeTests>true</includeTests>
-                    <includeFilterFile>${main.basedir}/findbugs-include.xml</includeFilterFile>
-                    <threshold>medium</threshold>
-                    <!-- No XML output from Findgbugs. -->
-                    <xmlOutput>false</xmlOutput>
-                    <findbugsXmlOutput>false</findbugsXmlOutput>
-                </configuration>
-                <executions>
-                    <!-- Ensures that FindBugs inspects source code when 
-                        project is compiled. -->
-                    <execution>
-                        <id>check-compile</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <failOnViolation>true</failOnViolation>
-                    <failurePriority>1</failurePriority>
-                    <rulesets>
-                        <ruleset>${main.basedir}/pmd-ruleset.xml</ruleset>
-                    </rulesets>
-                    <linkXRef>false</linkXRef>
-                    <verbose>true</verbose>
-                    <printFailingErrors>true</printFailingErrors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>pmd</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <forkMode>once</forkMode>
-                    <!-- do not change the library.path -->
-                    <argLine>-Dfile.encoding=ANSI_X3.4-1968
-                        -Djava.library.path=
-                        -javaagent:"${settings.localRepository}"/org/jacoco/org.jacoco.agent/${jacoco-maven-plugin.version}/org.jacoco.agent-${jacoco-maven-plugin.version}-runtime.jar=destfile=${basedir}/target/jacoco.exec</argLine>
-                    <excludedGroups>notIsolate,EventListenersRegression</excludedGroups>
-                    <!-- DO NOT TOUCH: SETTINGS BELOW ALLOW THE CONFIG LOADER 
-                        TO FIND CONFIG TEST RESOURCES -->
-                    <useSystemClassLoader>true</useSystemClassLoader>
-                    <useManifestOnlyJar>false</useManifestOnlyJar>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>checkstyle</id>
-                        <phase>validate</phase>
-                        <configuration>
-                            <encoding>UTF-8</encoding>
-                            <consoleOutput>true</consoleOutput>
-                            <linkXRef>false</linkXRef>
-                            <configLocation>checkstyle.xml</configLocation>
-                            <consoleOutput>true</consoleOutput>
-                            <failsOnError>true</failsOnError>
-                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                            <propertyExpansion>config_loc=${main.basedir}</propertyExpansion>
-                            <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
-                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                        </configuration>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>jacoco-initialize</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${basedir}/target/jacoco.exec</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${basedir}/target/jacoco.exec</dataFile>
-                            <outputDirectory>${basedir}/target/jacoco</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.3</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-
-        </plugins>
     </build>
     <profiles>
         <profile>

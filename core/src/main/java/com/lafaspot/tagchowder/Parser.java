@@ -825,7 +825,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     /**
      * Parsing the complete XML Document Type Definition is way too complex, but for many simple cases we can extract something useful from it.
      *
-     * doctypedecl ::= '<!DOCTYPE' S Name (S ExternalID)? S? ('[' intSubset ']' S?)? '>' DeclSep ::= PEReference | S intSubset ::= (markupdecl |
+     * doctypedecl ::= '&lt;!DOCTYPE' S Name (S ExternalID)? S? ('[' intSubset ']' S?)? '&gt;' DeclSep ::= PEReference | S intSubset ::= (markupdecl |
      * DeclSep)* markupdecl ::= elementdecl | AttlistDecl | EntityDecl | NotationDecl | PI | Comment ExternalID ::= 'SYSTEM' S SystemLiteral |
      * 'PUBLIC' S PubidLiteral S SystemLiteral
      */
@@ -965,9 +965,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             return;
         }
         String name = makeName(buff, offset, length);
-        if (name == null) {
-            return;
-        }
         ElementType type = theSchema.getElementType(name);
         if (type == null) {
             // Suppress unknown elements if ignore-bogons is on
@@ -1069,7 +1066,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     // Rectify the stack, pushing and popping as needed
     // so that the argument can be safely pushed
-    private void rectify(final Element e) throws SAXException {
+    private void rectify(final Element element) throws SAXException {
+        Element e = element;
         Element sp;
         while (true) {
             for (sp = theStack; sp != null; sp = sp.next()) {

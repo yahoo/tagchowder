@@ -14,8 +14,8 @@
 -->
 
 <schema xmlns='http://www.ccil.org/~cowan/XML/tagsoup/tssl'
-		ns='http://www.w3.org/1999/xhtml' name='html'
-		prefix='html' version='1.0'>
+        ns='http://www.w3.org/1999/xhtml' name='html'
+        prefix='html' version='1.0'>
 
   <entity name='AElig' codepoint='00C6'/>
   <entity name='AMP' codepoint='0026'/>
@@ -2498,7 +2498,7 @@
         <memberOf group='M_NOLINK'/>
       </element>
       <element name='noscript' type='mixed'>
-	<memberOfAny/>
+    <memberOfAny/>
         <contains group='M_INLINE'/>
         <contains group='M_BLOCK'/>
       </element>
@@ -2573,7 +2573,7 @@
         <memberOf group='M_INLINE'/>
         <memberOf group='M_NOLINK'/>
         <contains group='M_INLINE'/>
-	<attribute name='rbspan' default='1'/>
+    <attribute name='rbspan' default='1'/>
       </element>
       <element name='rp' closeMode='restartable' type='mixed'>
         <memberOf group='M_INLINE'/>
