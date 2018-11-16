@@ -72,7 +72,6 @@
                 <inherited>false</inherited>
                 <configuration>
                     <connectionType>connection</connectionType>
-                    <includes>*.state,*.yidf</includes>
                     <workingDirectory>${main.basedir}/ci/buildtime</workingDirectory>
                     <message>Auto-update-build</message>
                 </configuration>
@@ -285,13 +284,17 @@
                         </transformationSet>
                         <transformationSet>
                             <dir>${main.basedir}/core/definitions</dir>
-                            <includes>html.tssl</includes>
+                            <includes>
+                                <include>html.tssl</include>
+                            </includes>
                             <stylesheet>${main.basedir}/core/tssl/tssl-schema.xslt</stylesheet>
                             <outputDir>${main.basedir}/target/generated-resources/xml/xslt/schema/</outputDir>
                         </transformationSet>
                         <transformationSet>
                             <dir>${main.basedir}/core/definitions</dir>
-                            <includes>html.stml</includes>
+                            <includes>
+                                <include>html.stml</include>
+                            </includes>
                             <stylesheet>${main.basedir}/core/stml/stml-scanner.xslt</stylesheet>
                             <outputDir>${main.basedir}/target/generated-resources/xml/xslt/scanner/</outputDir>
                         </transformationSet>
