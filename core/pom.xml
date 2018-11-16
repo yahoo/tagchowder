@@ -33,234 +33,6 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <meminitial>128m</meminitial>
-                    <maxmem>512m</maxmem>
-                    <source>${jdk.version}</source>
-                    <target>${jdk.version}</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                    <optimize>true</optimize>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>enforce</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireJavaVersion>
-                                    <version>${jdk.version}</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-scm-plugin</artifactId>
-                <inherited>false</inherited>
-                <configuration>
-                    <connectionType>connection</connectionType>
-                    <workingDirectory>${main.basedir}/ci/buildtime</workingDirectory>
-                    <message>Auto-update-build</message>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>pre-site</phase>
-                        <goals>
-                            <goal>checkin</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <!-- http://gleclaire.github.io/findbugs-maven-plugin/faq.html 
-                    When running findbugs on a project, the default heap size might not be enough 
-                    to complete the build. For now there is no way to fork findbugs and run with 
-                    its own memory requirements, but the following system variable will allow 
-                    you to do so for Maven: export MAVEN_OPTS=-Xmx1024M -->
-                <configuration>
-                    <fork>true</fork>
-                    <maxHeap>2048</maxHeap>
-                    <!-- Fail build in case of Findbugs errors during build. -->
-                    <failOnError>true</failOnError>
-                    <!-- Level of analysis effort. -->
-                    <effort>low</effort>
-                    <!-- Check test sources for bugs. -->
-                    <includeTests>true</includeTests>
-                    <includeFilterFile>${main.basedir}/findbugs-include.xml</includeFilterFile>
-                    <threshold>medium</threshold>
-                    <!-- No XML output from Findgbugs. -->
-                    <xmlOutput>false</xmlOutput>
-                    <findbugsXmlOutput>false</findbugsXmlOutput>
-                </configuration>
-                <executions>
-                    <!-- Ensures that FindBugs inspects source code when 
-                        project is compiled. -->
-                    <execution>
-                        <id>check-compile</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <failOnViolation>true</failOnViolation>
-                    <failurePriority>1</failurePriority>
-                    <rulesets>
-                        <ruleset>${main.basedir}/pmd-ruleset.xml</ruleset>
-                    </rulesets>
-                    <linkXRef>false</linkXRef>
-                    <verbose>true</verbose>
-                    <printFailingErrors>true</printFailingErrors>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>pmd</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <forkMode>once</forkMode>
-                    <!-- do not change the library.path -->
-                    <argLine>-Dfile.encoding=ANSI_X3.4-1968
-                        -Djava.library.path=
-                        -javaagent:"${settings.localRepository}"/org/jacoco/org.jacoco.agent/${jacoco-maven-plugin.version}/org.jacoco.agent-${jacoco-maven-plugin.version}-runtime.jar=destfile=${basedir}/target/jacoco.exec</argLine>
-                    <excludedGroups>notIsolate,EventListenersRegression</excludedGroups>
-                    <!-- DO NOT TOUCH: SETTINGS BELOW ALLOW THE CONFIG LOADER 
-                        TO FIND CONFIG TEST RESOURCES -->
-                    <useSystemClassLoader>true</useSystemClassLoader>
-                    <useManifestOnlyJar>false</useManifestOnlyJar>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>checkstyle</id>
-                        <phase>validate</phase>
-                        <configuration>
-                            <encoding>UTF-8</encoding>
-                            <consoleOutput>true</consoleOutput>
-                            <linkXRef>false</linkXRef>
-                            <configLocation>checkstyle.xml</configLocation>
-                            <consoleOutput>true</consoleOutput>
-                            <failsOnError>true</failsOnError>
-                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                            <propertyExpansion>config_loc=${main.basedir}</propertyExpansion>
-                            <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
-                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-                        </configuration>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>jacoco-initialize</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                        <configuration>
-                            <destFile>${basedir}/target/jacoco.exec</destFile>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                        <configuration>
-                            <dataFile>${basedir}/target/jacoco.exec</dataFile>
-                            <outputDirectory>${basedir}/target/jacoco</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.0-M1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.3</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>xml-maven-plugin</artifactId>
                 <executions>
@@ -275,43 +47,35 @@
                 <configuration>
                     <transformationSets>
                         <transformationSet>
-                            <dir>${main.basedir}/core/definitions</dir>
+                            <dir>${project.basedir}/definitions</dir>
                             <includes>
                                 <include>html.tssl</include>
                             </includes>
-                            <stylesheet>${main.basedir}/core/tssl/tssl-model.xslt</stylesheet>
-                            <outputDir>${main.basedir}/target/generated-resources/xml/xslt/model/</outputDir>
+                            <stylesheet>${project.basedir}/tssl/tssl-model.xslt</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/xml/xslt/model/</outputDir>
                         </transformationSet>
                         <transformationSet>
-                            <dir>${main.basedir}/core/definitions</dir>
+                            <dir>${project.basedir}/definitions</dir>
                             <includes>
                                 <include>html.tssl</include>
                             </includes>
-                            <stylesheet>${main.basedir}/core/tssl/tssl-schema.xslt</stylesheet>
-                            <outputDir>${main.basedir}/target/generated-resources/xml/xslt/schema/</outputDir>
+                            <stylesheet>${project.basedir}/tssl/tssl-schema.xslt</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/xml/xslt/schema/</outputDir>
                         </transformationSet>
                         <transformationSet>
-                            <dir>${main.basedir}/core/definitions</dir>
+                            <dir>${project.basedir}/definitions</dir>
                             <includes>
                                 <include>html.stml</include>
                             </includes>
-                            <stylesheet>${main.basedir}/core/stml/stml-scanner.xslt</stylesheet>
-                            <outputDir>${main.basedir}/target/generated-resources/xml/xslt/scanner/</outputDir>
+                            <stylesheet>${project.basedir}/stml/stml-scanner.xslt</stylesheet>
+                            <outputDir>${project.build.directory}/generated-resources/xml/xslt/scanner/</outputDir>
                         </transformationSet>
                     </transformationSets>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.sf.saxon</groupId>
-                        <artifactId>saxon</artifactId>
-                        <version>8.7</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>com.google.code.maven-replacer-plugin</groupId>
                 <artifactId>replacer</artifactId>
-                <version>1.5.3</version>
                 <executions>
                     <execution>
                         <id>replace-models</id>
@@ -320,11 +84,11 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <file>${main.basedir}/core/templates/HTMLModels.java</file>
-                            <outputFile>${main.basedir}/target/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLModels.java</outputFile>
+                            <file>${project.basedir}/templates/HTMLModels.java</file>
+                            <outputFile>${project.build.directory}/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLModels.java</outputFile>
                             <regex>false</regex>
                             <token>@@MODEL_DEFINITIONS@@</token>
-                            <valueFile>${main.basedir}/target/generated-resources/xml/xslt/model/html.tssl</valueFile>
+                            <valueFile>${project.build.directory}/generated-resources/xml/xslt/model/html.tssl</valueFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -334,11 +98,11 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <file>${main.basedir}/core/templates/HTMLSchema.java</file>
-                            <outputFile>${main.basedir}/target/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLSchema.java</outputFile>
+                            <file>${project.basedir}/templates/HTMLSchema.java</file>
+                            <outputFile>${project.build.directory}/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLSchema.java</outputFile>
                             <regex>false</regex>
                             <token>@@SCHEMA_CALLS@@</token>
-                            <valueFile>${main.basedir}/target/generated-resources/xml/xslt/schema/html.tssl</valueFile>
+                            <valueFile>${project.build.directory}/generated-resources/xml/xslt/schema/html.tssl</valueFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -348,11 +112,11 @@
                             <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <file>${main.basedir}/core/templates/HTMLScanner.java</file>
-                            <outputFile>${main.basedir}/target/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLScanner.java</outputFile>
+                            <file>${project.basedir}/templates/HTMLScanner.java</file>
+                            <outputFile>${project.build.directory}/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLScanner.java</outputFile>
                             <regex>false</regex>
                             <token>@@STATE_TABLE@@</token>
-                            <valueFile>${main.basedir}/target/generated-resources/xml/xslt/scanner/html.stml</valueFile>
+                            <valueFile>${project.build.directory}/generated-resources/xml/xslt/scanner/html.stml</valueFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -369,7 +133,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${main.basedir}/target/generated-sources/</source>
+                                <source>${project.build.directory}/generated-sources/</source>
                             </sources>
                         </configuration>
                     </execution>
