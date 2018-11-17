@@ -48,6 +48,20 @@ public class ParserTest {
     }
 
     /**
+     * Parse an sample html with only double quote in public id inside !DOCTYPE.
+     *
+     * @throws IOException IOException
+     * @throws SAXException SAXException
+     */
+    @Test
+    public void testSampleHtmlWithDoubleQuotePublicId() throws IOException, SAXException {
+        final String html = getSampleHtml("htmlDoubleQuoteOnlyPublicId.txt");
+        final Parser parser = new Parser();
+        final InputSource inSource = new InputSource(new StringReader(html));
+        parser.parse(inSource);
+    }
+
+    /**
      * Parse an sample html5.
      *
      * @throws IOException IOException
