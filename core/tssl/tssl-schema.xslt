@@ -1,22 +1,23 @@
 <!-- Generate Java code to be inserted into HTMLSchema.java.  -->
 
 <!--
-// This file is part of TagSoup and is Copyright 2002-2008 by John Cowan.
-// 
-// TagSoup is licensed under the Apache License,
-// Version 2.0.  You may obtain a copy of this license at
-// http://www.apache.org/licenses/LICENSE-2.0 .  You may also have
-// additional legal rights not granted by this license.
+// ====================================================================
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-// TagSoup is distributed in the hope that it will be useful, but
-// unless required by applicable law or agreed to in writing, TagSoup
-// is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
-// OF ANY KIND, either express or implied; not even the implied warranty
-// of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//  ====================================================================
 -->
 
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:tssl="http://www.ccil.org/~cowan/XML/tagsoup/tssl"
+	xmlns:tssl="https://github.com/lafaspot/tagchowder/tssl"
 	version="1.0">
 
   <xsl:output method="text"/>

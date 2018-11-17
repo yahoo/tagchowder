@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0  Transitional//EN" ">
+<html>
+<head>
+<style><!--
+.hmmessage P
+{
+margin:0px;
+padding:0px
+}
+body.hmmessage
+{
+font-size: 12pt;
+font-family:Calibri
+}
+--></style></head>
+<body class='hmmessage'><div dir='ltr'>Reply from Outlook.com AKA Hotmail.com<br><br>QTD Guy<br><br><div><div id="SkyDrivePlaceholder"></div><hr id="stopSpelling">From: zubin@yahoo-inc.com<br>To: ymail-ymws-dev@yahoo-inc.com; ymail-jedi-webservice-devel@yahoo-inc.com<br>Subject: QTD Sample Collection<br>Date: Tue, 31 Jul 2012 15:05:02 -0700<br><br>
+
+
+
+
+<div style="color:;background-color:;font-family:verdana, helvetica, sans-serif;font-size:10pt;">
+Hi,<br>
+
+<br>
+I need you to do me a favour and reply to this email from some different Mail clients. I'm especially interested in Thunderbird, Mac Mail, etc. because I am examining the HTML that these clients return in replies.<br>
+<br>
+Include the client you're using in your reply. Also send me two emails, one with one line in the reply, and one with multiple lines.<br>
+<br>
+I don't really need inline replies just yet. <br>
+<br>
+<br>
+Thanks, <br>
+Zubin<br>
+<div><br>
+</div>
+
+</div></div>                      </div></body>
+</html>
