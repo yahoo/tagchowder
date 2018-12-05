@@ -85,7 +85,7 @@
                         </goals>
                         <configuration>
                             <file>${project.basedir}/templates/HTMLModels.java</file>
-                            <outputFile>${project.build.directory}/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLModels.java</outputFile>
+                            <outputFile>${project.build.directory}/generated-sources/com/lafaspot/tagchowder/templates/HTMLModels.java</outputFile>
                             <regex>false</regex>
                             <token>@@MODEL_DEFINITIONS@@</token>
                             <valueFile>${project.build.directory}/generated-resources/xml/xslt/model/html.tssl</valueFile>
@@ -99,7 +99,7 @@
                         </goals>
                         <configuration>
                             <file>${project.basedir}/templates/HTMLSchema.java</file>
-                            <outputFile>${project.build.directory}/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLSchema.java</outputFile>
+                            <outputFile>${project.build.directory}/generated-sources/com/lafaspot/tagchowder/templates/HTMLSchema.java</outputFile>
                             <regex>false</regex>
                             <token>@@SCHEMA_CALLS@@</token>
                             <valueFile>${project.build.directory}/generated-resources/xml/xslt/schema/html.tssl</valueFile>
@@ -113,7 +113,7 @@
                         </goals>
                         <configuration>
                             <file>${project.basedir}/templates/HTMLScanner.java</file>
-                            <outputFile>${project.build.directory}/generated-sources/replacer/com/lafaspot/tagchowder/templates/HTMLScanner.java</outputFile>
+                            <outputFile>${project.build.directory}/generated-sources/com/lafaspot/tagchowder/templates/HTMLScanner.java</outputFile>
                             <regex>false</regex>
                             <token>@@STATE_TABLE@@</token>
                             <valueFile>${project.build.directory}/generated-resources/xml/xslt/scanner/html.stml</valueFile>
