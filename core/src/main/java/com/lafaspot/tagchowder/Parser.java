@@ -174,43 +174,43 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     /**
      * A value of "true" indicates that the parser will ignore unknown elements.
      **/
-    public static final String IGNORE_BOGONS_FEATURE = "ignore-bogons";
+    public static final String IGNORE_BOGONS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will give unknown elements a content model of EMPTY; a value of "false", a content model of ANY.
      **/
-    public static final String BOGONS_EMPTY_FEATURE = "bogons-empty";
+    public static final String BOGONS_EMPTY_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will allow unknown elements to be the root element.
      **/
-    public static final String ROOT_BOGONS_FEATURE = "root-bogons";
+    public static final String ROOT_BOGONS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will return default attribute values for missing attributes that have default values.
      **/
-    public static final String DEFAULT_ATTRIBUTES_FEATURE = "default-attributes";
+    public static final String DEFAULT_ATTRIBUTES_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will translate colons into underscores in names.
      **/
-    public static final String TRANSLATE_COLONS_FEATURE = "translate-colons";
+    public static final String TRANSLATE_COLONS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will attempt to restart the restartable elements.
      **/
-    public static final String RESTART_ELEMENTS_FEATURE = "restart-elements";
+    public static final String RESTART_ELEMENTS_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will transmit whitespace in element-only content via the SAX ignorableWhitespace callback. Normally
      * this is not done, because HTML is an SGML application and SGML suppresses such whitespace.
      **/
-    public static final String IGNORABLE_WHITESPACE_FEATURE = "ignorable-whitespace";
+    public static final String IGNORABLE_WHITESPACE_FEATURE = "";
 
     /**
      * A value of "true" indicates that the parser will treat CDATA elements specially. Normally true, since the input is by default HTML.
      **/
-    public static final String CDATA_ELEMENTS_FEATURE = "cdata-elements";
+    public static final String CDATA_ELEMENTS_FEATURE = "";
 
     /**
      * Used to see some syntax events that are essential in some applications: comments, CDATA delimiters, selected general entity inclusions, and the
@@ -221,17 +221,17 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     /**
      * Specifies the Scanner object this Parser uses.
      **/
-    public static final String SCANNER_PROPERTY = "scanner";
+    public static final String SCANNER_PROPERTY = "";
 
     /**
      * Specifies the Schema object this Parser uses.
      **/
-    public static final String SCHEMA_PROPERTY = "schema";
+    public static final String SCHEMA_PROPERTY = "";
 
     /**
      * Specifies the AutoDetector (for encoding detection) this Parser uses.
      **/
-    public static final String AUTO_DETECTOR_PROPERTY = "auto-detector";
+    public static final String AUTO_DETECTOR_PROPERTY = "";
 
     // Due to sucky Java order of initialization issues, these
     // entries are maintained separately from the initial values of
