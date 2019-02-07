@@ -15,16 +15,12 @@ TagChowder is a fork from TagSoup library by John Cowan version 1.2.1.
 
 ## Table of Contents
 
-- [What TagSoup does](#background)
-- [Install](#install)
-- [Configuration](#configuration)
-- [Usage](#usage)
-- [Security](#security)
-- [API](#api)
+
+- [More information](#More information)
 - [Contribute](#contribute)
 - [License](#license)
-
-### What TagSoup does
+- [What TagSoup does](#What TagSoup does)
+- [Attribution](#Attribution)
 
 TagChowder is designed as a parser, not a whole application; it isn't intended to permanently clean up bad HTML, as HTML Tidy does, only to parse it on the fly. Therefore, it does not convert presentation HTML to CSS or anything similar. It does guarantee well-structured results: tags will wind up properly nested, default attributes will appear appropriately, and so on.
 
@@ -369,6 +365,14 @@ Finally, there is a full port of my TagSoup to C++, but unfortunately it is curr
 ### More information
 
 There is a tagsoup-friends mailing list hosted at Google Groups. You can join via the Web, or by sending a blank email to tagsoup-friends-subscribe@googlegroups.com. The archives are open to all. https://groups.google.com/forum/#!forum/tagsoup-friends
+
+### Contribute
+
+Please refer to [the contributing.md file](Contributing.md) for information about how to get involved. We welcome issues, questions, and pull requests. Pull Requests are welcome.
+
+## License
+
+This project is licensed under the terms of the [Apache 2.0](LICENSE-Apache-2.0) open source license. Please refer to [LICENSE](LICENSE) for the full terms.
 
 ### Attribution
 
