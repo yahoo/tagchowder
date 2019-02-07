@@ -19,6 +19,8 @@ TagChowder is a fork from TagSoup library by John Cowan version 1.2.1.
 - [License](#license)
 - [Attribution](#Attribution)
 
+## What TagSoup does
+
 TagChowder is designed as a parser, not a whole application; it isn't intended to permanently clean up bad HTML, as HTML Tidy does, only to parse it on the fly. Therefore, it does not convert presentation HTML to CSS or anything similar. It does guarantee well-structured results: tags will wind up properly nested, default attributes will appear appropriately, and so on.
 
 The semantics of TagChowder are as far as practical those of actual HTML browsers. In particular, never, never will it throw any sort of syntax error: the TagChowder motto is "Just Keep On Truckin'". But there's much, much more. For example, if the first tag is LI, it will supply the application with enclosing HTML, BODY, and UL tags. Why UL? Because that's what browsers assume in this situation. For the same reason, overlapping tags are correctly restarted whenever possible: text like:
