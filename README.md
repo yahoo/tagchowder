@@ -15,7 +15,7 @@ TagChowder is a fork from TagSoup library by John Cowan version 1.2.1.
 
 ## Table of Contents
 
-- [Background](#What TagSoup does)
+- [What TagSoup does](#background)
 - [Install](#install)
 - [Configuration](#configuration)
 - [Usage](#usage)
