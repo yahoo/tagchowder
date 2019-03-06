@@ -62,6 +62,20 @@ public class ParserTest {
     }
 
     /**
+     * Parse a sample html with only single quote in public id inside !DOCTYPE.
+     *
+     * @throws IOException IOException
+     * @throws SAXException SAXException
+     */
+    @Test
+    public void testSampleHtmlWithSingleQuotePublicId() throws IOException, SAXException {
+        final String html = getSampleHtml("htmlSingleQuoteOnlyPublicId.txt");
+        final Parser parser = new Parser();
+        final InputSource inSource = new InputSource(new StringReader(html));
+        parser.parse(inSource);
+    }
+
+    /**
      * Parse an sample html5.
      *
      * @throws IOException IOException

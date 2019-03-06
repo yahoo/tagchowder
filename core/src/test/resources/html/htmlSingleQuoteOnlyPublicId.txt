@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' '>http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd<'>
+<html xmlns="&gt;http://www.w3.org/1999/xhtml&lt;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width">
+<title>American Airlines</title>
+</head>
+<body style="margin:0px;padding:0px;">
+<font style="font-size:11.0pt;font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;color:#1F497D"></font><br>
+&nbsp;<br>
+<div style="border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0in 0in 0in">
+<font style="font-size:10.0pt;font-family:&quot;Tahoma&quot;,&quot;sans-serif&quot;"><b>From</b>: noreply@aa.com [mailto:noreply@aa.com]
+<br>
+<b>Sent</b>: Sunday, October 18, 2015 06:14 AM<br>
+<b>To</b>: Miller, Caroyl <br>
+<b>Subject</b>: Important Information for Your Upcoming Trip (DCA) <br>
+</font>&nbsp;<br>
+</div>
+<table width="100%" height="100%" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tbody>
+<tr>
+<td align="center" style="vertical-align:top">
+<table border="0" align="center" cellpadding="0" cellspacing="0" width="660" style="margin-left:10px; margin-right:10px;">
+<tbody>
+<tr>
+<td height="10" align="center" valign="middle" colspan="2"></td>
+</tr>
+<tr>
+<td bgcolor="#ffffff" height="70" valign="top" colspan="2">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="width:10px;height:1px"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10" height="1"></td>
+<!-- START HEADER -->
+<td style="width:201px;vertical-align:text-top;"><a href="&gt;http://www.aa.com/homePage.do&lt;"><img src="&gt;http://images.usairways.com/newEmail/Gen3/templates/hdr_email_logo_aa.png&lt;" width="201" alt="American Airlines logo" title="American Airlines logo" border="0"></a></td>
+<!-- START NAVIGATION -->
+<td style="width:407px;vertical-align:middle;text-align:left;">
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+<tr>
+<td colspan="9" style="height:5px"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="5"></td>
+</tr>
+<tr>
+<td style="width:45px;text-align:left;vertical-align:text-top"><img style="display:block;" src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" border="0" alt="" width="45" height="1"></td>
+<td style="width:83px;font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;vertical-align:text-top">
+<a href="&gt;http://www.aa.com/reservation/roundTripSearchAccess.do&lt;" target="_blank" reportname="Nav - Book a flight" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;">Book a flight</a>
+</td>
+<td style="width:10px;text-align:left;vertical-align:text-top"><img style="display:block;" src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" border="0" alt="" width="10" height="1">
+</td>
+<td style="width:97px;text-align:left;vertical-align:text-top;font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;">
+<a href="&gt;http://www.aa.com/i18n/AAdvantage/redeemMiles/main.jsp&lt;" target="_blank" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;">Redeem miles</a>
+</td>
+<td style="width:10px;text-align:left;vertical-align:text-top"><img style="display:block;" src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" border="0" alt="" width="10" height="1">
+</td>
+<td style="width:94px;text-align:left;vertical-align:text-top;font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;">
+<a href="&gt;https://www.aa.com/myAccount/myAccountAccess.do&lt;" target="_blank" reportname="Nav - My Account" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;">Your account</a></td>
+<td style="width:5px;text-align:left;vertical-align:text-top"><img style="display:block;" src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" border="0" alt="" width="5" height="1">
+</td>
+<td style="width:57px;font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;vertical-align:text-top">
+<a href="&gt;https://www.aa.com/netsaaver/viewAllPromotions.do&lt;" target="_blank" reportname="Nav - Deals" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #0078D2; text-decoration: none; line-height: 16px;">Deals</a>
+</td>
+<td style="width:6px;text-align:left;vertical-align:text-top"><img style="display:block;" src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" border="0" alt="" width="6" height="1">
+</td>
+</tr>
+<tr>
+<td colspan="9" style="height:5px"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="5"></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="width:32px;height:32px;text-align:left;vertical-align:middle"><a href="&gt;http://www.oneworld.com&lt;" target="_blank" reportname="Header - oneworld"><img style="display:block;" title="oneworld" src="&gt;http://images.usairways.com/newEmail/Gen3/templates/hdr_email_logo_oneworld.png&lt;" border="0" alt="oneworld" width="32" height="32"></a>
+</td>
+<!-- END NAVIGATION --><!-- END HEADER -->
+<td style="width:10px;height:1px"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10" height="1"></td>
+</tr>
+</tbody>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+<tbody>
+<tr>
+<td style="width:10px;height:1px"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10" height="1"></td>
+<td style="height:1px; border-bottom:1px solid #CCCCCC"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="1"></td>
+<td style="width:10px;height:1px"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10" height="1"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td bgcolor="#ffffff" colspan="2">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="width:10px;"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10"></td>
+<td style="width:640px;text-align:left;vertical-align:text-top">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height:20px"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="20" width="1"></td>
+</tr>
+<tr>
+<!-- START HEADLINE -->
+<td style="height:45px;text-align:left;vertical-align:text-top;font-family:Arial, Helvetica, sans-serif; font-size:32px; line-height:38px; color:#0078D2;">
+Important information</td>
+</tr>
+<tr>
+<td style="height:5px;text-align:left;vertical-align:text-top"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="5" width="1"></td>
+</tr>
+<!-- START BODY COPY -->
+<tr>
+<td style="font-size:15px;line-height:21px;font-family:Arial, Helvetica, sans-serif;color:#36495A;text-align:left;vertical-align:text-top">
+<br>
+Your upcoming trip is scheduled out of Washington Reagan National Airport (DCA). American Airlines operates out of Terminals B and C and has two curbside drop-off points: Priority and Shuttle (Terminal B) and Main Cabin (Terminal C). Use curbside signage to
+ find your way. Flying the American Airlines Shuttle? All shuttle flights have moved to Terminal B. Metro customers can check in and check bags on the north Metro bridge level.
+<a href="&gt;http://www.aa.com/i18n/travelInformation/destinationInformation/dca-airport.jsp&lt;" target="_blank" style="font-family: Arial, Helvetica, sans-serif; font-size: 15px; color: #0078D2; text-decoration: none; line-height: 16px;">
+DCA Airport map.</a> </td>
+</tr>
+<!-- END BODY COPY -->
+<tr>
+<td style="height:30px;text-align:left;vertical-align:text-top"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="30" width="1"></td>
+</tr>
+<tr>
+<td style="text-align:left;vertical-align:text-top">
+<table cellpadding="0" cellspacing="0" width="100%">
+<tbody>
+<tr>
+<td style="height:1px; border-bottom:1px solid #CCCCCC"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="1"></td>
+</tr>
+<tr>
+<td style="height:15px; vertical-align:text-top; text-align:left;line-height:0px;font-size:0px;">
+<img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" alt="" height="15" border="0" style="display: block;"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="width:10px; vertical-align:text-top; text-align:left"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<!-- START FOOTER -->
+<tr>
+<td style="text-align:left;">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="height:20px;line-height:0px;font-size:0px;"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="20" width="1"></td>
+</tr>
+<tr>
+<td style="width:10px;line-height:0px;font-size:0px;"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10">
+</td>
+<td style="width:640px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 16px; color: #627A88; text-decoration: none; text-align:left">
+<font style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 16px;">This email has been sent on behalf of American Airlines. We are happy to help you with any questions or concerns you may have, For all inquiries, visit
+<a href="&gt;https://www.aa.com/i18n/urls/contactaa.jsp&lt;" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 16px; color: #0078D2; text-decoration: underline;" target="_blank">
+aa.com/contactaa</a>, send an email to <a href="mailto:" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 16px; color: #0078D2; text-decoration: underline;" target="_blank">
+webmaster@aa.com</a>, or contact us in writing at American Airlines, 4255 Amon Carter Blvd., MD 2400, Fort Worth, Texas 76155-2603.<br>
+<br>
+<strong>one</strong>world is a registered trademark of <strong>one</strong>world Alliance, LLC<br>
+<br>
+? 2015 American Airlines, Inc. All Rights Reserved.<br>
+<br>
+</font></td>
+<td style="width:10px;line-height:0px;font-size:0px;"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" width="10"></td>
+</tr>
+<tr>
+<td style="height:50px;line-height:0px;font-size:0px;"><img src="&gt;http://www.aa.com/content/images/email/AAirmail/template/spacer_clear.gif&lt;" height="50" width="1"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<!-- END FOOTER -->
+</tbody>
+</table>
+<!-- main content wrapper --></td>
+</tr>
+</tbody>
+</table>
+<!--page wrapper -->
+</body>
+</html>

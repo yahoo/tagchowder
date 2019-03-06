@@ -889,6 +889,10 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (length == 1 && s == '"') {
             return str;
         }
+	// handle string with only one single quote
+        if (length == 1 && s == '\'') {
+            return str;
+        }
         if (s == e && (s == '\'' || s == '"')) {
             str = str.substring(1, str.length() - 1);
         }
