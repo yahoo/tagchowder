@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *  ====================================================================
+ */
+
+/*
  * Changes to the original project are Copyright 2019 Oath Inc.
  */
+
 // The TagChowder parser
 
 package com.lafaspot.tagchowder;
