@@ -15,6 +15,10 @@
  *  ====================================================================
  */
 
+/*
+ * Changes to the original project are Copyright 2019 Oath Inc.
+ */
+
 package com.lafaspot.tagchowder;
 
 /**

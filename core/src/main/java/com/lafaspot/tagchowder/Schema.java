@@ -14,6 +14,11 @@
  * limitations under the License.
  *  ====================================================================
  */
+
+/*
+ * Changes to the original project are Copyright 2019 Oath Inc.
+ */
+
 // Model of document
 
 package com.lafaspot.tagchowder;

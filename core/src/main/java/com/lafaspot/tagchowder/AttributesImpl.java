@@ -14,6 +14,11 @@
  * limitations under the License.
  *  ====================================================================
  */
+
+/*
+ * Changes to the original project are Copyright 2019 Oath Inc.
+ */
+
 // XMLWriter.java - serialize an XML document.
 // Written by David Megginson, david@megginson.com
 // and placed by him into the public domain.
