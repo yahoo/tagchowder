@@ -14,6 +14,11 @@
  * limitations under the License.
  *  ====================================================================
  */
+
+/*
+ * Changes to the original project are Copyright 2019 Oath Inc.
+ */
+
 // The TagChowder command line UI
 
 package com.lafaspot.tagchowder;
