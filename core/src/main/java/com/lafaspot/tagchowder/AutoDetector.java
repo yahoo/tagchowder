@@ -14,6 +14,11 @@
  * limitations under the License.
  *  ====================================================================
  */
+
+/*
+ * Changes to the original project are Copyright 2019 Oath Inc.
+ */
+
 // Interface to objects that translate InputStreams to Readers by auto-detection
 
 package com.lafaspot.tagchowder;

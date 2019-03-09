@@ -14,6 +14,11 @@
  * limitations under the License.
  *  ====================================================================
  */
+
+/*
+ * Changes to the original project are Copyright 2019 Oath Inc.
+ */
+
 // PYX Writer
 // FIXME: does not do escapes in attribute values
 // FIXME: outputs entities as bare '&' character
