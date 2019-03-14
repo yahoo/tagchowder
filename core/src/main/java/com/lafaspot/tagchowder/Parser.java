@@ -903,7 +903,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Split the supplied String into words or phrases seperated by spaces.
     // Recognises quotes around a phrase and doesn't split it.
     private static String[] split(final String val) throws IllegalArgumentException {
-        String value = val.trim();
+        String value = trim(val);
         if (value.length() == 0) {
             return new String[0];
         } else {
@@ -941,6 +941,20 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             l.add(value.substring(s, e));
             return (String[]) l.toArray(new String[0]);
         }
+    }
+ 
+    public static String trim(String value) {
+        int len = value.length();
+        int st = 0;
+        char[] val = value.toCharArray();
+
+        while ((st < len) && (Character.isWhitespace(val[st]))) {
+            st++;
+        }
+        while ((st < len) && (Character.isWhitespace(val[len - 1]))) {
+            len--;
+        }
+        return ((st > 0) || (len < value.length())) ? value.substring(st, len) : value;
     }
 
     // Replace junk in publicids with spaces
