@@ -33,7 +33,7 @@ You can replace the low-level HTML scanner with one based on Sean McGrath's PYX 
 
 ### Install
 
-Add following snippet to your pom.xml and hit "mvn"
+TagChowder uses maven as tool for building and managing project. Add following snippet to your pom.xml and hit "mvn" to build your project.
 
 ```
 <dependency>
@@ -42,6 +42,9 @@ Add following snippet to your pom.xml and hit "mvn"
   <version>2.0.3</version>
 </dependency>
 ```
+Here are the instructions to setup maven environment.
+https://maven.apache.org/what-is-maven.html
+https://maven.apache.org/guides/introduction/introduction-to-the-pom.html
 
 ### Usage
 #### TagChowder as a Stand-Alone Program
