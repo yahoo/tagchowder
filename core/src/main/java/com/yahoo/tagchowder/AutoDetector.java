@@ -21,7 +21,7 @@
 
 // Interface to objects that translate InputStreams to Readers by auto-detection
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 import java.io.InputStream;
 import java.io.Reader;

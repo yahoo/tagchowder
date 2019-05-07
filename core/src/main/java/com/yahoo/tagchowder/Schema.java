@@ -21,7 +21,7 @@
 
 // Model of document
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 import java.util.HashMap;
 

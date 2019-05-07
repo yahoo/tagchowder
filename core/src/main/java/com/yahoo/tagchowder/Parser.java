@@ -21,7 +21,7 @@
 
 // The TagChowder parser
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,8 +47,8 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.lafaspot.tagchowder.templates.HTMLScanner;
-import com.lafaspot.tagchowder.templates.HTMLSchema;
+import com.yahoo.tagchowder.templates.HTMLScanner;
+import com.yahoo.tagchowder.templates.HTMLSchema;
 
 /**
  * The SAX parser class.

@@ -14,7 +14,7 @@
 # ====================================================================
 #
 
-default namespace = "https://github.com/lafaspot/tagchowder/tssl"
+default namespace = "https://github.com/yahoo/tagchowder/tssl"
 
 start = schema
 

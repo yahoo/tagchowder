@@ -16,6 +16,6 @@
  */
 
 /**
- * Package info of com.lafaspot.tagchowder.
+ * Package info of com.yahoo.tagchowder.
  */
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
