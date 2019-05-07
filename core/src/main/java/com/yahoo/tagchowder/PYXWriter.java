@@ -23,7 +23,7 @@
 // FIXME: does not do escapes in attribute values
 // FIXME: outputs entities as bare '&' character
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 import java.io.PrintWriter;
 import java.io.Writer;

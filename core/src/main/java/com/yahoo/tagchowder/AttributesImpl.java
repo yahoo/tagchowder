@@ -23,7 +23,7 @@
 // Written by David Megginson, david@megginson.com
 // and placed by him into the public domain.
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 import org.xml.sax.Attributes;
 

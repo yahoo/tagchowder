@@ -22,7 +22,7 @@ models.  Logically, it is part of HTMLSchema, but it is more
 convenient to generate the constants into a separate interface.
 */
 
-package com.lafaspot.tagchowder.templates;
+package com.yahoo.tagchowder.templates;
 
 public interface HTMLModels {
 

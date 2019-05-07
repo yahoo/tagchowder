@@ -19,7 +19,7 @@
  * Changes to the original project are Copyright 2019 Oath Inc.
  */
 
-package com.lafaspot.tagchowder.jaxp;
+package com.yahoo.tagchowder.jaxp;
 
 import java.io.File;
 
@@ -55,7 +55,7 @@ public class JAXPTest {
         }
         File f = new File(args[0]);
         // System.setProperty("javax.xml.parsers.SAXParserFactory", SAXFactoryImpl.class.toString());
-        System.setProperty("javax.xml.parsers.SAXParserFactory", "com.lafaspot.tagchowder..jaxp.SAXFactoryImpl");
+        System.setProperty("javax.xml.parsers.SAXParserFactory", "com.yahoo.tagchowder..jaxp.SAXFactoryImpl");
 
         SAXParserFactory spf = SAXParserFactory.newInstance();
         System.out.println("Ok, SAX factory JAXP creates is: " + spf);

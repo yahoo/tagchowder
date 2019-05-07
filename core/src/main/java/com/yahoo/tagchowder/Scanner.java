@@ -21,7 +21,7 @@
 
 // Scanner
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 import java.io.IOException;
 import java.io.Reader;

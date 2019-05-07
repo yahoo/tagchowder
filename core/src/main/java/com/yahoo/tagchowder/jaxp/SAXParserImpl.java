@@ -19,7 +19,7 @@
  * Changes to the original project are Copyright 2019 Oath Inc.
  */
 
-package com.lafaspot.tagchowder.jaxp;
+package com.yahoo.tagchowder.jaxp;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -31,7 +31,7 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
-import com.lafaspot.tagchowder.Parser;
+import com.yahoo.tagchowder.Parser;
 
 /**
  * This is a simple implementation of JAXP {@link SAXParser}, to allow easier integration of TagChowder with the default JDK xml processing stack.

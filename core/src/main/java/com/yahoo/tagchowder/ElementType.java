@@ -19,7 +19,7 @@
  * Changes to the original project are Copyright 2019 Oath Inc.
  */
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 /**
  * This class represents an element type in the schema. An element type has a name, a content model vector, a member-of vector, a flags vector,

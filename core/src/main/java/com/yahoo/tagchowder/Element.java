@@ -19,7 +19,7 @@
  * Changes to the original project are Copyright 2019 Oath Inc.
  */
 
-package com.lafaspot.tagchowder;
+package com.yahoo.tagchowder;
 
 /**
  * The internal representation of an actual element (not an element type). An Element has an element type, attributes, and a successor Element for use
