@@ -19,7 +19,7 @@
  * Changes to the original project are Copyright 2019 Oath Inc.
  */
 
-package com.yahoo.tagchowder.jaxp;
+package com.lafaspot.tagchowder.jaxp;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;

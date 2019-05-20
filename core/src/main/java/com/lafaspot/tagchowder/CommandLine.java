@@ -21,7 +21,7 @@
 
 // The TagChowder command line UI
 
-package com.yahoo.tagchowder;
+package com.lafaspot.tagchowder;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.LexicalHandler;
 
-import com.yahoo.tagchowder.templates.HTMLSchema;
+import com.lafaspot.tagchowder.templates.HTMLSchema;
 
 /**
  * The stand-alone TagChowder program.

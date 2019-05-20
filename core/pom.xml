@@ -5,13 +5,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.yahoo.tagchowder</groupId>
+        <groupId>com.github.lafa.tagchowder</groupId>
         <artifactId>tagchowder</artifactId>
-        <version>2.0.8</version>
+        <version>2.0.9</version>
     </parent>
     <artifactId>tagchowder.core</artifactId>
     <name>${project.artifactId}</name>
-    <url>https://github.com/yahoo/tagchowder</url>
+    <url>https://github.com/lafaspot/tagchowder</url>
     <description>tagchowder component ${project.name}</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -85,7 +85,7 @@
                         </goals>
                         <configuration>
                             <file>${project.basedir}/templates/HTMLModels.java</file>
-                            <outputFile>${project.build.directory}/generated-sources/com/yahoo/tagchowder/templates/HTMLModels.java</outputFile>
+                            <outputFile>${project.build.directory}/generated-sources/com/lafaspot/tagchowder/templates/HTMLModels.java</outputFile>
                             <regex>false</regex>
                             <token>@@MODEL_DEFINITIONS@@</token>
                             <valueFile>${project.build.directory}/generated-resources/xml/xslt/model/html.tssl</valueFile>
@@ -99,7 +99,7 @@
                         </goals>
                         <configuration>
                             <file>${project.basedir}/templates/HTMLSchema.java</file>
-                            <outputFile>${project.build.directory}/generated-sources/com/yahoo/tagchowder/templates/HTMLSchema.java</outputFile>
+                            <outputFile>${project.build.directory}/generated-sources/com/lafaspot/tagchowder/templates/HTMLSchema.java</outputFile>
                             <regex>false</regex>
                             <token>@@SCHEMA_CALLS@@</token>
                             <valueFile>${project.build.directory}/generated-resources/xml/xslt/schema/html.tssl</valueFile>
@@ -113,7 +113,7 @@
                         </goals>
                         <configuration>
                             <file>${project.basedir}/templates/HTMLScanner.java</file>
-                            <outputFile>${project.build.directory}/generated-sources/com/yahoo/tagchowder/templates/HTMLScanner.java</outputFile>
+                            <outputFile>${project.build.directory}/generated-sources/com/lafaspot/tagchowder/templates/HTMLScanner.java</outputFile>
                             <regex>false</regex>
                             <token>@@STATE_TABLE@@</token>
                             <valueFile>${project.build.directory}/generated-resources/xml/xslt/scanner/html.stml</valueFile>

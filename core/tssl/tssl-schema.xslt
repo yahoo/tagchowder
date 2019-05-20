@@ -17,7 +17,7 @@
 -->
 
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:tssl="https://github.com/yahoo/tagchowder/tssl"
+	xmlns:tssl="https://github.com/lafaspot/tagchowder/tssl"
 	version="1.0">
 
   <xsl:output method="text"/>

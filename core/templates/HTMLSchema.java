@@ -22,9 +22,9 @@ and NS4-specific.  Attribute declarations of type CDATA with no default
 value are not included.
 */
 
-package com.yahoo.tagchowder.templates;
+package com.lafaspot.tagchowder.templates;
 
-import com.yahoo.tagchowder.Schema;
+import com.lafaspot.tagchowder.Schema;
 
 public class HTMLSchema extends Schema implements HTMLModels {
 

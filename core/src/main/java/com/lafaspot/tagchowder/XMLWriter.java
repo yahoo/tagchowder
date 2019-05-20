@@ -23,7 +23,7 @@
 // Written by David Megginson, david@megginson.com
 // and placed by him into the public domain.
 
-package com.yahoo.tagchowder;
+package com.lafaspot.tagchowder;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;

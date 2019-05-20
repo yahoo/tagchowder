@@ -15,14 +15,14 @@
  *  ====================================================================
  */
 
-package com.yahoo.tagchowder.templates;
+package com.lafaspot.tagchowder.templates;
 
 import java.io.*;
 import org.xml.sax.SAXException;
 
-import com.yahoo.tagchowder.PYXWriter;
-import com.yahoo.tagchowder.ScanHandler;
-import com.yahoo.tagchowder.Scanner;
+import com.lafaspot.tagchowder.PYXWriter;
+import com.lafaspot.tagchowder.ScanHandler;
+import com.lafaspot.tagchowder.Scanner;
 
 import org.xml.sax.Locator;
 

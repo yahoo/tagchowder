@@ -16,6 +16,6 @@
  */
 
 /**
- * Package info of com.yahoo.tagchowder.templates.
+ * Package info of com.lafaspot.tagchowder.jaxp.
  */
-package com.yahoo.tagchowder.templates;
+package com.lafaspot.tagchowder.jaxp;

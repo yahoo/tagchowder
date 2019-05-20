@@ -15,7 +15,7 @@
 #
  
 # State Table Markup Language
-default namespace = "https://github.com/yahoo/tagchowder/stml"
+default namespace = "https://github.com/lafaspot/tagchowder/stml"
 start = statetable
 
 ## Root element

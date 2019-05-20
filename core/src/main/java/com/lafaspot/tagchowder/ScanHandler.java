@@ -16,7 +16,7 @@
  */
 // Scanner handler
 
-package com.yahoo.tagchowder;
+package com.lafaspot.tagchowder;
 
 import org.xml.sax.SAXException;
 

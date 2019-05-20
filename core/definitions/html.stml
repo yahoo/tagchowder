@@ -14,7 +14,7 @@
 //  ====================================================================
 -->
 
-<statetable xmlns='https://github.com/yahoo/tagchowder/stml'
+<statetable xmlns='https://github.com/lafaspot/tagchowder/stml'
 		version='1.0'>
 
 	<symbol id='EOF'/>

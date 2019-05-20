@@ -15,7 +15,7 @@
 -->
 
 <xsl:transform xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:stml="https://github.com/yahoo/tagchowder/stml"
+	xmlns:stml="https://github.com/lafaspot/tagchowder/stml"
 	version="1.0">
 
   <xsl:output method="text"/>

@@ -14,7 +14,7 @@
 //  ====================================================================
 -->
 
-<schema xmlns='https://github.com/yahoo/tagchowder/tssl'
+<schema xmlns='https://github.com/lafaspot/tagchowder/tssl'
         ns='http://www.w3.org/1999/xhtml' name='html'
         prefix='html' version='1.0'>
 
