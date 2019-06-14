@@ -11,7 +11,7 @@
     <url>https://github.com/yahoo/tagchowder</url>
     <description>Parent POM file for tagchowder project</description>
     <prerequisites>
-        <maven>3.0</maven>
+        <maven>3.3.9</maven>
     </prerequisites>
 
     <scm>
@@ -68,11 +68,11 @@
         <jdk.version>1.8</jdk.version>
         <maven-spotbugs-plugin.version>3.1.11</maven-spotbugs-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
-        <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
+        <maven-pmd-plugin.version>3.11.0</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <jersey.version>2.18</jersey.version>
         <jackson.version>2.5.3</jackson.version>
-        <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <main.basedir>${project.basedir}</main.basedir>
         <testTimeLimitInSeconds>0</testTimeLimitInSeconds>
     </properties>
