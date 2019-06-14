@@ -3,15 +3,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.lafa.tagchowder</groupId>
+    <groupId>com.yahoo.tagchowder</groupId>
     <artifactId>tagchowder</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.9</version>
+    <version>2.0.10</version>
     <name>${project.artifactId}</name>
     <url>https://github.com/yahoo/tagchowder</url>
     <description>Parent POM file for tagchowder project</description>
     <prerequisites>
-        <maven>3.0</maven>
+        <maven>3.3.9</maven>
     </prerequisites>
 
     <scm>
@@ -48,12 +48,12 @@
 
     <distributionManagement>
         <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>bintray-tagchowder-repo</id>
+            <url>http://dl.bintray.com/yahoo/maven</url>
         </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>bintray-tagchowder-repo</id>
+            <url>https://api.bintray.com/maven/yahoo/maven/tagchowder;publish=1</url>
         </repository>
     </distributionManagement>
 
@@ -66,13 +66,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
         <jdk.version>1.8</jdk.version>
-        <maven-findbugs-plugin.version>3.0.1</maven-findbugs-plugin.version>
-        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
-        <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
+        <maven-spotbugs-plugin.version>3.1.11</maven-spotbugs-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+        <maven-pmd-plugin.version>3.11.0</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <jersey.version>2.18</jersey.version>
         <jackson.version>2.5.3</jackson.version>
-        <jacoco-maven-plugin.version>0.7.5.201505241946</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
         <main.basedir>${project.basedir}</main.basedir>
         <testTimeLimitInSeconds>0</testTimeLimitInSeconds>
     </properties>
@@ -154,6 +154,7 @@
                     <version>1.4</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>${maven-pmd-plugin.version}</version>
                 </plugin>
@@ -180,9 +181,9 @@
                     <version>1.2.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>${maven-findbugs-plugin.version}</version>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${maven-spotbugs-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -204,16 +205,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.0.0-M1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.5</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -238,9 +229,9 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>findbugs-maven-plugin</artifactId>
-                                        <versionRange>[3.0.1,)</versionRange>
+                                        <groupId>com.github.spotbugs</groupId>
+                                        <artifactId>spotbugs-maven-plugin</artifactId>
+                                        <versionRange>[3.1.11,)</versionRange>
                                         <goals>
                                             <goal>check</goal>
                                         </goals>
@@ -374,30 +365,47 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <!-- http://gleclaire.github.io/findbugs-maven-plugin/faq.html 
-                    When running findbugs on a project, the default heap size might not be enough 
-                    to complete the build. For now there is no way to fork findbugs and run with 
-                    its own memory requirements, but the following system variable will allow 
-                    you to do so for Maven: export MAVEN_OPTS=-Xmx1024M -->
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>3.1.12</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-annotations</artifactId>
+                        <version>3.1.12</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.dom4j</groupId>
+                        <artifactId>dom4j</artifactId>
+                        <version>2.1.1</version>
+                    </dependency>
+                </dependencies>
+                <!-- https://spotbugs.github.io/ When running spotbugs on 
+                    a project, the default heap size might not be enough to complete the build. 
+                    For now there is no way to fork spotbugs and run with its own memory requirements, 
+                    but the following system variable will allow you to do so for Maven: export 
+                    MAVEN_OPTS=-Xmx2048M -->
                 <configuration>
                     <fork>true</fork>
                     <maxHeap>2048</maxHeap>
-                    <!-- Fail build in case of Findbugs errors during build. -->
+                    <!-- Fail build in case of spotbugs errors during build. -->
                     <failOnError>true</failOnError>
                     <!-- Level of analysis effort. -->
                     <effort>low</effort>
                     <!-- Check test sources for bugs. -->
                     <includeTests>true</includeTests>
-                    <includeFilterFile>${main.basedir}/findbugs-include.xml</includeFilterFile>
+                    <includeFilterFile>${main.basedir}/spotbugs-include.xml</includeFilterFile>
                     <threshold>medium</threshold>
-                    <!-- No XML output from Findgbugs. -->
+                    <!-- No XML output from spotbugs. -->
                     <xmlOutput>false</xmlOutput>
-                    <findbugsXmlOutput>false</findbugsXmlOutput>
+                    <spotbugsXmlOutput>false</spotbugsXmlOutput>
                 </configuration>
                 <executions>
-                    <!-- Ensures that FindBugs inspects source code when 
+                    <!-- Ensures that Spotbugs inspects source code when 
                         project is compiled. -->
                     <execution>
                         <id>check-compile</id>
@@ -438,7 +446,8 @@
                     <!-- do not change the library.path -->
                     <argLine>-Dfile.encoding=ANSI_X3.4-1968
                         -Djava.library.path=
-                        -javaagent:"${settings.localRepository}"/org/jacoco/org.jacoco.agent/${jacoco-maven-plugin.version}/org.jacoco.agent-${jacoco-maven-plugin.version}-runtime.jar=destfile=${project.build.directory}/jacoco.exec</argLine>
+                        -Djdk.attach.allowAttachSelf=true
+                    </argLine>
                     <excludedGroups>notIsolate,EventListenersRegression</excludedGroups>
                     <!-- DO NOT TOUCH: SETTINGS BELOW ALLOW THE CONFIG LOADER 
                         TO FIND CONFIG TEST RESOURCES -->
@@ -521,29 +530,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -559,32 +545,6 @@
             </activation>
             <build>
                 <plugins>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>release-sign-artifacts</id>
-            <activation>
-                <property>
-                    <name>performRelease</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
