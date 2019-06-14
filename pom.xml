@@ -67,7 +67,7 @@
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
         <jdk.version>1.8</jdk.version>
         <maven-spotbugs-plugin.version>3.1.11</maven-spotbugs-plugin.version>
-        <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <jersey.version>2.18</jersey.version>
