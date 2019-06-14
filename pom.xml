@@ -66,7 +66,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${project.build.sourceEncoding}</project.reporting.outputEncoding>
         <jdk.version>1.8</jdk.version>
-        <maven-findbugs-plugin.version>3.0.1</maven-findbugs-plugin.version>
+        <maven-spotbugs-plugin.version>3.1.11</maven-spotbugs-plugin.version>
         <maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
         <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
@@ -180,9 +180,9 @@
                     <version>1.2.1</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>${maven-findbugs-plugin.version}</version>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>3.1.11</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -228,9 +228,9 @@
                             <pluginExecutions>
                                 <pluginExecution>
                                     <pluginExecutionFilter>
-                                        <groupId>org.codehaus.mojo</groupId>
-                                        <artifactId>findbugs-maven-plugin</artifactId>
-                                        <versionRange>[3.0.1,)</versionRange>
+                                        <groupId>com.github.spotbugs</groupId>
+                                        <artifactId>spotbugs-maven-plugin</artifactId>
+                                        <versionRange>[3.1.11,)</versionRange>
                                         <goals>
                                             <goal>check</goal>
                                         </goals>
@@ -364,30 +364,47 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <!-- http://gleclaire.github.io/findbugs-maven-plugin/faq.html 
-                    When running findbugs on a project, the default heap size might not be enough 
-                    to complete the build. For now there is no way to fork findbugs and run with 
-                    its own memory requirements, but the following system variable will allow 
-                    you to do so for Maven: export MAVEN_OPTS=-Xmx1024M -->
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>3.1.12</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-annotations</artifactId>
+                        <version>3.1.12</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.dom4j</groupId>
+                        <artifactId>dom4j</artifactId>
+                        <version>2.1.1</version>
+                    </dependency>
+                </dependencies>
+                <!-- https://spotbugs.github.io/ When running spotbugs on 
+                    a project, the default heap size might not be enough to complete the build. 
+                    For now there is no way to fork spotbugs and run with its own memory requirements, 
+                    but the following system variable will allow you to do so for Maven: export 
+                    MAVEN_OPTS=-Xmx2048M -->
                 <configuration>
                     <fork>true</fork>
                     <maxHeap>2048</maxHeap>
-                    <!-- Fail build in case of Findbugs errors during build. -->
+                    <!-- Fail build in case of spotbugs errors during build. -->
                     <failOnError>true</failOnError>
                     <!-- Level of analysis effort. -->
                     <effort>low</effort>
                     <!-- Check test sources for bugs. -->
                     <includeTests>true</includeTests>
-                    <includeFilterFile>${main.basedir}/findbugs-include.xml</includeFilterFile>
+                    <includeFilterFile>${main.basedir}/spotbugs-include.xml</includeFilterFile>
                     <threshold>medium</threshold>
-                    <!-- No XML output from Findgbugs. -->
+                    <!-- No XML output from spotbugs. -->
                     <xmlOutput>false</xmlOutput>
-                    <findbugsXmlOutput>false</findbugsXmlOutput>
+                    <spotbugsXmlOutput>false</spotbugsXmlOutput>
                 </configuration>
                 <executions>
-                    <!-- Ensures that FindBugs inspects source code when 
+                    <!-- Ensures that Spotbugs inspects source code when 
                         project is compiled. -->
                     <execution>
                         <id>check-compile</id>
