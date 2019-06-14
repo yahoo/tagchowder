@@ -72,7 +72,7 @@
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <jersey.version>2.18</jersey.version>
         <jackson.version>2.5.3</jackson.version>
-        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.3</jacoco-maven-plugin.version>
         <main.basedir>${project.basedir}</main.basedir>
         <testTimeLimitInSeconds>0</testTimeLimitInSeconds>
     </properties>
@@ -445,7 +445,8 @@
                     <!-- do not change the library.path -->
                     <argLine>-Dfile.encoding=ANSI_X3.4-1968
                         -Djava.library.path=
-                        -javaagent:"${settings.localRepository}"/org/jacoco/org.jacoco.agent/${jacoco-maven-plugin.version}/org.jacoco.agent-${jacoco-maven-plugin.version}-runtime.jar=destfile=${project.build.directory}/jacoco.exec</argLine>
+                        -Djdk.attach.allowAttachSelf=true
+                    </argLine>
                     <excludedGroups>notIsolate,EventListenersRegression</excludedGroups>
                     <!-- DO NOT TOUCH: SETTINGS BELOW ALLOW THE CONFIG LOADER 
                         TO FIND CONFIG TEST RESOURCES -->
