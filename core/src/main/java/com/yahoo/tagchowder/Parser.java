@@ -242,6 +242,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
      **/
     public static final String AUTO_DETECTOR_PROPERTY = "auto-detector";
 
+    /**
+     * Specifies long parsing time limit.
+     **/
+    public static final long LONG_PARSE_TIME = 5 * 1000L; // 5 seconds
+
     // Due to sucky Java order of initialization issues, these
     // entries are maintained separately from the initial values of
     // the corresponding instance variables, but care must be taken
@@ -431,7 +436,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         parse(new InputSource(systemid));
         final long parseTime = System.currentTimeMillis() - startTime;
         // record the system id if parsing takes too long (5 seconds now)
-        if (parseTime > 5000L) {
+        if (parseTime > LONG_PARSE_TIME) {
             logger.debug("Tagchowder parsing takes too long: time={}ms, system id={}", parseTime, systemid);
         }
     }
