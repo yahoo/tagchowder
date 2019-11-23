@@ -223,7 +223,7 @@ public class ElementType {
         String localName = localName(n);
         int i = atts.getIndex(n);
         if (i == -1) {
-            n = n.intern();
+            //n = n.intern();
             if (t == null) {
                 t = "CDATA";
             }
