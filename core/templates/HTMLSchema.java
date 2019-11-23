@@ -32,8 +32,8 @@ public class HTMLSchema extends Schema implements HTMLModels {
 	Returns a newly constructed HTMLSchema object independent of
 	any existing ones.
 	*/
-
-	public HTMLSchema() {
+	public HTMLSchema(final boolean useIntern) {
+			setUseIntern(useIntern);
 		// Start of Schema calls
 		@@SCHEMA_CALLS@@
 		// End of Schema calls

@@ -43,15 +43,15 @@ public class ElementType {
     /**
      * Construct an ElementType: but it's better to use Schema.element() instead. The content model, member-of, and flags vectors are specified as
      * ints.
-     *
-     * @param name The element type name
+     *  @param name The element type name
      * @param model ORed-together bits representing the content models allowed in the content of this element type
      * @param memberOf ORed-together bits representing the content models to which this element type belongs
      * @param flags ORed-together bits representing the flags associated with this element type
      * @param schema The schema with which this element type will be associated
+     * @param useIntern whether to use string intern.
      */
 
-    public ElementType(final String name, final int model, final int memberOf, final int flags, final Schema schema) {
+    public ElementType(final String name, final int model, final int memberOf, final int flags, final Schema schema, final boolean useIntern) {
         theName = name;
         theModel = model;
         theMemberOf = memberOf;
@@ -68,10 +68,10 @@ public class ElementType {
      *
      * @param name The Qname
      * @param attribute True if name is an attribute name
-     * @param useIntern
+     * @param useIntern whether to use string intern
      * @return The namespace name
      **/
-    public String namespace(final String name, final boolean attribute, boolean useIntern) {
+    public String namespace(final String name, final boolean attribute, final boolean useIntern) {
         int colon = name.indexOf(':');
         if (colon == -1) {
             return attribute ? "" : theSchema.getURI();
@@ -89,10 +89,10 @@ public class ElementType {
      * Return a local name from a Qname.
      *
      * @param name The Qname
-     * @param useIntern
+     * @param useIntern whether to use string intern
      * @return The local name
      **/
-    public String localName(final String name, boolean useIntern) {
+    public String localName(final String name, final boolean useIntern) {
         int colon = name.indexOf(':');
         if (colon == -1) {
             return name;
@@ -205,6 +205,12 @@ public class ElementType {
         return (theModel & other.theMemberOf) != 0;
     }
 
+    /**
+     * Method to get reference with or without interning.
+     * @param useIntern whether to use string intern or not.
+     * @param input the input string.
+     * @return reference to the string.
+     */
     public String getReference(final boolean useIntern, final String input) {
         if (useIntern) {
             return input.intern();
@@ -219,10 +225,10 @@ public class ElementType {
      * @param name The name (Qname) of the attribute
      * @param type The type of the attribute
      * @param value The value of the attribute
-     * @param useIntern
+     * @param useIntern whether to use string intern or not
      */
 
-    public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, boolean useIntern) {
+    public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, final boolean useIntern) {
 //        public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, final boolean useIntern) {
         String n = name;
         String t = type;
@@ -292,10 +298,10 @@ public class ElementType {
      *  @param name The name of the attribute
      * @param type The type of the attribute
      * @param value The value of the attribute
-     * @param useIntern
+     * @param useIntern whether to use string intern or not
      */
 
-    public void setAttribute(final String name, final String type, final String value, boolean useIntern) {
+    public void setAttribute(final String name, final String type, final String value, final boolean useIntern) {
         setAttribute(theAtts, name, type, value, useIntern);
     }
 
