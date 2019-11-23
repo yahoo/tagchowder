@@ -58,8 +58,8 @@ public class ElementType {
         theFlags = flags;
         theAtts = new AttributesImpl();
         theSchema = schema;
-        theNamespace = namespace(name, false);
-        theLocalName = localName(name);
+        theNamespace = namespace(name, false, true);
+        theLocalName = localName(name, true);
     }
 
     /**
@@ -68,9 +68,10 @@ public class ElementType {
      *
      * @param name The Qname
      * @param attribute True if name is an attribute name
+     * @param useIntern
      * @return The namespace name
      **/
-    public String namespace(final String name, final boolean attribute) {
+    public String namespace(final String name, final boolean attribute, boolean useIntern) {
         int colon = name.indexOf(':');
         if (colon == -1) {
             return attribute ? "" : theSchema.getURI();
@@ -79,7 +80,8 @@ public class ElementType {
         if (prefix.equals("xml")) {
             return "http://www.w3.org/XML/1998/namespace";
         } else {
-            return ("urn:x-prefix:" + prefix).intern();
+
+            return getReference(useIntern, "urn:x-prefix:" + prefix);
         }
     }
 
@@ -87,14 +89,15 @@ public class ElementType {
      * Return a local name from a Qname.
      *
      * @param name The Qname
+     * @param useIntern
      * @return The local name
      **/
-    public String localName(final String name) {
+    public String localName(final String name, boolean useIntern) {
         int colon = name.indexOf(':');
         if (colon == -1) {
             return name;
         } else {
-            return name.substring(colon + 1).intern();
+            return getReference(useIntern, name.substring(colon + 1));
         }
     }
 
@@ -202,28 +205,37 @@ public class ElementType {
         return (theModel & other.theMemberOf) != 0;
     }
 
+    public String getReference(final boolean useIntern, final String input) {
+        if (useIntern) {
+            return input.intern();
+        } else {
+            return input;  // TODO: will put the hashmap here.
+        }
+    }
+
     /**
      * Sets an attribute and its value into an AttributesImpl object. Attempts to set a namespace declaration are ignored.
-     *
-     * @param atts The AttributesImpl object
+     *  @param atts The AttributesImpl object
      * @param name The name (Qname) of the attribute
      * @param type The type of the attribute
      * @param value The value of the attribute
+     * @param useIntern
      */
 
-    public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value) {
+    public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, boolean useIntern) {
+//        public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, final boolean useIntern) {
         String n = name;
         String t = type;
         String v = value;
         if (n.equals("xmlns") || n.startsWith("xmlns:")) {
             return;
         }
-        ;
-        String namespace = namespace(n, true);
-        String localName = localName(n);
+
+        String namespace = namespace(n, true, useIntern);
+        String localName = localName(n, useIntern);
         int i = atts.getIndex(n);
         if (i == -1) {
-            n = n.intern();
+            n = getReference(useIntern, n);
             if (t == null) {
                 t = "CDATA";
             }
@@ -277,14 +289,14 @@ public class ElementType {
 
     /**
      * Sets an attribute and its value into this element type.
-     *
-     * @param name The name of the attribute
+     *  @param name The name of the attribute
      * @param type The type of the attribute
      * @param value The value of the attribute
+     * @param useIntern
      */
 
-    public void setAttribute(final String name, final String type, final String value) {
-        setAttribute(theAtts, name, type, value);
+    public void setAttribute(final String name, final String type, final String value, boolean useIntern) {
+        setAttribute(theAtts, name, type, value, useIntern);
     }
 
     /**

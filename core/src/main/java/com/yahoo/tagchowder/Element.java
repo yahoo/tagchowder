@@ -176,14 +176,14 @@ public class Element {
 
     /**
      * Set an attribute and its value into this element.
-     *
-     * @param name The attribute name (Qname)
+     *  @param name The attribute name (Qname)
      * @param type The attribute type
      * @param value The attribute value
+     * @param useIntern
      */
 
-    public void setAttribute(final String name, final String type, final String value) {
-        theType.setAttribute(theAtts, name, type, value);
+    public void setAttribute(final String name, final String type, final String value, boolean useIntern) {
+        theType.setAttribute(theAtts, name, type, value, useIntern);
     }
 
     /**

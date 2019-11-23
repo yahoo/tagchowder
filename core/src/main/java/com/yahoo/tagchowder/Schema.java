@@ -52,6 +52,11 @@ public abstract class Schema {
     private String theURI = "";
     private String thePrefix = "";
     private ElementType theRoot = null;
+    private boolean useIntern = true;
+
+    public void setUseIntern(boolean useIntern) {
+        this.useIntern = useIntern;
+    }
 
     /**
      * Add or replace an element type for this schema.
@@ -94,7 +99,7 @@ public abstract class Schema {
         if (e == null) {
             throw new Error("Attribute " + attrName + " specified for unknown element type " + elemName);
         }
-        e.setAttribute(attrName, type, value);
+        e.setAttribute(attrName, type, value, useIntern);
     }
 
     /**
