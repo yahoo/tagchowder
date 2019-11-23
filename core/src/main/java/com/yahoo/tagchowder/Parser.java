@@ -289,14 +289,16 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     /**
      *  Set the default buffer size.
-      * @param defaultBufferSize
+     * @param defaultBufferSize the default buffer size
      */
-    public void setDefaultBufferSize(int defaultBufferSize) {
+    public void setDefaultBufferSize(final int defaultBufferSize) {
         this.defaultBufferSize = defaultBufferSize;
     }
 
     /**
      *  Get the default buffer size.
+     *
+     * @return defaultBufferSize the default buffer size
      */
     public int getDefaultBufferSize() {
         return defaultBufferSize;
