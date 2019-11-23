@@ -33,6 +33,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
@@ -65,6 +67,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private Schema theSchema;
     private Scanner theScanner;
     private AutoDetector theAutoDetector;
+    /** Logger. */
+    private Logger logger = LoggerFactory.getLogger(Parser.class);
 
     // Default values for feature flags
 
@@ -237,6 +241,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
      * Specifies the AutoDetector (for encoding detection) this Parser uses.
      **/
     public static final String AUTO_DETECTOR_PROPERTY = "auto-detector";
+
+    /**
+     * Specifies long parsing time limit.
+     **/
+    public static final long LONG_PARSE_TIME = 5 * 1000L; // 5 seconds
 
     // Due to sucky Java order of initialization issues, these
     // entries are maintained separately from the initial values of
@@ -423,7 +432,13 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
 
     @Override
     public void parse(final String systemid) throws IOException, SAXException {
+        final long startTime = System.currentTimeMillis();
         parse(new InputSource(systemid));
+        final long parseTime = System.currentTimeMillis() - startTime;
+        // record the system id if parsing takes too long (5 seconds now)
+        if (parseTime > LONG_PARSE_TIME) {
+            logger.debug("Tagchowder parsing takes too long: time={}ms, system id={}", parseTime, systemid);
+        }
     }
 
     // Sets up instance variables that haven't been set by setFeature
