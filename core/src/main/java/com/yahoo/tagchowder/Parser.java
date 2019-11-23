@@ -70,6 +70,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     /** Logger. */
     private Logger logger = LoggerFactory.getLogger(Parser.class);
 
+
+    private int defaultBufferSize = 20000;
     // Default values for feature flags
 
     private static final boolean DEFAULT_NAMESPACES = true;
@@ -285,6 +287,21 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         return b ? Boolean.TRUE : Boolean.FALSE;
     }
 
+    /**
+     *  Set the default buffer size.
+      * @param defaultBufferSize
+     */
+    public void setDefaultBufferSize(int defaultBufferSize) {
+        this.defaultBufferSize = defaultBufferSize;
+    }
+
+    /**
+     *  Get the default buffer size.
+     */
+    public int getDefaultBufferSize() {
+        return defaultBufferSize;
+    }
+
     @Override
     public boolean getFeature(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
         Boolean b = (Boolean) theFeatures.get(name);
@@ -447,7 +464,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             theSchema = new HTMLSchema();
         }
         if (theScanner == null) {
-            theScanner = new HTMLScanner();
+            theScanner = new HTMLScanner(defaultBufferSize);
         }
         if (theAutoDetector == null) {
             theAutoDetector = new AutoDetector() {
