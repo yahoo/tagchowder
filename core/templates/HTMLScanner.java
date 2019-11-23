@@ -224,10 +224,7 @@ public class HTMLScanner implements Scanner, Locator {
                     h.pcdata(theOutputBuffer, 0, theSize);
                     theSize = 0;
                 } else {
-                    // Grow the buffer size
-                    char[] newOutputBuffer = new char[theOutputBuffer.length * 2];
-                    System.arraycopy(theOutputBuffer, 0, newOutputBuffer, 0, theSize + 1);
-                    theOutputBuffer = newOutputBuffer;
+                    theOutputBuffer = resize(theOutputBuffer, theSize);
                 }
                 theOutputBuffer[theSize++] = (char) ch;
                 break;
@@ -243,10 +240,7 @@ public class HTMLScanner implements Scanner, Locator {
                     h.pcdata(theOutputBuffer, 0, theSize);
                     theSize = 0;
                 } else {
-                    // Grow the buffer size
-                    char[] newOutputBuffer = new char[theOutputBuffer.length * 2];
-                    System.arraycopy(theOutputBuffer, 0, newOutputBuffer, 0, theSize + 1);
-                    theOutputBuffer = newOutputBuffer;
+                    theOutputBuffer = resize(theOutputBuffer, theSize);
                 }
                 theOutputBuffer[theSize++] = (char) ch;
                 break;
@@ -473,17 +467,21 @@ public class HTMLScanner implements Scanner, Locator {
         theNextState = S_CDATA;
     }
 
-    private void save(int ch, ScanHandler h) throws IOException, SAXException {
+    private static final char[] resize(char[] theOutputBuffer, int theSize ) {
+        // Grow the buffer size
+        char[] newOutputBuffer = new char[theOutputBuffer.length * 2];
+        System.arraycopy(theOutputBuffer, 0, newOutputBuffer, 0, theSize + 1);
+        return newOutputBuffer;
+    }
+
+    private void final save(int ch, ScanHandler h) throws IOException, SAXException {
         if (theSize >= theOutputBuffer.length - 20) {
             if (theState == S_PCDATA || theState == S_CDATA) {
                 // Return a buffer-sized chunk of PCDATA
                 h.pcdata(theOutputBuffer, 0, theSize);
                 theSize = 0;
             } else {
-                // Grow the buffer size
-                char[] newOutputBuffer = new char[theOutputBuffer.length * 2];
-                System.arraycopy(theOutputBuffer, 0, newOutputBuffer, 0, theSize + 1);
-                theOutputBuffer = newOutputBuffer;
+                theOutputBuffer = resize(theOutputBuffer, theSize);
             }
         }
         theOutputBuffer[theSize++] = (char) ch;
