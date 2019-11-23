@@ -42,7 +42,7 @@ public class ElementType {
     private AttributesImpl theAtts; // default attributes
     private ElementType theParent; // parent of this element type
     private Schema theSchema; // schema to which this belongs
-    private static Map<String, String> stringPoolMap = new HashMap<String, String>();
+    public static Map<String, String> stringPoolMap = new HashMap<String, String>();
 
     /**
      * Construct an ElementType: but it's better to use Schema.element() instead. The content model, member-of, and flags vectors are specified as
@@ -83,7 +83,10 @@ public class ElementType {
         if (prefix.equals("xml")) {
             return "http://www.w3.org/XML/1998/namespace";
         } else {
-            return ("urn:x-prefix:" + prefix).intern();
+            String temp = "urn:x-prefix:" + prefix;
+            stringPoolMap.putIfAbsent(temp, temp);
+            temp = stringPoolMap.get(temp);
+            return temp;
         }
     }
 
@@ -98,7 +101,10 @@ public class ElementType {
         if (colon == -1) {
             return name;
         } else {
-            return name.substring(colon + 1).intern();
+            String temp = name.substring(colon + 1);
+            stringPoolMap.putIfAbsent(temp, temp);
+            temp = stringPoolMap.get(temp);
+            return temp;
         }
     }
 
@@ -229,6 +235,7 @@ public class ElementType {
         if (i == -1) {
             stringPoolMap.putIfAbsent(n, n);
             n = stringPoolMap.get(n);
+//            n = n.intern();
             if (t == null) {
                 t = "CDATA";
             }
