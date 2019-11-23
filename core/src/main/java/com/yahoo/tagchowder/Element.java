@@ -183,7 +183,7 @@ public class Element {
      */
 
     public void setAttribute(final String name, final String type, final String value, final boolean useIntern) {
-        theType.setAttribute(theAtts, name, type, value, useIntern);
+        theType.setAttribute(theAtts, name, type, value);
     }
 
     /**

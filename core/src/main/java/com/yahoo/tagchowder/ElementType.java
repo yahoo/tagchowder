@@ -39,6 +39,7 @@ public class ElementType {
     private AttributesImpl theAtts; // default attributes
     private ElementType theParent; // parent of this element type
     private Schema theSchema; // schema to which this belongs
+    private boolean useIntern = true; // whether to use string intern or not
 
     /**
      * Construct an ElementType: but it's better to use Schema.element() instead. The content model, member-of, and flags vectors are specified as
@@ -58,8 +59,9 @@ public class ElementType {
         theFlags = flags;
         theAtts = new AttributesImpl();
         theSchema = schema;
-        theNamespace = namespace(name, false, true);
-        theLocalName = localName(name, true);
+        this.useIntern = useIntern;
+        theNamespace = namespace(name, false);
+        theLocalName = localName(name);
     }
 
     /**
@@ -68,10 +70,9 @@ public class ElementType {
      *
      * @param name The Qname
      * @param attribute True if name is an attribute name
-     * @param useIntern whether to use string intern
      * @return The namespace name
      **/
-    public String namespace(final String name, final boolean attribute, final boolean useIntern) {
+    public String namespace(final String name, final boolean attribute) {
         int colon = name.indexOf(':');
         if (colon == -1) {
             return attribute ? "" : theSchema.getURI();
@@ -80,7 +81,6 @@ public class ElementType {
         if (prefix.equals("xml")) {
             return "http://www.w3.org/XML/1998/namespace";
         } else {
-
             return getReference(useIntern, "urn:x-prefix:" + prefix);
         }
     }
@@ -89,10 +89,9 @@ public class ElementType {
      * Return a local name from a Qname.
      *
      * @param name The Qname
-     * @param useIntern whether to use string intern
      * @return The local name
      **/
-    public String localName(final String name, final boolean useIntern) {
+    public String localName(final String name) {
         int colon = name.indexOf(':');
         if (colon == -1) {
             return name;
@@ -221,14 +220,13 @@ public class ElementType {
 
     /**
      * Sets an attribute and its value into an AttributesImpl object. Attempts to set a namespace declaration are ignored.
-     *  @param atts The AttributesImpl object
+     * @param atts The AttributesImpl object
      * @param name The name (Qname) of the attribute
      * @param type The type of the attribute
      * @param value The value of the attribute
-     * @param useIntern whether to use string intern or not
      */
 
-    public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, final boolean useIntern) {
+    public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value) {
 //        public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, final boolean useIntern) {
         String n = name;
         String t = type;
@@ -237,8 +235,8 @@ public class ElementType {
             return;
         }
 
-        String namespace = namespace(n, true, useIntern);
-        String localName = localName(n, useIntern);
+        String namespace = namespace(n, true);
+        String localName = localName(n);
         int i = atts.getIndex(n);
         if (i == -1) {
             n = getReference(useIntern, n);
@@ -295,14 +293,13 @@ public class ElementType {
 
     /**
      * Sets an attribute and its value into this element type.
-     *  @param name The name of the attribute
+     * @param name The name of the attribute
      * @param type The type of the attribute
      * @param value The value of the attribute
-     * @param useIntern whether to use string intern or not
      */
 
-    public void setAttribute(final String name, final String type, final String value, final boolean useIntern) {
-        setAttribute(theAtts, name, type, value, useIntern);
+    public void setAttribute(final String name, final String type, final String value) {
+        setAttribute(theAtts, name, type, value);
     }
 
     /**

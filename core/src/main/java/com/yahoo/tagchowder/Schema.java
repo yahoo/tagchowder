@@ -103,7 +103,7 @@ public abstract class Schema {
         if (e == null) {
             throw new Error("Attribute " + attrName + " specified for unknown element type " + elemName);
         }
-        e.setAttribute(attrName, type, value, useIntern);
+        e.setAttribute(attrName, type, value);
     }
 
     /**
