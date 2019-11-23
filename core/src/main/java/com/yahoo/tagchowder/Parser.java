@@ -545,7 +545,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (theNewElement == null || theAttributeName == null) {
             return;
         }
-        theNewElement.setAttribute(theAttributeName, null, theAttributeName, useIntern);
+        theNewElement.setAttribute(theAttributeName, null, theAttributeName);
         theAttributeName = null;
     }
 
@@ -566,7 +566,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         }
         String value = new String(buff, offset, length);
         value = expandEntities(value);
-        theNewElement.setAttribute(theAttributeName, null, value, useIntern);
+        theNewElement.setAttribute(theAttributeName, null, value);
         theAttributeName = null;
     }
 
