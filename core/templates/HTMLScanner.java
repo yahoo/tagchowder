@@ -46,7 +46,7 @@ public class HTMLScanner implements Scanner, Locator {
 
     int theState; // Current state
     int theNextState; // Next state
-    char[] theOutputBuffer = new char[20000]; // Output buffer
+    char[] theOutputBuffer; // Output buffer
     int theSize; // Current buffer size
     int[] theWinMap = { // Windows chars map
             0x20AC, 0xFFFD, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021, 0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0xFFFD, 0x017D, 0xFFFD, 0xFFFD,
@@ -111,6 +111,13 @@ public class HTMLScanner implements Scanner, Locator {
         }
     }
 
+    public HTMLScanner(final int defaultBufferSize) {
+        theOutputBuffer = new char[defaultBufferSize]; // Output buffer
+    }
+
+    public HTMLScanner() {
+        theOutputBuffer = new char[20000]; // Output buffer
+    }
     // Compensate for bug in PushbackReader that allows
     // pushing back EOF.
     private void unread(PushbackReader r, int c) throws IOException {
