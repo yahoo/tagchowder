@@ -46,7 +46,7 @@ public class HTMLScanner implements Scanner, Locator {
 
     int theState; // Current state
     int theNextState; // Next state
-    char[] theOutputBuffer = new char[200]; // Output buffer
+    char[] theOutputBuffer = new char[20000]; // Output buffer
     int theSize; // Current buffer size
     int[] theWinMap = { // Windows chars map
             0x20AC, 0xFFFD, 0x201A, 0x0192, 0x201E, 0x2026, 0x2020, 0x2021, 0x02C6, 0x2030, 0x0160, 0x2039, 0x0152, 0xFFFD, 0x017D, 0xFFFD, 0xFFFD,
@@ -214,16 +214,45 @@ public class HTMLScanner implements Scanner, Locator {
             // System.err.println("In " + debug_statenames[theState] + " got " + nicechar(ch) + " doing " + debug_actionnames[action] + " then " +
             // debug_statenames[theNextState]);
             switch (action) {
-            case 0:
-                throw new Error("HTMLScanner can't cope with " + Integer.toString(ch) + " in state " + Integer.toString(theState));
-            case A_ADUP:
-                h.adup(theOutputBuffer, 0, theSize);
-                theSize = 0;
+            case A_SAVE:
+                if (theSize < theOutputBuffer.length - 20) {
+                    theOutputBuffer[theSize++] = (char) ch;
+                    break;
+                }
+                if (theState == S_CDATA || theState == S_PCDATA) {
+                    // Return a buffer-sized chunk of PCDATA
+                    h.pcdata(theOutputBuffer, 0, theSize);
+                    theSize = 0;
+                } else {
+                    // Grow the buffer size
+                    char[] newOutputBuffer = new char[theOutputBuffer.length * 2];
+                    System.arraycopy(theOutputBuffer, 0, newOutputBuffer, 0, theSize + 1);
+                    theOutputBuffer = newOutputBuffer;
+                }
+                theOutputBuffer[theSize++] = (char) ch;
                 break;
             case A_ADUP_SAVE:
                 h.adup(theOutputBuffer, 0, theSize);
                 theSize = 0;
-                save(ch, h);
+                if (theSize < theOutputBuffer.length - 20) {
+                    theOutputBuffer[theSize++] = (char) ch;
+                    break;
+                }
+                if (theState == S_CDATA || theState == S_PCDATA) {
+                    // Return a buffer-sized chunk of PCDATA
+                    h.pcdata(theOutputBuffer, 0, theSize);
+                    theSize = 0;
+                } else {
+                    // Grow the buffer size
+                    char[] newOutputBuffer = new char[theOutputBuffer.length * 2];
+                    System.arraycopy(theOutputBuffer, 0, newOutputBuffer, 0, theSize + 1);
+                    theOutputBuffer = newOutputBuffer;
+                }
+                theOutputBuffer[theSize++] = (char) ch;
+                break;
+            case A_ADUP:
+                h.adup(theOutputBuffer, 0, theSize);
+                theSize = 0;
                 break;
             case A_ADUP_STAGC:
                 h.adup(theOutputBuffer, 0, theSize);
@@ -389,9 +418,6 @@ public class HTMLScanner implements Scanner, Locator {
                 theSize = 0;
                 h.pi(theOutputBuffer, 0, theSize);
                 break;
-            case A_SAVE:
-                save(ch, h);
-                break;
             case A_SKIP:
                 break;
             case A_SP:
@@ -419,6 +445,8 @@ public class HTMLScanner implements Scanner, Locator {
                 h.pcdata(theOutputBuffer, 0, theSize);
                 theSize = 0;
                 break;
+            case 0:
+                    throw new Error("HTMLScanner can't cope with " + Integer.toString(ch) + " in state " + Integer.toString(theState));
             default:
                 throw new Error("Can't process state " + action);
             }
