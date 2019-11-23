@@ -67,6 +67,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private Schema theSchema;
     private Scanner theScanner;
     private AutoDetector theAutoDetector;
+    private boolean useIntern = true;
     /** Logger. */
     private Logger logger = LoggerFactory.getLogger(Parser.class);
 
@@ -343,6 +344,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             ignorableWhitespace = value;
         } else if (name.equals(CDATA_ELEMENTS_FEATURE)) {
             cdataElements = value;
+        } else if (name.equals(STRING_INTERNING_FEATURE)) {
+            useIntern = value;
         }
     }
 
@@ -464,6 +467,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private void setup() {
         if (theSchema == null) {
             theSchema = new HTMLSchema();
+            theSchema.setUseIntern(useIntern);
         }
         if (theScanner == null) {
             theScanner = new HTMLScanner(defaultBufferSize);
@@ -542,7 +546,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (theNewElement == null || theAttributeName == null) {
             return;
         }
-        theNewElement.setAttribute(theAttributeName, null, theAttributeName);
+        theNewElement.setAttribute(theAttributeName, null, theAttributeName, useIntern);
         theAttributeName = null;
     }
 
@@ -563,7 +567,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         }
         String value = new String(buff, offset, length);
         value = expandEntities(value);
-        theNewElement.setAttribute(theAttributeName, null, value);
+        theNewElement.setAttribute(theAttributeName, null, value, useIntern);
         theAttributeName = null;
     }
 
