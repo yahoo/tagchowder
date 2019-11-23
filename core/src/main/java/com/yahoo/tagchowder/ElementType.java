@@ -227,7 +227,6 @@ public class ElementType {
      */
 
     public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value) {
-//        public void setAttribute(final AttributesImpl atts, final String name, final String type, final String value, final boolean useIntern) {
         String n = name;
         String t = type;
         String v = value;
