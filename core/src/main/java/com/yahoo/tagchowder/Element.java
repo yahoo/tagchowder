@@ -179,10 +179,10 @@ public class Element {
      *  @param name The attribute name (Qname)
      * @param type The attribute type
      * @param value The attribute value
-     * @param useIntern
+     * @param useIntern whether to use string intern or not
      */
 
-    public void setAttribute(final String name, final String type, final String value, boolean useIntern) {
+    public void setAttribute(final String name, final String type, final String value, final boolean useIntern) {
         theType.setAttribute(theAtts, name, type, value, useIntern);
     }
 
