@@ -1154,7 +1154,10 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (dstLength == 0 || dst.charAt(dstLength - 1) == ':') {
             dst.append('_');
         }
-        return dst.toString().intern();
+        String temp = dst.toString();
+        ElementType.stringPoolMap.putIfAbsent(temp, temp);
+        temp = ElementType.stringPoolMap.get(temp);
+        return temp;
     }
 
     // Default LexicalHandler implementation
