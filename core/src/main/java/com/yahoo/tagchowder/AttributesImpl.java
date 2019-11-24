@@ -215,14 +215,14 @@ public class AttributesImpl implements Attributes {
      * @return The attribute's index, or -1 if none matches.
      * @see org.xml.sax.Attributes#getIndex(java.lang.String)
      */
-	@Override
-	public int getIndex(final String qName) {
-		Integer index = qNameIndex.get(qName);
-        if (index == null) {
-            return -1;
-       	}
-		return index;
-	}
+     @Override
+     public int getIndex(final String qName) {
+         Integer index = qNameIndex.get(qName);
+         if (index == null) {
+             return -1;
+         }
+         return index;
+     }
 
     /**
      * Look up an attribute's type by Namespace-qualified name.
@@ -387,8 +387,8 @@ public class AttributesImpl implements Attributes {
      */
     public void setAttribute(final int index, final String uri, final String localName, final String qName, final String type, final String value) {
         if (index >= 0 && index < length) {
-        	String qNameTemp = data[index * 5 + 2];
-        	qNameIndex.remove(qNameTemp);
+            String qNameTemp = data[index * 5 + 2];
+            qNameIndex.remove(qNameTemp);
             data[index * 5] = uri;
             data[index * 5 + 1] = localName;
             data[index * 5 + 2] = qName;
@@ -408,14 +408,14 @@ public class AttributesImpl implements Attributes {
      */
     public void removeAttribute(final int index) {
         int i = index;
+        String qNameTemp = data[index * 5 + 2];
+        qNameIndex.remove(qNameTemp);
         if (i >= 0 && i < length) {
             if (i < length - 1) {
-				System.arraycopy(data, (i + 1) * 5, data, i * 5, (length - i - 1) * 5);
-			}
-			i = (length - 1) * 5;
-			String qNameTemp = data[i + 2];
-			qNameIndex.remove(qNameTemp);
-			data[i++] = null;
+                System.arraycopy(data, (i + 1) * 5, data, i * 5, (length - i - 1) * 5);
+            }
+            i = (length - 1) * 5;
+            data[i++] = null;
             data[i++] = null;
             data[i++] = null;
             data[i++] = null;
