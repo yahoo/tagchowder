@@ -176,7 +176,6 @@ public class Element {
 
     /**
      * Set an attribute and its value into this element.
-     *
      * @param name The attribute name (Qname)
      * @param type The attribute type
      * @param value The attribute value

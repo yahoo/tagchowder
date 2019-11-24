@@ -67,6 +67,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private Schema theSchema;
     private Scanner theScanner;
     private AutoDetector theAutoDetector;
+    private boolean useIntern = true;
     /** Logger. */
     private Logger logger = LoggerFactory.getLogger(Parser.class);
 
@@ -343,6 +344,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             ignorableWhitespace = value;
         } else if (name.equals(CDATA_ELEMENTS_FEATURE)) {
             cdataElements = value;
+        } else if (name.equals(STRING_INTERNING_FEATURE)) {
+            useIntern = value;
         }
     }
 
@@ -463,7 +466,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Sets up instance variables that haven't been set by setFeature
     private void setup() {
         if (theSchema == null) {
-            theSchema = new HTMLSchema();
+            theSchema = new HTMLSchema(useIntern);
         }
         if (theScanner == null) {
             theScanner = new HTMLScanner(defaultBufferSize);

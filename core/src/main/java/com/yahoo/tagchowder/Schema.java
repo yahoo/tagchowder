@@ -52,6 +52,15 @@ public abstract class Schema {
     private String theURI = "";
     private String thePrefix = "";
     private ElementType theRoot = null;
+    private boolean useIntern = true;
+
+    /**
+     * Method to set useIntern.
+     * @param useIntern whether to use string intern or not
+     */
+    protected void setUseIntern(final boolean useIntern) {
+        this.useIntern = useIntern;
+    }
 
     /**
      * Add or replace an element type for this schema.
@@ -63,7 +72,7 @@ public abstract class Schema {
      **/
 
     public void elementType(final String name, final int model, final int memberOf, final int flags) {
-        ElementType e = new ElementType(name, model, memberOf, flags, this);
+        ElementType e = new ElementType(name, model, memberOf, flags, this, useIntern);
         theElementTypes.put(name.toLowerCase(), e);
         if (memberOf == M_ROOT) {
             theRoot = e;

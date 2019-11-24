@@ -153,7 +153,7 @@ public class CommandLine {
         } else {
             r = new Parser();
         }
-        theSchema = new HTMLSchema();
+        theSchema = new HTMLSchema(true);
         r.setProperty(Parser.SCHEMA_PROPERTY, theSchema);
 
         if (hasOption(options, "--nocdata")) {
