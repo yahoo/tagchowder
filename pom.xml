@@ -6,7 +6,7 @@
     <groupId>com.yahoo.tagchowder</groupId>
     <artifactId>tagchowder</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.13</version>
+    <version>2.0.14</version>
     <name>${project.artifactId}</name>
     <url>https://github.com/yahoo/tagchowder</url>
     <description>Parent POM file for tagchowder project</description>

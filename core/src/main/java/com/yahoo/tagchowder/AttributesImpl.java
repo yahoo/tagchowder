@@ -25,6 +25,9 @@
 
 package com.yahoo.tagchowder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.xml.sax.Attributes;
 
 /**
@@ -69,6 +72,7 @@ public class AttributesImpl implements Attributes {
     public AttributesImpl() {
         length = 0;
         data = null;
+        qNameIndex = new HashMap<String, Integer>();
     }
 
     /**
@@ -81,6 +85,7 @@ public class AttributesImpl implements Attributes {
      * @param atts The existing Attributes object.
      */
     public AttributesImpl(final Attributes atts) {
+        qNameIndex = new HashMap<String, Integer>();
         setAttributes(atts);
     }
 
@@ -210,16 +215,14 @@ public class AttributesImpl implements Attributes {
      * @return The attribute's index, or -1 if none matches.
      * @see org.xml.sax.Attributes#getIndex(java.lang.String)
      */
-    @Override
-    public int getIndex(final String qName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i + 2].equals(qName)) {
-                return i / 5;
-            }
-        }
-        return -1;
-    }
+     @Override
+     public int getIndex(final String qName) {
+         Integer index = qNameIndex.get(qName);
+         if (index == null) {
+             return -1;
+         }
+         return index;
+     }
 
     /**
      * Look up an attribute's type by Namespace-qualified name.
@@ -312,6 +315,7 @@ public class AttributesImpl implements Attributes {
                 data[i] = null;
             }
         }
+        qNameIndex.clear();
         length = 0;
     }
 
@@ -335,6 +339,7 @@ public class AttributesImpl implements Attributes {
                 data[i * 5 + 2] = atts.getQName(i);
                 data[i * 5 + 3] = atts.getType(i);
                 data[i * 5 + 4] = atts.getValue(i);
+                qNameIndex.put(atts.getQName(i), i);
             }
         }
     }
@@ -360,6 +365,7 @@ public class AttributesImpl implements Attributes {
         data[length * 5 + 2] = qName;
         data[length * 5 + 3] = type;
         data[length * 5 + 4] = value;
+        qNameIndex.put(qName, length);
         length++;
     }
 
@@ -381,11 +387,14 @@ public class AttributesImpl implements Attributes {
      */
     public void setAttribute(final int index, final String uri, final String localName, final String qName, final String type, final String value) {
         if (index >= 0 && index < length) {
+            String qNameTemp = data[index * 5 + 2];
+            qNameIndex.remove(qNameTemp);
             data[index * 5] = uri;
             data[index * 5 + 1] = localName;
             data[index * 5 + 2] = qName;
             data[index * 5 + 3] = type;
             data[index * 5 + 4] = value;
+            qNameIndex.put(qName, index);
         } else {
             badIndex(index);
         }
@@ -400,6 +409,8 @@ public class AttributesImpl implements Attributes {
     public void removeAttribute(final int index) {
         int i = index;
         if (i >= 0 && i < length) {
+            String qNameTemp = data[index * 5 + 2];
+            qNameIndex.remove(qNameTemp);
             if (i < length - 1) {
                 System.arraycopy(data, (i + 1) * 5, data, i * 5, (length - i - 1) * 5);
             }
@@ -539,7 +550,7 @@ public class AttributesImpl implements Attributes {
 
     private int length;
     private String[] data;
-
+    private Map<String, Integer> qNameIndex;
 }
 
 // end of AttributesImpl.java
