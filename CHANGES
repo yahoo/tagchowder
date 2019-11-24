@@ -1,3 +1,13 @@
+Changes from tagsoup 2.0.0 to tagchowder 2.0.14
+=========================
+- speed up parser performance.
+- added support to disable String.intern() using STRING_INTERNING_FEATURE feature.
+- increase the parser buffer ro 20000 bytes.
+- initial support to fix AttributesImpl to remove O(n) lookup times, to O(1) using a
+  hashmap, to improve parser performance for larger files.
+- fix html.tssl to support ul, ol, a html 5 tags.
+
+
 Changes from tagsoup 1.2.1 to tagchowder 2.0.0
 =========================
 Rename the project to tagchowder.
