@@ -317,6 +317,7 @@ public class AttributesImpl implements Attributes {
                 data[i] = null;
             }
         }
+	qNameIndex.clear();
         length = 0;
     }
 
