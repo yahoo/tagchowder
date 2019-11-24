@@ -85,7 +85,7 @@ public class AttributesImpl implements Attributes {
      * @param atts The existing Attributes object.
      */
     public AttributesImpl(final Attributes atts) {
-    	qNameIndex = new HashMap<String, Integer>();
+        qNameIndex = new HashMap<String, Integer>();
         setAttributes(atts);
     }
 
@@ -408,9 +408,9 @@ public class AttributesImpl implements Attributes {
      */
     public void removeAttribute(final int index) {
         int i = index;
-        String qNameTemp = data[index * 5 + 2];
-        qNameIndex.remove(qNameTemp);
         if (i >= 0 && i < length) {
+            String qNameTemp = data[index * 5 + 2];
+            qNameIndex.remove(qNameTemp);
             if (i < length - 1) {
                 System.arraycopy(data, (i + 1) * 5, data, i * 5, (length - i - 1) * 5);
             }
