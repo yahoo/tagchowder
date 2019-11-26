@@ -217,13 +217,11 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public int getIndex(final String qName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i + 2].equals(qName)) {
-                return i / 5;
-            }
+        Integer index = qNameIndex.get(qName);
+        if (index == null) {
+            return -1;
         }
-        return -1;
+        return index;
     }
 
     /**
@@ -308,6 +306,7 @@ public class AttributesImpl implements Attributes {
      * </p>
      */
     public void clear() {
+    	System.out.println("Clear called");
         if (data != null) {
             for (int i = 0; i < (length * 5); i++) {
                 data[i] = null;
