@@ -215,14 +215,14 @@ public class AttributesImpl implements Attributes {
      * @return The attribute's index, or -1 if none matches.
      * @see org.xml.sax.Attributes#getIndex(java.lang.String)
      */
-     @Override
-     public int getIndex(final String qName) {
-         Integer index = qNameIndex.get(qName);
-         if (index == null) {
-             return -1;
-         }
-         return index;
-     }
+    @Override
+    public int getIndex(final String qName) {
+        Integer index = qNameIndex.get(qName);
+        if (index == null) {
+            return -1;
+        }
+        return index;
+    }
 
     /**
      * Look up an attribute's type by Namespace-qualified name.
@@ -252,11 +252,9 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getType(final String qName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i + 2].equals(qName)) {
-                return data[i + 3];
-            }
+        Integer index = qNameIndex.get(qName);
+        if (index != null) {
+            return data[index + 3];
         }
         return null;
     }
@@ -289,11 +287,9 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getValue(final String qName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i + 2].equals(qName)) {
-                return data[i + 4];
-            }
+        Integer index = qNameIndex.get(qName);
+        if (index != null) {
+            return data[index + 4];
         }
         return null;
     }
@@ -339,7 +335,7 @@ public class AttributesImpl implements Attributes {
                 data[i * 5 + 2] = atts.getQName(i);
                 data[i * 5 + 3] = atts.getType(i);
                 data[i * 5 + 4] = atts.getValue(i);
-                qNameIndex.put(atts.getQName(i), i);
+                qNameIndex.putIfAbsent(atts.getQName(i), i);
             }
         }
     }
@@ -365,7 +361,7 @@ public class AttributesImpl implements Attributes {
         data[length * 5 + 2] = qName;
         data[length * 5 + 3] = type;
         data[length * 5 + 4] = value;
-        qNameIndex.put(qName, length);
+        qNameIndex.putIfAbsent(qName, length);
         length++;
     }
 
