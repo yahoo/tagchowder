@@ -197,16 +197,16 @@ public class AttributesImpl implements Attributes {
      * @return The attribute's index, or -1 if none matches.
      * @see org.xml.sax.Attributes#getIndex(java.lang.String,java.lang.String)
      */
-    @Override
-    public int getIndex(final String uri, final String localName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i].equals(uri) && data[i + 1].equals(localName)) {
-                return i / 5;
-            }
-        }
-        return -1;
-    }
+     @Override
+     public int getIndex(final String uri, final String localName) {
+         int max = length * 5;
+         for (int i = 0; i < max; i += 5) {
+             if (data[i].equals(uri) && data[i + 1].equals(localName)) {
+                 return i / 5;
+             }
+         }
+         return -1;
+     }
 
     /**
      * Look up an attribute's index by qualified (prefixed) name.
