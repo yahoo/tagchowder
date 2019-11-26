@@ -29,15 +29,14 @@ import com.yahoo.tagchowder.Schema;
 public class HTMLSchema extends Schema implements HTMLModels {
 
 	/**
-	Returns a newly constructed HTMLSchema object independent of
-	any existing ones.
-	*/
+	 * Returns a newly constructed HTMLSchema object independent of any existing ones.
+	 * @param useIntern enable jvm string intern method
+	 */
 	public HTMLSchema(final boolean useIntern) {
-			setUseIntern(useIntern);
+		setUseIntern(useIntern);
 		// Start of Schema calls
 		@@SCHEMA_CALLS@@
 		// End of Schema calls
-		}
-
-
 	}
+
+}

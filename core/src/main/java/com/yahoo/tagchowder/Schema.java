@@ -133,7 +133,7 @@ public abstract class Schema {
      **/
 
     public void entity(final String name, final int value) {
-        theEntities.put(name, new Integer(value));
+        theEntities.put(name, value);
     }
 
     /**
