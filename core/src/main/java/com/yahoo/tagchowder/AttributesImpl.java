@@ -306,7 +306,6 @@ public class AttributesImpl implements Attributes {
      * </p>
      */
     public void clear() {
-    	System.out.println("Clear called");
         if (data != null) {
             for (int i = 0; i < (length * 5); i++) {
                 data[i] = null;
