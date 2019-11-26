@@ -416,6 +416,11 @@ public class AttributesImpl implements Attributes {
             data[i++] = null;
             data[i++] = null;
             data[i] = null;
+            // Update the index in the lookup table starting from the index to the length on new array.
+            for (int j = index; j < length - 1; j++) {
+                qNameTemp = data[j * 5 + 2];
+                qNameIndex.put(qNameTemp, j);
+            }
             length--;
         } else {
             badIndex(i);
