@@ -419,7 +419,11 @@ public class AttributesImpl implements Attributes {
             // Update the index in the lookup table starting from the index to the length on new array.
             for (int j = index; j < length - 1; j++) {
                 qNameTemp = data[j * 5 + 2];
-                qNameIndex.put(qNameTemp, j);
+                // If qname already points to first index which is lesser than index do not change it.
+                Integer oldIndex = qNameIndex.get(qNameTemp);
+                if (oldIndex == null || oldIndex > j) {
+                    qNameIndex.put(qNameTemp, j);
+                }
             }
             length--;
         } else {
