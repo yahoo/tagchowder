@@ -390,7 +390,10 @@ public class AttributesImpl implements Attributes {
             data[index * 5 + 2] = qName;
             data[index * 5 + 3] = type;
             data[index * 5 + 4] = value;
-            qNameIndex.put(qName, index);
+            Integer oldIndex = qNameIndex.get(qName);
+            if (oldIndex == null || index < oldIndex) {
+                qNameIndex.put(qName, index);
+            }
         } else {
             badIndex(index);
         }

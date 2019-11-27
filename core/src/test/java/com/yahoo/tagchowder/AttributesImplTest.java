@@ -627,6 +627,31 @@ public class AttributesImplTest {
         Assert.assertEquals(newAttributes.getIndex("qname1"), -1, "index for old entry should be -1");
         Assert.assertEquals(newAttributes.getIndex("qname2"), 0, "index for first entry should be 0");
         Assert.assertEquals(newAttributes.getIndex("qname3"), 1, "index for second entry should be 1");
+
+        // Verify setAttribute() for same qname does not replace higher index with lower.
+        attributes.clear();
+        attributes.addAttribute(uri, localName, "qname1", type, value);
+        attributes.addAttribute(uri, localName, qname, type, value);
+        attributes.addAttribute(uri, localName, "qname2", type, value);
+        attributes.addAttribute(uri, localName, "qname3", type, value);
+        attributes.addAttribute(uri, localName, qname, type, value);
+        Assert.assertEquals(attributes.getLength(), 5, "total length should be 5");
+        Assert.assertEquals(attributes.getIndex("qname3"), 3, "index for qname3 should be 3");
+        Assert.assertEquals(attributes.getIndex(qname), 1, "index for qname should be 1");
+        attributes.setAttribute(3, uri, localName, qname, type, value);
+        Assert.assertEquals(attributes.getIndex("qname3"), -1, "index for qname3 should be -1");
+        Assert.assertEquals(attributes.getIndex(qname), 1, "index for qname should be 1");
+
+        // Verify setAttribute() for same qname with lower index updates the lookup table.
+        attributes.clear();
+        attributes.addAttribute(uri, localName, "qname1", type, value);
+        attributes.addAttribute(uri, localName, qname, type, value);
+        Assert.assertEquals(attributes.getLength(), 2, "total length should be 2");
+        Assert.assertEquals(attributes.getIndex("qname1"), 0, "index for qname1 should be 1");
+        Assert.assertEquals(attributes.getIndex(qname), 1, "index for qname should be 1");
+        attributes.setAttribute(0, uri, localName, qname, type, value);
+        Assert.assertEquals(attributes.getIndex("qname1"), -1, "index for qname1 should be -1");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "index for qname should be 0");
     }
 
     /**
