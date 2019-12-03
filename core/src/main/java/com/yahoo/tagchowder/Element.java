@@ -21,6 +21,8 @@
 
 package com.yahoo.tagchowder;
 
+import java.util.Iterator;
+
 /**
  * The internal representation of an actual element (not an element type). An Element has an element type, attributes, and a successor Element for use
  * in constructing stacks and queues of Elements.
@@ -190,7 +192,10 @@ public class Element {
      */
 
     public void anonymize() {
-        for (int i = theAtts.getLength() - 1; i >= 0; i--) {
+        AttributesImpl attributes = (AttributesImpl) theAtts;
+        Iterator<Integer> iterator = attributes.getReverseIndexes();
+        while (iterator.hasNext()) {
+            int i = iterator.next();
             if (theAtts.getType(i).equals("ID") || theAtts.getQName(i).equals("name")) {
                 theAtts.removeAttribute(i);
             }
@@ -203,11 +208,13 @@ public class Element {
      */
 
     public void clean() {
-        for (int i = theAtts.getLength() - 1; i >= 0; i--) {
+        AttributesImpl attributes = (AttributesImpl) theAtts;
+        Iterator<Integer> iterator = attributes.getReverseIndexes();
+        while (iterator.hasNext()) {
+            int i = iterator.next();
             String name = theAtts.getLocalName(i);
             if (theAtts.getValue(i) == null || name == null || name.length() == 0) {
                 theAtts.removeAttribute(i);
-                continue;
             }
         }
     }

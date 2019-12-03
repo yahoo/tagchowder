@@ -32,10 +32,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
 import org.xml.sax.EntityResolver;
@@ -781,8 +781,10 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (foreign(prefix, namespace)) {
             theContentHandler.endPrefixMapping(prefix);
         }
-        Attributes atts = theStack.atts();
-        for (int i = atts.getLength() - 1; i >= 0; i--) {
+        AttributesImpl atts = theStack.atts();
+        Iterator<Integer> integerIterator = ((AttributesImpl) atts).getReverseIndexes();
+        while (integerIterator.hasNext()) {
+            int i = integerIterator.next();
             String attNamespace = atts.getURI(i);
             String attPrefix = prefixOf(atts.getQName(i));
             if (foreign(attPrefix, attNamespace)) {
@@ -825,11 +827,12 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (foreign(prefix, namespace)) {
             theContentHandler.startPrefixMapping(prefix, namespace);
         }
-        Attributes atts = e.atts();
-        int len = atts.getLength();
-        for (int i = 0; i < len; i++) {
-            String attNamespace = atts.getURI(i);
-            String attPrefix = prefixOf(atts.getQName(i));
+        AttributesImpl atts = (AttributesImpl) e.atts();
+        Iterator<Integer> iterator = atts.getIndexes();
+        while (iterator.hasNext()) {
+            int index = iterator.next();
+            String attNamespace = atts.getURI(index);
+            String attPrefix = prefixOf(atts.getQName(index));
             if (foreign(attPrefix, attNamespace)) {
                 theContentHandler.startPrefixMapping(attPrefix, attNamespace);
             }

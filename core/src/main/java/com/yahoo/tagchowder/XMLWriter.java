@@ -30,6 +30,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Properties;
 
 import org.xml.sax.Attributes;
@@ -1016,8 +1017,10 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      *                SAXException.
      */
     private void writeAttributes(final Attributes atts) throws SAXException {
-        int len = atts.getLength();
-        for (int i = 0; i < len; i++) {
+        com.yahoo.tagchowder.AttributesImpl attributes = (com.yahoo.tagchowder.AttributesImpl) atts;
+        Iterator<Integer> iterator = attributes.getIndexes();
+        while (iterator.hasNext()) {
+            int i = iterator.next();
             char[] ch = atts.getValue(i).toCharArray();
             write(' ');
             writeName(atts.getURI(i), atts.getLocalName(i), atts.getQName(i), false);

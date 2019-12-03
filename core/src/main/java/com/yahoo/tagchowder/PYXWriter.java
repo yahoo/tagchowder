@@ -27,6 +27,7 @@ package com.yahoo.tagchowder;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -229,8 +230,10 @@ public class PYXWriter implements ScanHandler, ContentHandler, LexicalHandler {
         }
         theWriter.print('(');
         theWriter.println(qn);
-        final int length = atts.getLength();
-        for (int i = 0; i < length; i++) {
+        AttributesImpl attributes = (AttributesImpl) atts;
+        Iterator<Integer> iterator = attributes.getIndexes();
+        while (iterator.hasNext()) {
+            int i = iterator.next();
             qn = atts.getQName(i);
             if (qn.length() == 0) {
                 qn = atts.getLocalName(i);

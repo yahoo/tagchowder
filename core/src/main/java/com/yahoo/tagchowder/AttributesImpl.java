@@ -25,8 +25,13 @@
 
 package com.yahoo.tagchowder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.Vector;
 
 import org.xml.sax.Attributes;
 
@@ -70,9 +75,11 @@ public class AttributesImpl implements Attributes {
      * Construct a new, empty AttributesImpl object.
      */
     public AttributesImpl() {
+        vectorIndex = 0;
         length = 0;
-        data = null;
-        qNameIndex = new HashMap<String, Integer>();
+        attributeEntriesVector = new Vector<>(5);
+        qNameIndex = new HashMap<String, SortedSet<Integer>>(5);
+        uriLocalNameIndex = new HashMap<String, SortedSet<Integer>>(5);
     }
 
     /**
@@ -85,7 +92,11 @@ public class AttributesImpl implements Attributes {
      * @param atts The existing Attributes object.
      */
     public AttributesImpl(final Attributes atts) {
-        qNameIndex = new HashMap<String, Integer>();
+        vectorIndex = 0;
+        length = 0;
+        attributeEntriesVector = new Vector<>(5);
+        qNameIndex = new HashMap<String, SortedSet<Integer>>(5);
+        uriLocalNameIndex = new HashMap<String, SortedSet<Integer>>(5);
         setAttributes(atts);
     }
 
@@ -105,6 +116,19 @@ public class AttributesImpl implements Attributes {
     }
 
     /**
+     * Get the entry for given index.
+     * @param index index in the vector
+     * @return attribute entry for given index
+     */
+    private AttributeEntries getEntry(final int index) {
+        if (index >= 0 && index < vectorIndex) {
+            return attributeEntriesVector.get(index);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Return an attribute's Namespace URI.
      *
      * @param index The attribute's index (zero-based).
@@ -113,11 +137,11 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getURI(final int index) {
-        if (index >= 0 && index < length) {
-            return data[index * 5];
-        } else {
-            return null;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            return entry.getUri();
         }
+        return null;
     }
 
     /**
@@ -129,11 +153,11 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getLocalName(final int index) {
-        if (index >= 0 && index < length) {
-            return data[index * 5 + 1];
-        } else {
-            return null;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            return entry.getLocalName();
         }
+        return null;
     }
 
     /**
@@ -145,11 +169,11 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getQName(final int index) {
-        if (index >= 0 && index < length) {
-            return data[index * 5 + 2];
-        } else {
-            return null;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            return entry.getQualifiedName();
         }
+        return null;
     }
 
     /**
@@ -161,11 +185,11 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getType(final int index) {
-        if (index >= 0 && index < length) {
-            return data[index * 5 + 3];
-        } else {
-            return null;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            return entry.getType();
         }
+        return null;
     }
 
     /**
@@ -177,11 +201,11 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getValue(final int index) {
-        if (index >= 0 && index < length) {
-            return data[index * 5 + 4];
-        } else {
-            return null;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            return entry.getValue();
         }
+        return null;
     }
 
     /**
@@ -199,11 +223,10 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public int getIndex(final String uri, final String localName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i].equals(uri) && data[i + 1].equals(localName)) {
-                return i / 5;
-            }
+        String key = createKey(uri, localName);
+        SortedSet<Integer> indexes = uriLocalNameIndex.get(key);
+        if (indexes != null && indexes.size() > 0) {
+            return indexes.first();
         }
         return -1;
     }
@@ -217,11 +240,11 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public int getIndex(final String qName) {
-        Integer index = qNameIndex.get(qName);
-        if (index == null) {
-            return -1;
+        SortedSet<Integer> indexes = qNameIndex.get(qName);
+        if (indexes != null && indexes.size() > 0) {
+            return indexes.first();
         }
-        return index;
+        return -1;
     }
 
     /**
@@ -234,11 +257,10 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getType(final String uri, final String localName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i].equals(uri) && data[i + 1].equals(localName)) {
-                return data[i + 3];
-            }
+        String key = createKey(uri, localName);
+        SortedSet<Integer> indexes = uriLocalNameIndex.get(key);
+        if (indexes != null && indexes.size() > 0) {
+            return getType(indexes.first());
         }
         return null;
     }
@@ -252,9 +274,9 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getType(final String qName) {
-        Integer index = qNameIndex.get(qName);
-        if (index != null) {
-            return data[index + 3];
+        SortedSet<Integer> indexes = qNameIndex.get(qName);
+        if (indexes != null && indexes.size() > 0) {
+            return getType(indexes.first());
         }
         return null;
     }
@@ -269,11 +291,10 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getValue(final String uri, final String localName) {
-        int max = length * 5;
-        for (int i = 0; i < max; i += 5) {
-            if (data[i].equals(uri) && data[i + 1].equals(localName)) {
-                return data[i + 4];
-            }
+        String key = createKey(uri, localName);
+        SortedSet<Integer> indexes = uriLocalNameIndex.get(key);
+        if (indexes != null && indexes.size() > 0) {
+            return getValue(indexes.first());
         }
         return null;
     }
@@ -287,9 +308,9 @@ public class AttributesImpl implements Attributes {
      */
     @Override
     public String getValue(final String qName) {
-        Integer index = qNameIndex.get(qName);
-        if (index != null) {
-            return data[index + 4];
+        SortedSet<Integer> indexes = qNameIndex.get(qName);
+        if (indexes != null && indexes.size() > 0) {
+            return getValue(indexes.first());
         }
         return null;
     }
@@ -306,13 +327,43 @@ public class AttributesImpl implements Attributes {
      * </p>
      */
     public void clear() {
-        if (data != null) {
-            for (int i = 0; i < (length * 5); i++) {
-                data[i] = null;
-            }
-        }
+        attributeEntriesVector.clear();
         qNameIndex.clear();
+        uriLocalNameIndex.clear();
+        vectorIndex = 0;
         length = 0;
+    }
+
+    /**
+     * Update the qname index.
+     * @param key the qname
+     * @param vectorIndex index where this entry is inserted
+     */
+    private void updateQNameIndex(final String key, final int vectorIndex) {
+        if (qNameIndex.containsKey(key)) {
+            qNameIndex.get(key).add(vectorIndex);
+        } else {
+            // Create new index
+            TreeSet<Integer> set = new TreeSet<>();
+            set.add(vectorIndex);
+            qNameIndex.put(key, set);
+        }
+    }
+
+    /**
+     * Update the uri, localname index.
+     * @param key the key uri + localName
+     * @param vectorIndex index where this entry is inserted
+     */
+    private void updateUriLocalNameIndex(final String key, final int vectorIndex) {
+        if (uriLocalNameIndex.containsKey(key)) {
+            uriLocalNameIndex.get(key).add(vectorIndex);
+        } else {
+            // Create new index
+            TreeSet<Integer> set = new TreeSet<>();
+            set.add(vectorIndex);
+            uriLocalNameIndex.put(key, set);
+        }
     }
 
     /**
@@ -326,17 +377,14 @@ public class AttributesImpl implements Attributes {
      */
     public void setAttributes(final Attributes atts) {
         clear();
-        length = atts.getLength();
-        if (length > 0) {
-            data = new String[length * 5];
-            for (int i = 0; i < length; i++) {
-                data[i * 5] = atts.getURI(i);
-                data[i * 5 + 1] = atts.getLocalName(i);
-                data[i * 5 + 2] = atts.getQName(i);
-                data[i * 5 + 3] = atts.getType(i);
-                data[i * 5 + 4] = atts.getValue(i);
-                qNameIndex.putIfAbsent(atts.getQName(i), i);
-            }
+        for (int i = 0; i < atts.getLength(); i++) {
+            attributeEntriesVector.add(i,
+                    new AttributeEntries(atts.getURI(i), atts.getLocalName(i), atts.getQName(i), atts.getType(i), atts.getValue(i)));
+            updateQNameIndex(atts.getQName(i), vectorIndex);
+            String key = createKey(atts.getURI(i), atts.getLocalName(i));
+            updateUriLocalNameIndex(key, vectorIndex);
+            vectorIndex++;
+            length++;
         }
     }
 
@@ -355,14 +403,22 @@ public class AttributesImpl implements Attributes {
      * @param value The attribute value.
      */
     public void addAttribute(final String uri, final String localName, final String qName, final String type, final String value) {
-        ensureCapacity(length + 1);
-        data[length * 5] = uri;
-        data[length * 5 + 1] = localName;
-        data[length * 5 + 2] = qName;
-        data[length * 5 + 3] = type;
-        data[length * 5 + 4] = value;
-        qNameIndex.putIfAbsent(qName, length);
+        attributeEntriesVector.add(new AttributeEntries(uri, localName, qName, type, value));
+        updateQNameIndex(qName, vectorIndex);
+        updateUriLocalNameIndex(createKey(uri, localName), vectorIndex);
+        vectorIndex++;
         length++;
+    }
+
+    /**
+     * Construct key from uri and localname.
+     * @param uri the uri
+     * @param localName the localname
+     */
+    private String createKey(final String uri, final String localName) {
+        String nUri = uri != null ? uri : "";
+        String nLocalName = localName != null ? localName : "";
+        return nUri.concat(nLocalName);
     }
 
     /**
@@ -382,18 +438,24 @@ public class AttributesImpl implements Attributes {
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
     public void setAttribute(final int index, final String uri, final String localName, final String qName, final String type, final String value) {
-        if (index >= 0 && index < length) {
-            String qNameTemp = data[index * 5 + 2];
-            qNameIndex.remove(qNameTemp);
-            data[index * 5] = uri;
-            data[index * 5 + 1] = localName;
-            data[index * 5 + 2] = qName;
-            data[index * 5 + 3] = type;
-            data[index * 5 + 4] = value;
-            Integer oldIndex = qNameIndex.get(qName);
-            if (oldIndex == null || index < oldIndex) {
-                qNameIndex.put(qName, index);
+        if (index >= 0 && index < vectorIndex) {
+            AttributeEntries oldEntry = attributeEntriesVector.get(index);
+            if (oldEntry != null) {
+                if (qNameIndex.containsKey(oldEntry.getQualifiedName())) {
+                    qNameIndex.get(oldEntry.getQualifiedName()).remove(index);
+                }
+                String oldKey = createKey(oldEntry.getUri(), oldEntry.getLocalName());
+                if (uriLocalNameIndex.containsKey(oldKey)) {
+                    uriLocalNameIndex.get(oldKey).remove(index);
+                }
+            } else {
+                // Inserting in place where old entry was not present.
+                length++;
             }
+
+            attributeEntriesVector.set(index, new AttributeEntries(uri, localName, qName, type, value));
+            updateQNameIndex(qName, index);
+            updateUriLocalNameIndex(createKey(uri, localName), index);
         } else {
             badIndex(index);
         }
@@ -406,31 +468,21 @@ public class AttributesImpl implements Attributes {
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
     public void removeAttribute(final int index) {
-        int i = index;
-        if (i >= 0 && i < length) {
-            String qNameTemp = data[index * 5 + 2];
-            qNameIndex.remove(qNameTemp);
-            if (i < length - 1) {
-                System.arraycopy(data, (i + 1) * 5, data, i * 5, (length - i - 1) * 5);
-            }
-            i = (length - 1) * 5;
-            data[i++] = null;
-            data[i++] = null;
-            data[i++] = null;
-            data[i++] = null;
-            data[i] = null;
-            // Update the index in the lookup table starting from the index to the length on new array.
-            for (int j = index; j < length - 1; j++) {
-                qNameTemp = data[j * 5 + 2];
-                // If qname already points to first index which is lesser than index do not change it.
-                Integer oldIndex = qNameIndex.get(qNameTemp);
-                if (oldIndex == null || oldIndex > j) {
-                    qNameIndex.put(qNameTemp, j);
+        if (index >= 0 && index < vectorIndex) {
+            AttributeEntries oldEntry = attributeEntriesVector.get(index);
+            if (oldEntry != null) {
+                if (qNameIndex.containsKey(oldEntry.getQualifiedName())) {
+                    qNameIndex.get(oldEntry.getQualifiedName()).remove(index);
                 }
+                String oldKey = createKey(oldEntry.getUri(), oldEntry.getLocalName());
+                if (uriLocalNameIndex.containsKey(oldKey)) {
+                    uriLocalNameIndex.get(oldKey).remove(index);
+                }
+                attributeEntriesVector.set(index, null);
+                length--;
             }
-            length--;
         } else {
-            badIndex(i);
+            badIndex(index);
         }
     }
 
@@ -442,8 +494,9 @@ public class AttributesImpl implements Attributes {
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
     public void setURI(final int index, final String uri) {
-        if (index >= 0 && index < length) {
-            data[index * 5] = uri;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            entry.setUri(uri);
         } else {
             badIndex(index);
         }
@@ -457,8 +510,9 @@ public class AttributesImpl implements Attributes {
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
     public void setLocalName(final int index, final String localName) {
-        if (index >= 0 && index < length) {
-            data[index * 5 + 1] = localName;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            entry.setLocalName(localName);
         } else {
             badIndex(index);
         }
@@ -472,8 +526,9 @@ public class AttributesImpl implements Attributes {
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
     public void setQName(final int index, final String qName) {
-        if (index >= 0 && index < length) {
-            data[index * 5 + 2] = qName;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            entry.setQualifiedName(qName);
         } else {
             badIndex(index);
         }
@@ -487,8 +542,9 @@ public class AttributesImpl implements Attributes {
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
     public void setType(final int index, final String type) {
-        if (index >= 0 && index < length) {
-            data[index * 5 + 3] = type;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            entry.setType(type);
         } else {
             badIndex(index);
         }
@@ -502,8 +558,9 @@ public class AttributesImpl implements Attributes {
      * @exception java.lang.ArrayIndexOutOfBoundsException When the supplied index does not point to an attribute in the list.
      */
     public void setValue(final int index, final String value) {
-        if (index >= 0 && index < length) {
-            data[index * 5 + 4] = value;
+        AttributeEntries entry = getEntry(index);
+        if (entry != null) {
+            entry.setValue(value);
         } else {
             badIndex(index);
         }
@@ -512,34 +569,6 @@ public class AttributesImpl implements Attributes {
     ////////////////////////////////////////////////////////////////////
     // Internal methods.
     ////////////////////////////////////////////////////////////////////
-
-    /**
-     * Ensure the internal array's capacity.
-     *
-     * @param n The minimum number of attributes that the array must be able to hold.
-     */
-    private void ensureCapacity(final int n) {
-        if (n <= 0) {
-            return;
-        }
-        int max;
-        if (data == null || data.length == 0) {
-            max = 25;
-        } else if (data.length >= n * 5) {
-            return;
-        } else {
-            max = data.length;
-        }
-        while (max < n * 5) {
-            max *= 2;
-        }
-
-        String[] newData = new String[max];
-        if (length > 0) {
-            System.arraycopy(data, 0, newData, 0, length * 5);
-        }
-        data = newData;
-    }
 
     /**
      * Report a bad array index in a manipulator.
@@ -552,13 +581,130 @@ public class AttributesImpl implements Attributes {
         throw new ArrayIndexOutOfBoundsException(msg);
     }
 
+    /**
+     * Get the iterator to iterate through all entries in attribute class.
+     * @return Iterator for the attribute entries.
+     */
+    public Iterator<Integer> getIndexes() {
+        ArrayList<Integer> indexes = new ArrayList<>(vectorIndex);
+        if (length > 0) {
+            for (int i = 0; i < attributeEntriesVector.size(); i++) {
+                if (attributeEntriesVector.elementAt(i) != null) {
+                    indexes.add(i);
+                }
+            }
+        }
+        return indexes.iterator();
+    }
+
+    /**
+     * Get the iterator to iterate through all entries in attribute class.
+     * @return Iterator for the attribute entries.
+     */
+    public Iterator<Integer> getReverseIndexes() {
+        ArrayList<Integer> indexes = new ArrayList<>(vectorIndex);
+        if (length > 0) {
+            for (int i = attributeEntriesVector.size() - 1; i >= 0; i--) {
+                if (attributeEntriesVector.elementAt(i) != null) {
+                    indexes.add(i);
+                }
+            }
+        }
+        return indexes.iterator();
+    }
+
     ////////////////////////////////////////////////////////////////////
     // Internal state.
     ////////////////////////////////////////////////////////////////////
 
+    /** Index of the last entry. */
+    private int vectorIndex;
+
+    /** No of entries in this attributes. */
     private int length;
-    private String[] data;
-    private Map<String, Integer> qNameIndex;
+
+    private Vector<AttributeEntries> attributeEntriesVector;
+    private Map<String, SortedSet<Integer>> qNameIndex;
+    private Map<String, SortedSet<Integer>> uriLocalNameIndex;
+
+    /**
+     * Class to store each entry in a attribute.
+     */
+    static class AttributeEntries {
+        private String uri;
+        private String localName;
+        private String qualifiedName;
+        private String type;
+        private String value;
+
+        AttributeEntries(final String uri, final String localName, final String qualifiedName, final String type, final String value) {
+            this.uri = uri;
+            this.localName = localName;
+            this.qualifiedName = qualifiedName;
+            this.type = type;
+            this.value = value;
+        }
+
+        /**
+         * Get the uri from an attribute entry.
+         * @return the uri
+         */
+        public String getUri() {
+            return uri;
+        }
+
+        public void setUri(final String uri) {
+            this.uri = uri;
+        }
+
+        /**
+         * Get the uri from an attribute entry.
+         * @return the local name
+         */
+        public String getLocalName() {
+            return localName;
+        }
+
+        public void setLocalName(final String localName) {
+            this.localName = localName;
+        }
+
+        /**
+         * Get the uri from an attribute entry.
+         * @return the qualified name
+         */
+        public String getQualifiedName() {
+            return qualifiedName;
+        }
+
+        public void setQualifiedName(final String qualifiedName) {
+            this.qualifiedName = qualifiedName;
+        }
+
+        /**
+         * Get the uri from an attribute entry.
+         * @return the type
+         */
+        public String getType() {
+            return type;
+        }
+
+        public void setType(final String type) {
+            this.type = type;
+        }
+
+        /**
+         * Get the value from an attribute entry.
+         * @return the value
+         */
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(final String value) {
+            this.value = value;
+        }
+    }
 }
 
 // end of AttributesImpl.java
