@@ -656,6 +656,10 @@ public class AttributesImpl implements Attributes {
             return uri;
         }
 
+        /**
+         * Set the uri.
+         * @param uri uri to set
+         */
         public void setUri(final String uri) {
             this.uri = uri;
         }
@@ -668,6 +672,10 @@ public class AttributesImpl implements Attributes {
             return localName;
         }
 
+        /**
+         * Set the localname.
+         * @param localName localname to set
+         */
         public void setLocalName(final String localName) {
             this.localName = localName;
         }
@@ -680,6 +688,10 @@ public class AttributesImpl implements Attributes {
             return qualifiedName;
         }
 
+        /**
+         * Set the qualified name.
+         * @param qualifiedName qualified name to set
+         */
         public void setQualifiedName(final String qualifiedName) {
             this.qualifiedName = qualifiedName;
         }
@@ -692,6 +704,10 @@ public class AttributesImpl implements Attributes {
             return type;
         }
 
+        /**
+         * Set the type.
+         * @param type type to be set
+         */
         public void setType(final String type) {
             this.type = type;
         }
@@ -704,6 +720,10 @@ public class AttributesImpl implements Attributes {
             return value;
         }
 
+        /**
+         * Set the value.
+         * @param value value to be set
+         */
         public void setValue(final String value) {
             this.value = value;
         }
