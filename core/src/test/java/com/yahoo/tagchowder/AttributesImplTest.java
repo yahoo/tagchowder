@@ -21,6 +21,8 @@
 
 package com.yahoo.tagchowder;
 
+import java.util.Iterator;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -700,5 +702,73 @@ public class AttributesImplTest {
         attributes.addAttribute(uri, localName, qname, type, value);
         Assert.assertEquals(attributes.getValue(uri, localName), value, "value should match");
         Assert.assertNull(attributes.getType("uri1", localName), "non existent uri, getValue should return null");
+    }
+
+    /**
+     * Test getIndexes returns the proper index.
+     */
+    @Test
+    public void testGetIndexes() {
+        String uri = "xmlns=\"http://www.w3.org/1999/xhtml\"";
+        String localName = "localname";
+        String qname = "qname";
+        String type = "type";
+        String value = "value";
+        AttributesImpl attributes = new AttributesImpl();
+        for (int i = 0; i < 10; i++) {
+            attributes.addAttribute(uri, localName, qname, type, value);
+        }
+        int index = 0;
+        Iterator<Integer> iterator = attributes.getIndexes();
+        while (iterator.hasNext()) {
+            Assert.assertEquals(iterator.next().intValue(), index++, "Index should match");
+        }
+        for (int i = 0; i < 10; i++) {
+            // Remove odd index elements.
+            if (i % 2 != 0) {
+                attributes.removeAttribute(i);
+            }
+        }
+        // Verify only even index elements present.
+        index = 0;
+        Iterator<Integer> iterator1 = attributes.getIndexes();
+        while (iterator1.hasNext()) {
+            Assert.assertEquals(iterator1.next().intValue(), index, "Index should match");
+            index += 2;
+        }
+    }
+
+    /**
+     * Test getReverseIndexes returns the proper index.
+     */
+    @Test
+    public void testGetReverseIndexes() {
+        String uri = "xmlns=\"http://www.w3.org/1999/xhtml\"";
+        String localName = "localname";
+        String qname = "qname";
+        String type = "type";
+        String value = "value";
+        AttributesImpl attributes = new AttributesImpl();
+        for (int i = 0; i < 10; i++) {
+            attributes.addAttribute(uri, localName, qname, type, value);
+        }
+        int index = 9;
+        Iterator<Integer> iterator = attributes.getReverseIndexes();
+        while (iterator.hasNext()) {
+            Assert.assertEquals(iterator.next().intValue(), index--, "Index should match");
+        }
+        for (int i = 0; i < 10; i++) {
+            // Remove odd index elements.
+            if (i % 2 != 0) {
+                attributes.removeAttribute(i);
+            }
+        }
+        // Verify only even index elements present.
+        index = 8;
+        Iterator<Integer> iterator1 = attributes.getReverseIndexes();
+        while (iterator1.hasNext()) {
+            Assert.assertEquals(iterator1.next().intValue(), index, "Index should match");
+            index -= 2;
+        }
     }
 }
