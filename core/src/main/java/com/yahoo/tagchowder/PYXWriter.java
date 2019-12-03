@@ -231,7 +231,7 @@ public class PYXWriter implements ScanHandler, ContentHandler, LexicalHandler {
         theWriter.print('(');
         theWriter.println(qn);
         AttributesImpl attributes = (AttributesImpl) atts;
-        Iterator<Integer> iterator = attributes.getIndexes();
+        Iterator<Integer> iterator = attributes.getIndexes().iterator();
         while (iterator.hasNext()) {
             int i = iterator.next();
             qn = atts.getQName(i);

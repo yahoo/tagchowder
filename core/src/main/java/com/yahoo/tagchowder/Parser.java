@@ -782,7 +782,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             theContentHandler.endPrefixMapping(prefix);
         }
         AttributesImpl atts = theStack.atts();
-        Iterator<Integer> integerIterator = ((AttributesImpl) atts).getReverseIndexes();
+        Iterator<Integer> integerIterator = ((AttributesImpl) atts).getReverseIndexes().iterator();
         while (integerIterator.hasNext()) {
             int i = integerIterator.next();
             String attNamespace = atts.getURI(i);
@@ -828,7 +828,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             theContentHandler.startPrefixMapping(prefix, namespace);
         }
         AttributesImpl atts = (AttributesImpl) e.atts();
-        Iterator<Integer> iterator = atts.getIndexes();
+        Iterator<Integer> iterator = atts.getIndexes().iterator();
         while (iterator.hasNext()) {
             int index = iterator.next();
             String attNamespace = atts.getURI(index);

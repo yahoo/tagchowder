@@ -193,7 +193,7 @@ public class Element {
 
     public void anonymize() {
         AttributesImpl attributes = (AttributesImpl) theAtts;
-        Iterator<Integer> iterator = attributes.getReverseIndexes();
+        Iterator<Integer> iterator = attributes.getReverseIndexes().iterator();
         while (iterator.hasNext()) {
             int i = iterator.next();
             if (theAtts.getType(i).equals("ID") || theAtts.getQName(i).equals("name")) {
@@ -209,7 +209,7 @@ public class Element {
 
     public void clean() {
         AttributesImpl attributes = (AttributesImpl) theAtts;
-        Iterator<Integer> iterator = attributes.getReverseIndexes();
+        Iterator<Integer> iterator = attributes.getReverseIndexes().iterator();
         while (iterator.hasNext()) {
             int i = iterator.next();
             String name = theAtts.getLocalName(i);

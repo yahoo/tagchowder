@@ -1018,7 +1018,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler {
      */
     private void writeAttributes(final Attributes atts) throws SAXException {
         com.yahoo.tagchowder.AttributesImpl attributes = (com.yahoo.tagchowder.AttributesImpl) atts;
-        Iterator<Integer> iterator = attributes.getIndexes();
+        Iterator<Integer> iterator = attributes.getIndexes().iterator();
         while (iterator.hasNext()) {
             int i = iterator.next();
             char[] ch = atts.getValue(i).toCharArray();

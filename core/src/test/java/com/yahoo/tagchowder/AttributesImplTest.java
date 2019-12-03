@@ -719,7 +719,7 @@ public class AttributesImplTest {
             attributes.addAttribute(uri, localName, qname, type, value);
         }
         int index = 0;
-        Iterator<Integer> iterator = attributes.getIndexes();
+        Iterator<Integer> iterator = attributes.getIndexes().iterator();
         while (iterator.hasNext()) {
             Assert.assertEquals(iterator.next().intValue(), index++, "Index should match");
         }
@@ -731,7 +731,7 @@ public class AttributesImplTest {
         }
         // Verify only even index elements present.
         index = 0;
-        Iterator<Integer> iterator1 = attributes.getIndexes();
+        Iterator<Integer> iterator1 = attributes.getIndexes().iterator();
         while (iterator1.hasNext()) {
             Assert.assertEquals(iterator1.next().intValue(), index, "Index should match");
             index += 2;
@@ -753,7 +753,7 @@ public class AttributesImplTest {
             attributes.addAttribute(uri, localName, qname, type, value);
         }
         int index = 9;
-        Iterator<Integer> iterator = attributes.getReverseIndexes();
+        Iterator<Integer> iterator = attributes.getReverseIndexes().iterator();
         while (iterator.hasNext()) {
             Assert.assertEquals(iterator.next().intValue(), index--, "Index should match");
         }
@@ -765,7 +765,7 @@ public class AttributesImplTest {
         }
         // Verify only even index elements present.
         index = 8;
-        Iterator<Integer> iterator1 = attributes.getReverseIndexes();
+        Iterator<Integer> iterator1 = attributes.getReverseIndexes().iterator();
         while (iterator1.hasNext()) {
             Assert.assertEquals(iterator1.next().intValue(), index, "Index should match");
             index -= 2;

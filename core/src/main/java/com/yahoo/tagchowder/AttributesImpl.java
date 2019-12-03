@@ -28,6 +28,7 @@ package com.yahoo.tagchowder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -377,7 +378,7 @@ public class AttributesImpl implements Attributes {
      */
     public void setAttributes(final Attributes atts) {
         clear();
-        Iterator<Integer> iterator = ((AttributesImpl) atts).getIndexes();
+        Iterator<Integer> iterator = ((AttributesImpl) atts).getIndexes().iterator();
         while (iterator.hasNext()) {
             int i = iterator.next();
             attributeEntriesVector.add(i,
@@ -584,10 +585,10 @@ public class AttributesImpl implements Attributes {
     }
 
     /**
-     * Get the iterator to iterate through all entries in attribute class.
-     * @return Iterator for the attribute entries.
+     * Get the list of indexes to iterate through all entries in attribute class.
+     * @return List of indexes for the attribute entries.
      */
-    public Iterator<Integer> getIndexes() {
+    public List<Integer> getIndexes() {
         ArrayList<Integer> indexes = new ArrayList<>(vectorIndex);
         if (length > 0) {
             for (int i = 0; i < attributeEntriesVector.size(); i++) {
@@ -596,14 +597,14 @@ public class AttributesImpl implements Attributes {
                 }
             }
         }
-        return indexes.iterator();
+        return indexes;
     }
 
     /**
-     * Get the iterator to iterate through all entries in attribute class.
-     * @return Iterator for the attribute entries.
+     * Get the list of indexes in reverse order to iterate through all entries in attribute class.
+     * @return List of indexes for the attribute entries in reverse order.
      */
-    public Iterator<Integer> getReverseIndexes() {
+    public List<Integer> getReverseIndexes() {
         ArrayList<Integer> indexes = new ArrayList<>(vectorIndex);
         if (length > 0) {
             for (int i = attributeEntriesVector.size() - 1; i >= 0; i--) {
@@ -612,7 +613,7 @@ public class AttributesImpl implements Attributes {
                 }
             }
         }
-        return indexes.iterator();
+        return indexes;
     }
 
     ////////////////////////////////////////////////////////////////////
