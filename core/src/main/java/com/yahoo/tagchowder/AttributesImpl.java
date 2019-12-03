@@ -377,7 +377,9 @@ public class AttributesImpl implements Attributes {
      */
     public void setAttributes(final Attributes atts) {
         clear();
-        for (int i = 0; i < atts.getLength(); i++) {
+        Iterator<Integer> iterator = ((AttributesImpl) atts).getIndexes();
+        while (iterator.hasNext()) {
+            int i = iterator.next();
             attributeEntriesVector.add(i,
                     new AttributeEntries(atts.getURI(i), atts.getLocalName(i), atts.getQName(i), atts.getType(i), atts.getValue(i)));
             updateQNameIndex(atts.getQName(i), vectorIndex);
