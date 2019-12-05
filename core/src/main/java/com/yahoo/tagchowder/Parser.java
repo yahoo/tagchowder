@@ -72,7 +72,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private Logger logger = LoggerFactory.getLogger(Parser.class);
 
 
-    private int defaultBufferSize = 20000;
+    private int defaultBufferSize = 2000;
     // Default values for feature flags
 
     private static final boolean DEFAULT_NAMESPACES = true;

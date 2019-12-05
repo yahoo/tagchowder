@@ -30,6 +30,17 @@ public class HTMLSchema extends Schema implements HTMLModels {
 
 	/**
 	 * Returns a newly constructed HTMLSchema object independent of any existing ones.
+	 */
+	public HTMLSchema() {
+		// Enable JVM string intern.
+		setUseIntern(true);
+		// Start of Schema calls
+		@@SCHEMA_CALLS@@
+		// End of Schema calls
+	}
+
+	/**
+	 * Returns a newly constructed HTMLSchema object independent of any existing ones.
 	 * @param useIntern enable jvm string intern method
 	 */
 	public HTMLSchema(final boolean useIntern) {
