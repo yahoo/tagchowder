@@ -254,7 +254,7 @@ public class AttributesImpl implements Attributes {
     public String getType(final String qName) {
         Integer index = qNameIndex.get(qName);
         if (index != null) {
-            return data[index + 3];
+            return data[index * 5 + 3];
         }
         return null;
     }
@@ -289,7 +289,7 @@ public class AttributesImpl implements Attributes {
     public String getValue(final String qName) {
         Integer index = qNameIndex.get(qName);
         if (index != null) {
-            return data[index + 4];
+            return data[index * 5 + 4];
         }
         return null;
     }
@@ -390,7 +390,10 @@ public class AttributesImpl implements Attributes {
             data[index * 5 + 2] = qName;
             data[index * 5 + 3] = type;
             data[index * 5 + 4] = value;
-            qNameIndex.put(qName, index);
+            Integer oldIndex = qNameIndex.get(qName);
+            if (oldIndex == null || index < oldIndex) {
+                qNameIndex.put(qName, index);
+            }
         } else {
             badIndex(index);
         }
@@ -416,6 +419,15 @@ public class AttributesImpl implements Attributes {
             data[i++] = null;
             data[i++] = null;
             data[i] = null;
+            // Update the index in the lookup table starting from the index to the length on new array.
+            for (int j = index; j < length - 1; j++) {
+                qNameTemp = data[j * 5 + 2];
+                // If qname already points to first index which is lesser than index do not change it.
+                Integer oldIndex = qNameIndex.get(qNameTemp);
+                if (oldIndex == null || oldIndex > j) {
+                    qNameIndex.put(qNameTemp, j);
+                }
+            }
             length--;
         } else {
             badIndex(i);

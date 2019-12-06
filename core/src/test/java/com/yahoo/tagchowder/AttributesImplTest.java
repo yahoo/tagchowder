@@ -205,8 +205,9 @@ public class AttributesImplTest {
         String value0 = "value0";
         String value1 = "value1";
         attributes.addAttribute(uri, localName, qname, type, value0);
-        attributes.addAttribute(uri, localName, qname, type, value1);
-        Assert.assertEquals(attributes.getValue(qname), value0, "value mismatched");
+        attributes.addAttribute(uri, localName, "1", type, value1);
+
+        Assert.assertEquals(attributes.getValue("1"), value1, "value mismatched");
 
         // Verify getValue with non existent qname returns null.
         Assert.assertNull(attributes.getValue("invalidqname"), "value for nonexistent qname should return null");
@@ -245,7 +246,7 @@ public class AttributesImplTest {
         String type = "type";
         String value = "value";
         for (int i = 0; i < 10; i++) {
-            attributes.addAttribute(uri , localName, qname + String.valueOf(i), type, value);
+            attributes.addAttribute(uri, localName, qname + String.valueOf(i), type, value);
         }
         Assert.assertNotNull(attributes.getType(qname + "0"), "qname should not be empty before clear");
         Assert.assertEquals(attributes.getLength(), 10, "Length mismatched before clear operation");
@@ -479,8 +480,69 @@ public class AttributesImplTest {
         attributes.addAttribute(uri, localName, "qname1", type, value);
         index = attributes.getIndex(qname);
         Assert.assertEquals(attributes.getLength(), 2, "should have 2 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+        Assert.assertEquals(attributes.getIndex("qname1"), 1, "Index should be 1");
+        index = attributes.getIndex(qname);
         attributes.removeAttribute(index);
-        Assert.assertEquals(attributes.getLength(), 1, "should have 1 attribute");
+        Assert.assertEquals(attributes.getIndex(qname), -1, "Index should be -1");
+        Assert.assertEquals(attributes.getIndex("qname1"), 0, "Index should be 0");
+
+        // Add 2 attributes with same qname and 1 with different qname, verify after remove it returns proper index.
+        attributes.clear();
+        attributes.addAttribute(uri, localName, qname, type, value);
+        attributes.addAttribute(uri, localName, qname, type, value);
+        attributes.addAttribute(uri, localName, "qname1", type, value);
+        Assert.assertEquals(attributes.getLength(), 3, "should have 3 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+        Assert.assertEquals(attributes.getIndex("qname1"), 2, "Index should be 2");
+
+        index = attributes.getIndex(qname);
+        attributes.removeAttribute(index);
+        Assert.assertEquals(attributes.getLength(), 2, "should have 1 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+        Assert.assertEquals(attributes.getIndex("qname1"), 1, "Index should be 1");
+
+        // Add 2 attributes with same qname and verify after remove it returns proper index.
+        attributes.clear();
+        attributes.addAttribute(uri, localName, qname, type, value);
+        attributes.addAttribute(uri, localName, qname, type, value);
+        Assert.assertEquals(attributes.getLength(), 2, "should have 2 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+
+        index = attributes.getIndex(qname);
+        attributes.removeAttribute(index);
+        Assert.assertEquals(attributes.getLength(), 1, "should have 1 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+
+        // Add 2 attributes with different qname and verify after remove it returns proper index.
+        attributes.clear();
+        attributes.addAttribute(uri, localName, qname, type, value);
+        attributes.addAttribute(uri, localName, "qname1", type, value);
+        Assert.assertEquals(attributes.getLength(), 2, "should have 2 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+        Assert.assertEquals(attributes.getIndex("qname1"), 1, "Index should be 1");
+
+        index = attributes.getIndex("qname1");
+        attributes.removeAttribute(index);
+        Assert.assertEquals(attributes.getLength(), 1, "should have 1 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+        Assert.assertEquals(attributes.getIndex("qname1"), -1, "Index should be -1");
+
+        // Add 2 attributes with same qname and 1 with different qname,
+        // Remove middle attribute and verify after first attribute returns same index.
+        attributes.clear();
+        attributes.addAttribute(uri, localName, qname, type, value);
+        attributes.addAttribute(uri, localName, "qname1", type, value);
+        attributes.addAttribute(uri, localName, qname, type, value);
+        Assert.assertEquals(attributes.getLength(), 3, "should have 3 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+        Assert.assertEquals(attributes.getIndex("qname1"), 1, "Index should be 1");
+
+        index = attributes.getIndex("qname1");
+        attributes.removeAttribute(index);
+        Assert.assertEquals(attributes.getLength(), 2, "should have 2 attributes");
+        Assert.assertEquals(attributes.getIndex(qname), 0, "Index should be 0");
+        Assert.assertEquals(attributes.getIndex("qname1"), -1, "Index should be -1");
     }
 
     /**
