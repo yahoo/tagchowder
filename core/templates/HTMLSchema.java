@@ -25,18 +25,19 @@ value are not included.
 package com.yahoo.tagchowder.templates;
 
 import com.yahoo.tagchowder.Schema;
+import com.yahoo.tagchowder.Parser;
 
 public class HTMLSchema extends Schema implements HTMLModels {
 
 	/**
-	 * Returns a newly constructed HTMLSchema object independent of any existing ones.
-	 * @param useIntern enable jvm string intern method
-	 */
-	public HTMLSchema(final boolean useIntern) {
-		setUseIntern(useIntern);
+	Returns a newly constructed HTMLSchema object independent of
+	any existing ones.
+	 @param parser the parser object
+	*/
+	public HTMLSchema(final Parser parser) {
+		super(parser);
 		// Start of Schema calls
 		@@SCHEMA_CALLS@@
 		// End of Schema calls
 	}
-
 }

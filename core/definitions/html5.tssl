@@ -2192,6 +2192,17 @@
       <element name='a' type='mixed'>
         <memberOf group='M_INLINE'/>
         <contains group='M_NOLINK'/>
+        <!--
+        //    This is a fix class for Tagsoup's HTMLSchema implementation. It was created to fix an issue where lists were flattened due to the incorrect
+        //    detection of "End-Tag Omission".
+        //    Internally, Tagsoup's HTMLSchema stores information about each element type like their name, what types they contain, their "membership" types. and
+        //    option flags (in that order). In this class, the membership types of [ul] and [ol] are changed so that they are also members of M_LI. Since those
+        //    elements can contain M_LI-type, this allows them to also contain [ul]s within [ul]s, [ol]s within [ul]s, etc.
+        //    The element "ul" is already defined in HTMLSchema. However, the method elementType sets the mapping between lowercase name of the element type and
+        //    the four parameters provided. By setting it again, it overrides the previous definition safely.
+        //    We also configure the element "a" to be a block level element so that it can contain other elements. This is allowed in HTML5. .
+        -->
+        <contains group='M_BLOCK'/>
         <attribute name='hreflang' type='NMTOKEN' />
         <attribute name='shape' default='rect'/>
         <attribute name='tabindex' type='NMTOKEN' />
@@ -2520,6 +2531,17 @@
       </element>
       <element name='ol' type='element'>
         <memberOf group='M_BLOCK'/>
+        <!--
+        //    This is a fix class for Tagsoup's HTMLSchema implementation. It was created to fix an issue where lists were flattened due to the incorrect
+        //    detection of "End-Tag Omission".
+        //    Internally, Tagsoup's HTMLSchema stores information about each element type like their name, what types they contain, their "membership" types. and
+        //    option flags (in that order). In this class, the membership types of [ul] and [ol] are changed so that they are also members of M_LI. Since those
+        //    elements can contain M_LI-type, this allows them to also contain [ul]s within [ul]s, [ol]s within [ul]s, etc.
+        //    The element "ul" is already defined in HTMLSchema. However, the method elementType sets the mapping between lowercase name of the element type and
+        //    the four parameters provided. By setting it again, it overrides the previous definition safely.
+        //    We also configure the element "a" to be a block level element so that it can contain other elements. This is allowed in HTML5. .
+        -->
+        <memberOf group='M_LI'/>
         <contains group='M_LI'/>
         <attribute name='compact' type='BOOLEAN' />
         <attribute name='start' type='NMTOKEN' />
@@ -2715,6 +2737,17 @@
       </element>
       <element name='ul' type='element'>
         <memberOf group='M_BLOCK'/>
+        <!--
+        //    This is a fix class for Tagsoup's HTMLSchema implementation. It was created to fix an issue where lists were flattened due to the incorrect
+        //    detection of "End-Tag Omission".
+        //    Internally, Tagsoup's HTMLSchema stores information about each element type like their name, what types they contain, their "membership" types. and
+        //    option flags (in that order). In this class, the membership types of [ul] and [ol] are changed so that they are also members of M_LI. Since those
+        //    elements can contain M_LI-type, this allows them to also contain [ul]s within [ul]s, [ol]s within [ul]s, etc.
+        //    The element "ul" is already defined in HTMLSchema. However, the method elementType sets the mapping between lowercase name of the element type and
+        //    the four parameters provided. By setting it again, it overrides the previous definition safely.
+        //    We also configure the element "a" to be a block level element so that it can contain other elements. This is allowed in HTML5. .
+        -->
+        <memberOf group='M_LI'/>
         <contains group='M_LI'/>
         <attribute name='compact' type='BOOLEAN' />
         <attribute name='type' type='NMTOKEN' />

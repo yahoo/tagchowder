@@ -39,29 +39,38 @@ public class ElementType {
     private AttributesImpl theAtts; // default attributes
     private ElementType theParent; // parent of this element type
     private Schema theSchema; // schema to which this belongs
-    private boolean useIntern = true; // whether to use string intern or not
+    private ParserContext parserContext;  // parser context
 
     /**
      * Construct an ElementType: but it's better to use Schema.element() instead. The content model, member-of, and flags vectors are specified as
      * ints.
-     *  @param name The element type name
+     * @param name The element type name
      * @param model ORed-together bits representing the content models allowed in the content of this element type
      * @param memberOf ORed-together bits representing the content models to which this element type belongs
      * @param flags ORed-together bits representing the flags associated with this element type
      * @param schema The schema with which this element type will be associated
-     * @param useIntern whether to use string intern.
+     * @param parserContext the parser context
      */
 
-    public ElementType(final String name, final int model, final int memberOf, final int flags, final Schema schema, final boolean useIntern) {
+    public ElementType(final String name, final int model, final int memberOf,
+                       final int flags, final Schema schema, final ParserContext parserContext) {
         theName = name;
         theModel = model;
         theMemberOf = memberOf;
         theFlags = flags;
         theAtts = new AttributesImpl();
         theSchema = schema;
-        this.useIntern = useIntern;
+        this.parserContext = parserContext;
         theNamespace = namespace(name, false);
         theLocalName = localName(name);
+    }
+
+    /**
+     * Clear the state.
+     */
+    public void clear() {
+        parserContext = null;
+        theSchema = null;
     }
 
     /**
@@ -81,7 +90,7 @@ public class ElementType {
         if (prefix.equals("xml")) {
             return "http://www.w3.org/XML/1998/namespace";
         } else {
-            return getReference(useIntern, "urn:x-prefix:" + prefix);
+            return parserContext.getReference("urn:x-prefix:" + prefix);
         }
     }
 
@@ -96,7 +105,7 @@ public class ElementType {
         if (colon == -1) {
             return name;
         } else {
-            return getReference(useIntern, name.substring(colon + 1));
+            return parserContext.getReference(name.substring(colon + 1));
         }
     }
 
@@ -205,20 +214,6 @@ public class ElementType {
     }
 
     /**
-     * Method to get reference with or without interning.
-     * @param useIntern whether to use string intern or not.
-     * @param input the input string.
-     * @return reference to the string.
-     */
-    public String getReference(final boolean useIntern, final String input) {
-        if (useIntern) {
-            return input.intern();
-        } else {
-            return input;  // TODO: will put the hashmap here.
-        }
-    }
-
-    /**
      * Sets an attribute and its value into an AttributesImpl object. Attempts to set a namespace declaration are ignored.
      * @param atts The AttributesImpl object
      * @param name The name (Qname) of the attribute
@@ -238,7 +233,7 @@ public class ElementType {
         String localName = localName(n);
         int i = atts.getIndex(n);
         if (i == -1) {
-            n = getReference(useIntern, n);
+            n = parserContext.getReference(n);
             if (t == null) {
                 t = "CDATA";
             }

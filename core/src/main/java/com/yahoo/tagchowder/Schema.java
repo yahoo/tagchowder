@@ -52,14 +52,19 @@ public abstract class Schema {
     private String theURI = "";
     private String thePrefix = "";
     private ElementType theRoot = null;
-    private boolean useIntern = true;
+    private ParserContext theParserContext;
+
+    protected Schema(final Parser parser) {
+        this.theParserContext = parser.getTheParserContext();
+    }
 
     /**
-     * Method to set useIntern.
-     * @param useIntern whether to use string intern or not
+     * Clear the state.
      */
-    protected void setUseIntern(final boolean useIntern) {
-        this.useIntern = useIntern;
+    public void clear() {
+        theParserContext = null;
+        theElementTypes.clear();
+        theElementTypes = null;
     }
 
     /**
@@ -72,7 +77,7 @@ public abstract class Schema {
      **/
 
     public void elementType(final String name, final int model, final int memberOf, final int flags) {
-        ElementType e = new ElementType(name, model, memberOf, flags, this, useIntern);
+        ElementType e = new ElementType(name, model, memberOf, flags, this, theParserContext);
         theElementTypes.put(name.toLowerCase(), e);
         if (memberOf == M_ROOT) {
             theRoot = e;
@@ -202,5 +207,4 @@ public abstract class Schema {
     public void setPrefix(final String prefix) {
         thePrefix = prefix;
     }
-
 }

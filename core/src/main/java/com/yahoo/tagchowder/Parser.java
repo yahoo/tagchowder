@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -67,7 +69,6 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private Schema theSchema;
     private Scanner theScanner;
     private AutoDetector theAutoDetector;
-    private boolean useIntern = true;
     /** Logger. */
     private Logger logger = LoggerFactory.getLogger(Parser.class);
 
@@ -96,6 +97,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private boolean restartElements = DEFAULT_RESTART_ELEMENTS;
     private boolean ignorableWhitespace = DEFAULT_IGNORABLE_WHITESPACE;
     private boolean cdataElements = DEFAULT_CDATA_ELEMENTS;
+
+    /**
+     * Parser Context.
+     */
+    private ParserContext theParserContext = new ParserContext.Builder(true).build();
 
     /**
      * A value of "true" indicates namespace URIs and unprefixed local names for element and attribute names will be available.
@@ -305,6 +311,33 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         return defaultBufferSize;
     }
 
+    /**
+     * Getter for parser context.
+     * @return the parser context
+     */
+    public ParserContext getTheParserContext() {
+        return theParserContext;
+    }
+
+    /**
+     * Getter for theSchema object.
+     * @return theSchema
+     */
+    public Schema getTheSchema() {
+        return theSchema;
+    }
+
+
+    /**
+     * Clear the state.
+     */
+    public void clear() {
+        theParserContext.clear();
+        theParserContext = null;
+        theSchema.clear();
+        theSchema = null;
+    }
+
     @Override
     public boolean getFeature(final String name) throws SAXNotRecognizedException, SAXNotSupportedException {
         Boolean b = (Boolean) theFeatures.get(name);
@@ -345,7 +378,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         } else if (name.equals(CDATA_ELEMENTS_FEATURE)) {
             cdataElements = value;
         } else if (name.equals(STRING_INTERNING_FEATURE)) {
-            useIntern = value;
+            theParserContext.setUseIntern(value);
         }
     }
 
@@ -381,10 +414,18 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 throw new SAXNotSupportedException("Your scanner is not a Scanner");
             }
         } else if (name.equals(SCHEMA_PROPERTY)) {
-            if (value instanceof Schema) {
-                theSchema = (Schema) value;
+            if (value instanceof Class && Schema.class.isAssignableFrom((Class) value)) {
+                try {
+                     String className = ((Class) value).getName();  // Get the class name
+                     Class<?> clazz = Class.forName(className);     // Class object
+                    Constructor<?> constructor = clazz.getConstructor(Parser.class);
+                    theSchema = (Schema) constructor.newInstance(this);  //Invoke the constructor to get new object
+                } catch (IllegalAccessException | InstantiationException
+                        | InvocationTargetException | ClassNotFoundException | NoSuchMethodException e) {
+                    throw new SAXNotSupportedException("Not able to create schema object");
+                }
             } else {
-                throw new SAXNotSupportedException("Your schema is not a Schema");
+                throw new SAXNotSupportedException("Either your schema is not a Schema or you did not pass schema class");
             }
         } else if (name.equals(AUTO_DETECTOR_PROPERTY)) {
             if (value instanceof AutoDetector) {
@@ -450,6 +491,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             theContentHandler.startPrefixMapping(theSchema.getPrefix(), theSchema.getURI());
         }
         theScanner.scan(r, this);
+        clear();
     }
 
     @Override
@@ -466,7 +508,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     // Sets up instance variables that haven't been set by setFeature
     private void setup() {
         if (theSchema == null) {
-            theSchema = new HTMLSchema(useIntern);
+            theSchema = new HTMLSchema(this);
         }
         if (theScanner == null) {
             theScanner = new HTMLScanner(defaultBufferSize);
@@ -501,7 +543,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (r == null) {
             if (i == null) {
                 i = getInputStream(publicid, systemid);
-            // i = new BufferedInputStream(i);
+                // i = new BufferedInputStream(i);
             }
             if (encoding == null) {
                 r = theAutoDetector.autoDetectingReader(i);
@@ -1191,7 +1233,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         if (dstLength == 0 || dst.charAt(dstLength - 1) == ':') {
             dst.append('_');
         }
-        return dst.toString().intern();
+        return theParserContext.getReference(dst.toString());
     }
 
     // Default LexicalHandler implementation
@@ -1223,5 +1265,4 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     @Override
     public void startEntity(final String name) throws SAXException {
     }
-
 }
