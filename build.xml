@@ -86,21 +86,21 @@
   </target>
 
 <!-- prepare generation of the parser classes based on the definition files -->
-   <target depends="init,prepare" description="Prepare generation of parser classes." name="prepare-parser"> 
+   <target depends="init,prepare" description="Prepare generation of parser classes." name="prepare-parser">
 
      <echo>
        Using ${transformer.factory} as the TransformerFactory
      </echo>
 
-     <xslt in="${src}/definitions/html.tssl" out="${tmp}/HTMLModels.i" 
+     <xslt in="${src}/definitions/html5.tssl" out="${tmp}/HTMLModels.i"
 style="tssl/tssl-models.xslt">
        <factory name="${transformer.factory}"/>
      </xslt>
-     <xslt in="${src}/definitions/html.tssl" out="${tmp}/HTMLSchema.i" 
+     <xslt in="${src}/definitions/html5.tssl" out="${tmp}/HTMLSchema.i"
 style="tssl/tssl.xslt">
        <factory name="${transformer.factory}"/>
      </xslt>
-     <xslt in="${src}/definitions/html.stml" out="${tmp}/HTMLScanner.i" 
+     <xslt in="${src}/definitions/html.stml" out="${tmp}/HTMLScanner.i"
 style="stml/stml.xslt">
        <factory name="${transformer.factory}"/>
      </xslt>

@@ -6,7 +6,7 @@
     <groupId>com.yahoo.tagchowder</groupId>
     <artifactId>tagchowder</artifactId>
     <packaging>pom</packaging>
-    <version>2.0.17</version>
+    <version>2.0.18</version>
     <name>${project.artifactId}</name>
     <url>https://github.com/yahoo/tagchowder</url>
     <description>Parent POM file for tagchowder project</description>
@@ -219,7 +219,7 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <!-- Ignore/Execute plugin execution for eclipse indigo 
+                    <!-- Ignore/Execute plugin execution for eclipse indigo
                         until this is fixed -->
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -384,10 +384,10 @@
                         <version>2.1.1</version>
                     </dependency>
                 </dependencies>
-                <!-- https://spotbugs.github.io/ When running spotbugs on 
-                    a project, the default heap size might not be enough to complete the build. 
-                    For now there is no way to fork spotbugs and run with its own memory requirements, 
-                    but the following system variable will allow you to do so for Maven: export 
+                <!-- https://spotbugs.github.io/ When running spotbugs on
+                    a project, the default heap size might not be enough to complete the build.
+                    For now there is no way to fork spotbugs and run with its own memory requirements,
+                    but the following system variable will allow you to do so for Maven: export
                     MAVEN_OPTS=-Xmx2048M -->
                 <configuration>
                     <fork>true</fork>
@@ -405,7 +405,7 @@
                     <spotbugsXmlOutput>false</spotbugsXmlOutput>
                 </configuration>
                 <executions>
-                    <!-- Ensures that Spotbugs inspects source code when 
+                    <!-- Ensures that Spotbugs inspects source code when
                         project is compiled. -->
                     <execution>
                         <id>check-compile</id>
@@ -449,7 +449,7 @@
                         -Djdk.attach.allowAttachSelf=true
                     </argLine>
                     <excludedGroups>notIsolate,EventListenersRegression</excludedGroups>
-                    <!-- DO NOT TOUCH: SETTINGS BELOW ALLOW THE CONFIG LOADER 
+                    <!-- DO NOT TOUCH: SETTINGS BELOW ALLOW THE CONFIG LOADER
                         TO FIND CONFIG TEST RESOURCES -->
                     <useSystemClassLoader>true</useSystemClassLoader>
                     <useManifestOnlyJar>false</useManifestOnlyJar>

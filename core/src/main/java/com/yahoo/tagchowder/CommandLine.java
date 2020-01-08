@@ -142,7 +142,6 @@ public class CommandLine {
     private static String theOutputEncoding = null;
 
     // Process one source onto an output stream.
-
     private static void process(final String src, final OutputStream os) throws IOException, SAXException {
         XMLReader r;
         if (hasOption(options, "--reuse")) {
@@ -153,8 +152,9 @@ public class CommandLine {
         } else {
             r = new Parser();
         }
-        theSchema = new HTMLSchema(true);
-        r.setProperty(Parser.SCHEMA_PROPERTY, theSchema);
+
+        r.setProperty(Parser.SCHEMA_PROPERTY, HTMLSchema.class);
+        theSchema = (HTMLSchema) ((Parser) r).getTheSchema();
 
         if (hasOption(options, "--nocdata")) {
             r.setFeature(Parser.CDATA_ELEMENTS_FEATURE, false);
