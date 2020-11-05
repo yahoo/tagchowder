@@ -84,6 +84,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private static final boolean DEFAULT_RESTART_ELEMENTS = true;
     private static final boolean DEFAULT_IGNORABLE_WHITESPACE = false;
     private static final boolean DEFAULT_CDATA_ELEMENTS = true;
+    private static final boolean DEFAULT_AMP_VALIDATION = false;
 
     // Feature flags.
 
@@ -96,6 +97,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
     private boolean restartElements = DEFAULT_RESTART_ELEMENTS;
     private boolean ignorableWhitespace = DEFAULT_IGNORABLE_WHITESPACE;
     private boolean cdataElements = DEFAULT_CDATA_ELEMENTS;
+    private boolean ampValidation = DEFAULT_AMP_VALIDATION;
 
     /**
      * A value of "true" indicates namespace URIs and unprefixed local names for element and attribute names will be available.
@@ -165,6 +167,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
      * Controls whether the parser is reporting all validity errors (We don't report any validity errors).
      **/
     public static final String VALIDATION_FEATURE = "http://xml.org/sax/features/validation";
+
+    /**
+     * Controls whether the parser is reporting all validity errors for AMP contents.
+     */
+    public static final String AMP_VALIDATION_FEATURE = "https://github.com/ampproject/validator-java";
 
     /**
      * Controls whether the parser reports Unicode normalization errors as described in section 2.13 and Appendix B of the XML 1.1 Recommendation. (We
@@ -280,6 +287,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         theFeatures.put(RESTART_ELEMENTS_FEATURE, truthValue(DEFAULT_RESTART_ELEMENTS));
         theFeatures.put(IGNORABLE_WHITESPACE_FEATURE, truthValue(DEFAULT_IGNORABLE_WHITESPACE));
         theFeatures.put(CDATA_ELEMENTS_FEATURE, truthValue(DEFAULT_CDATA_ELEMENTS));
+        theFeatures.put(AMP_VALIDATION_FEATURE, truthValue(DEFAULT_AMP_VALIDATION));
     }
 
     // Private clone of Boolean.valueOf that is guaranteed to return
@@ -346,6 +354,8 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             cdataElements = value;
         } else if (name.equals(STRING_INTERNING_FEATURE)) {
             useIntern = value;
+        } else if (name.equals(AMP_VALIDATION_FEATURE)) {
+            ampValidation = value;
         }
     }
 
@@ -1166,6 +1176,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         final StringBuffer dst = new StringBuffer(l + 2);
         boolean seenColon = false;
         boolean start = true;
+
         // String src = new String(buff, offset, length); // DEBUG
         for (; l-- > 0; off++) {
             char ch = buff[off];
@@ -1185,6 +1196,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 }
                 start = true;
                 dst.append(translateColons ? '_' : ch);
+            } else if (ampValidation) {
+                if (ch == '⚡' || ch == '[' || ch == ']' || ch == '{' || ch == '}')  {
+                    start = false;
+                    dst.append(ch);
+                }
             }
         }
         int dstLength = dst.length();

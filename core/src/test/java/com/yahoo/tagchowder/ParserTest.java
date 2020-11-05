@@ -26,7 +26,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -49,6 +51,152 @@ public class ParserTest {
         final Parser parser = new Parser();
         final InputSource inSource = new InputSource(new StringReader(html));
         parser.parse(inSource);
+    }
+
+    /**
+     * Parse an sample AMP html.txt and verify tag's attributes with AMP validation enabled.
+     *
+     * @throws IOException IOException
+     * @throws SAXException SAXException
+     */
+    @Test
+    public void testSampleHtmlWithAMPValidationFeatureEnable() throws IOException, SAXException {
+        final String html = getSampleHtml("html.txt");
+        final Parser parser = new Parser();
+        final CustomHandler customHandler = new CustomHandler();
+        parser.setContentHandler(customHandler);
+        parser.setErrorHandler(customHandler);
+        parser.setFeature(Parser.AMP_VALIDATION_FEATURE, true);
+        parser.setDefaultBufferSize(html.length());
+        final InputSource inSource = new InputSource(new StringReader(html));
+        parser.parse(inSource);
+
+        List<ParsedHtmlTag> parsedHtmlTagList = customHandler.getParsedHtmlTags();
+        Assert.assertEquals(parsedHtmlTagList.size(), 31);
+
+        //Assert true for tags having attributes in 'html.txt'
+        ParsedHtmlTag parsedHtmlTag = parsedHtmlTagList.get(3);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "body");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("class"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(4);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "div");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("dir"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(10);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "div");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("id"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(11);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "hr");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("id"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(17);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "div");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("style"));
+    }
+
+    /**
+     * Parse an sample AMP amphtml.txt and verify tag's attributes with AMP validation enabled.
+     *
+     * @throws IOException IOException
+     * @throws SAXException SAXException
+     */
+    @Test
+    public void testSampleAMPHtml() throws IOException, SAXException {
+        final String html = getSampleHtml("amphtml.txt");
+        final Parser parser = new Parser();
+        final CustomHandler customHandler = new CustomHandler();
+        parser.setContentHandler(customHandler);
+        parser.setErrorHandler(customHandler);
+        parser.setFeature(Parser.AMP_VALIDATION_FEATURE, true);
+        parser.setDefaultBufferSize(html.length());
+        final InputSource inSource = new InputSource(new StringReader(html));
+        parser.parse(inSource);
+
+        List<ParsedHtmlTag> parsedHtmlTagList = customHandler.getParsedHtmlTags();
+        Assert.assertEquals(parsedHtmlTagList.size(), 21);
+
+        //Assert true for these cases
+        ParsedHtmlTag parsedHtmlTag = parsedHtmlTagList.get(0);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "html");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("⚡4email"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(6);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("[text]"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(7);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("[[text]]"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(8);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("[{text}]"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(9);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("{text}"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(10);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("{{text}}"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(11);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("{[text]}"));
+
+        //Assert false for these cases
+        parsedHtmlTag = parsedHtmlTagList.get(12);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("{[text}"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(13);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("{text]"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(14);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("{text"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(15);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("text}"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(16);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("[text"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(17);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("text]"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(18);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("⚡text]"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(19);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("⚡text}"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(20);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "p");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("⚡text"));
+    }
+
+    /**
+     * Test AMP feature.
+     *
+     * @throws IOException IOException
+     * @throws SAXException SAXException
+     */
+    @Test
+    public void testAMPFeature() throws IOException, SAXException {
+        final Parser parser = new Parser();
+        Assert.assertEquals(parser.getFeature(Parser.AMP_VALIDATION_FEATURE), false);
+
+        parser.setFeature(Parser.AMP_VALIDATION_FEATURE, true);
+        Assert.assertEquals(parser.getFeature(Parser.AMP_VALIDATION_FEATURE), true);
     }
 
     /**
