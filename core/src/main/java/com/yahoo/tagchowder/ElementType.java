@@ -162,7 +162,7 @@ public class ElementType {
 
     /**
      * Returns the default attributes associated with this element type. Attributes of type CDATA that don't have default values are typically not
-     * included. Other attributes without default values have an internal value of <tt>null</tt>. The return value is an AttributesImpl to allow the
+     * included. Other attributes without default values have an internal value of <code>null</code>. The return value is an AttributesImpl to allow the
      * caller to mutate the attributes.
      *
      * @return attributes impl

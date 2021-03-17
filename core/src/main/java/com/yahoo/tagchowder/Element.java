@@ -186,7 +186,7 @@ public class Element {
     }
 
     /**
-     * Make this element anonymous. Remove any <tt>id</tt> or <tt>name</tt> attribute present in the element's attributes.
+     * Make this element anonymous. Remove any <code>id</code> or <code>name</code> attribute present in the element's attributes.
      */
 
     public void anonymize() {
