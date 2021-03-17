@@ -20,6 +20,5 @@ cache:
   directories:
   - "~/.m2/repository"
 after_success:
-- "./cd/before-deploy.sh"
 - "./cd/deploy.sh"
 after_failure: 
