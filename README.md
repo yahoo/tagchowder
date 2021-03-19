@@ -37,9 +37,9 @@ TagChowder uses maven as tool for building and managing project. Add following s
 
 ```
 <dependency>
-  <groupId>com.github.lafa.tagchowder</groupId>
+  <groupId>com.yahoo.tagchowder</groupId>
   <artifactId>tagchowder.core</artifactId>
-  <version>2.0.18</version>
+  <version>2.0.22</version>
 </dependency>
 ```
 Here are the instructions to setup maven environment.
