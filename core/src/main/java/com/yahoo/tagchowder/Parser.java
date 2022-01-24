@@ -1175,6 +1175,7 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
         int l = length;
         final StringBuffer dst = new StringBuffer(l + 2);
         boolean seenColon = false;
+        boolean seenSlash = false;
         boolean start = true;
         // String src = new String(buff, offset, length); // DEBUG
         for (; l-- > 0; off++) {
@@ -1195,6 +1196,9 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 }
                 start = true;
                 dst.append(translateColons ? '_' : ch);
+            } else if (ch == '/' && !seenSlash) {
+                seenSlash = true;
+                continue;
             } else if (ampValidation) {
                 if (ch == '⚡' || ch == '[' || ch == ']' || ch == '{' || ch == '}')  {
                     start = false;
@@ -1203,6 +1207,9 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             }
         }
         int dstLength = dst.length();
+        if (dstLength == 0 && seenSlash) {
+            return "";
+        }
         if (dstLength == 0 || dst.charAt(dstLength - 1) == ':') {
             dst.append('_');
         }
