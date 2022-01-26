@@ -1196,13 +1196,12 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
                 }
                 start = true;
                 dst.append(translateColons ? '_' : ch);
-            } else if (ch == '/' && !seenSlash) {
-                seenSlash = true;
-                continue;
             } else if (ampValidation) {
                 if (ch == '⚡' || ch == '[' || ch == ']' || ch == '{' || ch == '}')  {
                     start = false;
                     dst.append(ch);
+                } else if (ch == '/' && !seenSlash) {
+                    seenSlash = true;
                 }
             }
         }

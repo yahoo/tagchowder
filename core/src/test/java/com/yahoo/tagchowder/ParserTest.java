@@ -262,58 +262,65 @@ public class ParserTest {
     }
 
     /**
-     * Parse a sample AMP voidTagHtml.txt and verify tag's attributes with void tags.
+     * Parse a sample AMP ampVoidTagHtml.txt and verify tag's attributes with void tags.
      *
      * @throws IOException IOException
      * @throws SAXException SAXException
      */
     @Test
-    public void testVoidTagHtml() throws IOException, SAXException {
-        final String html = getSampleHtml("voidTagHtml.txt");
+    public void testAmpVoidTagHtml() throws IOException, SAXException {
+        final String html = getSampleHtml("ampVoidTagHtml.txt");
         final Parser parser = new Parser();
         final CustomHandler customHandler = new CustomHandler();
         parser.setContentHandler(customHandler);
         parser.setErrorHandler(customHandler);
-        parser.setFeature(Parser.AMP_VALIDATION_FEATURE, false);
+        parser.setFeature(Parser.AMP_VALIDATION_FEATURE, true);
         parser.setDefaultBufferSize(html.length());
         final InputSource inSource = new InputSource(new StringReader(html));
         parser.parse(inSource);
 
         List<ParsedHtmlTag> parsedHtmlTagList = customHandler.getParsedHtmlTags();
-        Assert.assertEquals(parsedHtmlTagList.size(), 10);
+        Assert.assertEquals(parsedHtmlTagList.size(), 12);
 
         //Assert true for these cases
         ParsedHtmlTag parsedHtmlTag = parsedHtmlTagList.get(0);
         Assert.assertEquals(parsedHtmlTag.lowerName(), "html");
-
-        parsedHtmlTag = parsedHtmlTagList.get(5);
-        Assert.assertEquals(parsedHtmlTag.lowerName(), "input");
-        Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
-        Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
-        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("/>"));
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("⚡4email"));
 
         parsedHtmlTag = parsedHtmlTagList.get(6);
         Assert.assertEquals(parsedHtmlTag.lowerName(), "input");
         Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
         Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
-        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals(" />"));
+        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("required>"));
 
         parsedHtmlTag = parsedHtmlTagList.get(7);
         Assert.assertEquals(parsedHtmlTag.lowerName(), "input");
         Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
         Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
-        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("/"));
+        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("required >"));
 
         parsedHtmlTag = parsedHtmlTagList.get(8);
         Assert.assertEquals(parsedHtmlTag.lowerName(), "input");
         Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
         Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
-        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("/username"));
+        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("required/>"));
 
         parsedHtmlTag = parsedHtmlTagList.get(9);
         Assert.assertEquals(parsedHtmlTag.lowerName(), "input");
         Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
         Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
-        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("/ "));
+        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("required />"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(10);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "input");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
+        Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
+        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("required / >"));
+
+        parsedHtmlTag = parsedHtmlTagList.get(11);
+        Assert.assertEquals(parsedHtmlTag.lowerName(), "input");
+        Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
+        Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
+        Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("required //>"));
     }
 }
