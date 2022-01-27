@@ -1,3 +1,7 @@
+Changes from tagsoup 2.0.23
+===========================
+- fix issue where void tag parsing returns false _ attr name
+
 Changes from tagsoup 2.0.18
 ===========================
 - Add AMP validation features to support literal attribute value such as 'html ⚡4email' and [text]
