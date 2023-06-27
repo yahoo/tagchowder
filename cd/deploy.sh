@@ -2,10 +2,10 @@
 if [ "$TRAVIS_BRANCH" == 'master' ] && [ "$TRAVIS_PULL_REQUEST" == 'false' ]; then
     mkdir cd/deploy
 
-    openssl aes-256-cbc -pass pass:$GPG_ENCPHRASE -in cd/pubring.gpg.enc -out cd/deploy/pubring.gpg -pbkdf2 -d
-    openssl aes-256-cbc -pass pass:$GPG_ENCPHRASE -in cd/secring.gpg.enc -out cd/deploy/secring.gpg -pbkdf2 -d
-    gpg --batch --fast-import cd/deploy/pubring.gpg
-    gpg --batch --fast-import cd/deploy/secring.gpg
+    openssl aes-256-cbc -pass pass:$GPG_ENCPHRASE -in cd/pubkeys.asc.enc -out cd/deploy/pubkeys.asc -pbkdf2 -d
+    openssl aes-256-cbc -pass pass:$GPG_ENCPHRASE -in cd/prikeys.asc.enc -out cd/deploy/prikeys.asc -pbkdf2 -d
+    gpg --batch --fast-import cd/deploy/pubkeys.asc
+    gpg --batch --fast-import cd/deploy/prikeys.asc
 
     mvn deploy -P ossrh --settings cd/mvnsettings.xml
     # delete decrypted keys
