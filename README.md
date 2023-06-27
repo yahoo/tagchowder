@@ -39,7 +39,7 @@ TagChowder uses maven as tool for building and managing project. Add following s
 <dependency>
   <groupId>com.yahoo.tagchowder</groupId>
   <artifactId>tagchowder.core</artifactId>
-  <version>2.0.24</version>
+  <version>2.0.25</version>
 </dependency>
 ```
 Here are the instructions to setup maven environment.
