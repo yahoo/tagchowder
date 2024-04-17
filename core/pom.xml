@@ -25,10 +25,6 @@
             <artifactId>testng</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.lafa.logfast</groupId>
-            <artifactId>logfast.core</artifactId>
-        </dependency>
     </dependencies>
     <build>
         <plugins>
