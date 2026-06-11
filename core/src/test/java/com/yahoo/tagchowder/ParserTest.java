@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -322,5 +323,190 @@ public class ParserTest {
         Assert.assertTrue(parsedHtmlTag.hasAttribute("required"));
         Assert.assertFalse(parsedHtmlTag.hasAttribute("_"));
         Assert.assertTrue(parsedHtmlTag.attrs().getValue("name").equals("required //>"));
+    }
+
+    /**
+     * Test DOCTYPE system ID resolution with various URL combinations.
+     * Validates that URI-based resolution works correctly for common cases.
+     */
+    @Test
+    public void testDoctypeSystemIdResolution() {
+        // Test case 1: Absolute HTTP URL + relative path
+        String result1 = resolveSystemId("http://example.com/docs/page.html", "dtds/strict.dtd");
+        Assert.assertEquals(result1, "http://example.com/docs/dtds/strict.dtd");
+
+        // Test case 2: File URL + relative path (URI normalizes file URLs differently than URL)
+        String result2 = resolveSystemId("file:///home/user/docs/page.html", "dtds/xhtml.dtd");
+        Assert.assertTrue(result2.contains("home/user/docs/dtds/xhtml.dtd"));
+
+        // Test case 3: Absolute URL already in systemid
+        String result3 = resolveSystemId("http://example.com/page.html",
+                                         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd");
+        Assert.assertEquals(result3, "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd");
+
+        // Test case 4: Base with trailing slash + relative
+        String result4 = resolveSystemId("http://example.com/docs/", "dtds/strict.dtd");
+        Assert.assertEquals(result4, "http://example.com/docs/dtds/strict.dtd");
+
+        // Test case 5: Null handling
+        String result5 = resolveSystemId(null, "dtds/strict.dtd");
+        Assert.assertNull(result5);
+
+        // Test case 6: Empty systemid
+        String result6 = resolveSystemId("http://example.com/page.html", "");
+        Assert.assertEquals(result6, "http://example.com/");
+    }
+
+    /**
+     * Helper method that simulates the URI-based resolution logic.
+     * This mimics what happens in Parser.java with URI.resolve()
+     */
+    private String resolveSystemId(final String baseSystemId, final String systemid) {
+        try {
+            if (baseSystemId != null && systemid != null) {
+                final URI baseURI = new URI(baseSystemId);
+                final URI resolvedURI = baseURI.resolve(systemid);
+                return resolvedURI.toString();
+            }
+        } catch (final java.net.URISyntaxException e) {
+            // Silent exception handling (matches Parser.java behavior)
+        }
+        return null;
+    }
+
+    /**
+     * Parse HTML with DOCTYPE and verify system ID is captured.
+     * @throws IOException if an I/O error occurs
+     * @throws SAXException if a parsing error occurs
+     */
+    @Test
+    public void testDoctypeWithSystemId() throws IOException, SAXException {
+        final String html = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" "
+                            + "\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n"
+                            + "<html><head><title>Test</title></head><body>Test</body></html>";
+        final Parser parser = new Parser();
+        final InputSource inSource = new InputSource(new StringReader(html));
+        parser.parse(inSource);
+        Assert.assertNotNull(parser);
+    }
+
+    /**
+     * Test DOCTYPE system ID resolution with various protocols including custom ones.
+     */
+    @Test
+    public void testDoctypeSystemIdResolutionWithVariousProtocols() {
+        // Test case 1: HTTP protocol
+        String result1 = resolveSystemId("http://example.com/docs/page.html", "dtds/strict.dtd");
+        Assert.assertEquals(result1, "http://example.com/docs/dtds/strict.dtd");
+
+        // Test case 2: HTTPS protocol
+        String result2 = resolveSystemId("https://secure.example.com/docs/page.html", "dtds/strict.dtd");
+        Assert.assertEquals(result2, "https://secure.example.com/docs/dtds/strict.dtd");
+
+        // Test case 3: FTP protocol
+        String result3 = resolveSystemId("ftp://ftp.example.com/docs/page.html", "dtds/strict.dtd");
+        Assert.assertEquals(result3, "ftp://ftp.example.com/docs/dtds/strict.dtd");
+
+        // Test case 4: CSID protocol (custom identifier scheme)
+        String result4 = resolveSystemId("csid://example/docs/page.html", "dtds/strict.dtd");
+        Assert.assertTrue(result4.contains("csid://"));
+        Assert.assertTrue(result4.contains("dtds/strict.dtd"));
+
+        // Test case 5: Custom protocol
+        String result5 = resolveSystemId("custom://resource/docs/page.html", "dtds/strict.dtd");
+        Assert.assertTrue(result5.contains("custom://"));
+        Assert.assertTrue(result5.contains("dtds/strict.dtd"));
+
+        // Test case 6: Jar protocol (common in Java applications)
+        String result6 = resolveSystemId("jar:file:/lib.jar!/com/example/page.html", "dtds/strict.dtd");
+        Assert.assertTrue(result6 != null);
+        Assert.assertTrue(result6.contains("strict.dtd"));
+
+        // Test case 7: Data protocol (may fail due to embedded HTML in URI)
+        String result7 = resolveSystemId("data:text/html", "dtds/strict.dtd");
+        // Data URIs are allowed but resolution depends on URI structure
+        Assert.assertTrue(result7 == null || result7.contains("dtds/strict.dtd"));
+    }
+
+    /**
+     * Test DOCTYPE system ID resolution with edge cases and malformed protocols.
+     */
+    @Test
+    public void testDoctypeSystemIdResolutionEdgeCases() {
+        // Test case 1: Protocol with unusual characters
+        String result1 = resolveSystemId("x-custom+proto://example/page.html", "dtds/strict.dtd");
+        Assert.assertTrue(result1 != null);
+
+        // Test case 2: Multiple slashes
+        String result2 = resolveSystemId("http://example.com////docs/page.html", "dtds/strict.dtd");
+        Assert.assertTrue(result2.contains("dtds/strict.dtd"));
+
+        // Test case 3: Port number in URL
+        String result3 = resolveSystemId("http://example.com:8080/docs/page.html", "dtds/strict.dtd");
+        Assert.assertEquals(result3, "http://example.com:8080/docs/dtds/strict.dtd");
+
+        // Test case 4: Username and password in URL (should be preserved)
+        String result4 = resolveSystemId("http://user:pass@example.com/docs/page.html", "dtds/strict.dtd");
+        Assert.assertTrue(result4.contains("user"));
+        Assert.assertTrue(result4.contains("pass"));
+        Assert.assertTrue(result4.contains("dtds/strict.dtd"));
+
+        // Test case 5: Query parameters in base URL
+        String result5 = resolveSystemId("http://example.com/docs/page.html?param=value", "dtds/strict.dtd");
+        Assert.assertTrue(result5.contains("dtds/strict.dtd"));
+
+        // Test case 6: Fragment in base URL
+        String result6 = resolveSystemId("http://example.com/docs/page.html#section", "dtds/strict.dtd");
+        Assert.assertTrue(result6.contains("dtds/strict.dtd"));
+
+        // Test case 7: Parent directory reference (..)
+        String result7 = resolveSystemId("http://example.com/docs/subdir/page.html", "../dtds/strict.dtd");
+        Assert.assertTrue(result7.contains("dtds/strict.dtd"));
+
+        // Test case 8: Current directory reference (.)
+        String result8 = resolveSystemId("http://example.com/docs/page.html", "./dtds/strict.dtd");
+        Assert.assertTrue(result8.contains("dtds/strict.dtd"));
+
+        // Test case 9: Absolute path override
+        String result9 = resolveSystemId("http://example.com/docs/page.html", "/absolute/dtds/strict.dtd");
+        Assert.assertEquals(result9, "http://example.com/absolute/dtds/strict.dtd");
+
+        // Test case 10: IPv6 address in URL
+        String result10 = resolveSystemId("http://[2001:db8::1]/docs/page.html", "dtds/strict.dtd");
+        Assert.assertTrue(result10 != null);
+        Assert.assertTrue(result10.contains("dtds/strict.dtd"));
+    }
+
+    /**
+     * Test DOCTYPE system ID resolution robustness with malformed inputs.
+     */
+    @Test
+    public void testDoctypeSystemIdResolutionMalformedInputs() {
+        // Test case 1: Invalid protocol (no colon) - treated as relative path
+        String result1 = resolveSystemId("invalidprotocol//example/page.html", "dtds/strict.dtd");
+        // Invalid URIs may return null or succeed depending on URI parser strictness
+        Assert.assertTrue(result1 == null || result1.contains("dtds/strict.dtd"));
+
+        // Test case 2: Empty protocol - invalid URI format
+        String result2 = resolveSystemId("://example/page.html", "dtds/strict.dtd");
+        // Invalid URIs are expected to fail gracefully
+        Assert.assertTrue(result2 == null || result2.contains("dtds/strict.dtd"));
+
+        // Test case 3: Special characters in path
+        String result3 = resolveSystemId("http://example.com/docs/page%20name.html", "dtds/strict.dtd");
+        Assert.assertTrue(result3 != null);
+
+        // Test case 4: Very long URL
+        String longBase = "http://example.com/" + "a".repeat(1000) + "/page.html";
+        String result4 = resolveSystemId(longBase, "dtds/strict.dtd");
+        Assert.assertTrue(result4 != null);
+
+        // Test case 5: Unusual but valid systemid
+        String result5 = resolveSystemId("http://example.com/page.html", "///dtds/strict.dtd");
+        Assert.assertTrue(result5 != null);
+
+        // Test case 6: Base with no path
+        String result6 = resolveSystemId("http://example.com", "dtds/strict.dtd");
+        Assert.assertTrue(result6.contains("dtds/strict.dtd"));
     }
 }

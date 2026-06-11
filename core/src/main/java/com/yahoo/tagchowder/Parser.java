@@ -28,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -918,7 +919,11 @@ public class Parser extends DefaultHandler implements ScanHandler, XMLReader, Le
             if (theScanner instanceof Locator) { // Must resolve systemid
                 theDoctypeSystemId = ((Locator) theScanner).getSystemId();
                 try {
-                    theDoctypeSystemId = new URL(new URL(theDoctypeSystemId), systemid).toString();
+                    if (theDoctypeSystemId != null && systemid != null) {
+                        URI baseURI = new URI(theDoctypeSystemId);
+                        URI resolvedURI = baseURI.resolve(systemid);
+                        theDoctypeSystemId = resolvedURI.toString();
+                    }
                 } catch (Exception e) {
                 }
             }
