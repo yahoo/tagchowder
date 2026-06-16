@@ -43,8 +43,8 @@ TagChowder uses maven as tool for building and managing project. Add following s
 </dependency>
 ```
 Here are the instructions to setup maven environment.
-https://maven.apache.org/what-is-maven.html
-https://maven.apache.org/guides/introduction/introduction-to-the-pom.html
+* https://maven.apache.org/what-is-maven.html
+* https://maven.apache.org/guides/introduction/introduction-to-the-pom.html
 
 ### Usage
 #### TagChowder as a Stand-Alone Program
