@@ -21,3 +21,23 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Build output
+target/
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.vscode/
+
+# Decrypted release signing keys (created by cd/deploy.sh)
+cd/deploy/
+
+# Local agent settings
+.claude/settings.local.json
+
+# OS
+.DS_Store
